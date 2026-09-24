@@ -13,6 +13,7 @@ Workspace for generating vertical social videos, Data Lab explainers, Instagram 
 
 ## Main Docs
 
+- `CHATGPT_PROJECT_CONTEXT.md`: quick entry point for ChatGPT web sessions.
 - `AGENTS.md`: operating rules for Codex sessions.
 - `content/CONTENT-WORKFLOW.md`: normal content workflow.
 - `content/video-queue/README.md`: video queue schema and statuses.

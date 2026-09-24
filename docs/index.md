@@ -18,6 +18,7 @@ rendering setup.
 
 ## Core Project Docs
 
+- `CHATGPT_PROJECT_CONTEXT.md`: compact orientation for ChatGPT web sessions.
 - `AGENTS.md`: high-priority operating rules for Codex sessions.
 - `content/CONTENT-WORKFLOW.md`: normal content production flow.
 - `content/video-queue/README.md`: video queue schema and status rules.
