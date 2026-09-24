@@ -1,0 +1,63 @@
+{
+  "project": {
+    "slug": "escalera-enlaces-seo-laddering",
+    "language": "es",
+    "persona": "assets/character/personas/main-narrator.md",
+    "target_duration_s": 50,
+    "visual_template": "videos/arquitectura-informacion"
+  },
+  "elevenlabs": {
+    "model_id": "eleven_multilingual_v2",
+    "output_format": "mp3_44100_128",
+    "use_timestamps": true,
+    "pause_after_scene_ms": 180,
+    "voice_settings": {
+      "stability": 0.42,
+      "similarity_boost": 0.78,
+      "style": 0.35,
+      "use_speaker_boost": true
+    }
+  },
+  "scenes": [
+    {
+      "id": "scene-01-hook",
+      "label": "HOOK",
+      "animation": "yelling",
+      "screen_text": "No compres enlaces a ciegas.",
+      "visual_note": "Dinero cayendo en una pagina dificil sin traccion.",
+      "text": "Pagar enlaces para una pagina fria es de capullo impaciente. Hay una forma mas lista de subir."
+    },
+    {
+      "id": "scene-02-problem",
+      "label": "PROBLEM",
+      "animation": "talking",
+      "screen_text": "Sin clics, Google pasa.",
+      "visual_note": "Pagina comercial aislada en la parte baja del mapa.",
+      "text": "Si lanzas la pagina dificil desde cero, Google la ignora. Sin clics ni rutas internas, se queda enterrada."
+    },
+    {
+      "id": "scene-03-main-idea",
+      "label": "MAIN IDEA",
+      "animation": "talking",
+      "screen_text": "Construye una escalera.",
+      "visual_note": "Peldaños long-tail, dificultad media y pagina de venta.",
+      "text": "Haz una escalera: long-tail facil, pagina media y luego venta. Paso a paso, sin quemar billetes."
+    },
+    {
+      "id": "scene-04-payoff",
+      "label": "PAYOFF",
+      "animation": "happy",
+      "screen_text": "Clics reales empujan autoridad.",
+      "visual_note": "Flujo de clics y PageRank subiendo por la escalera.",
+      "text": "Las paginas faciles ganan clics reales y pasan fuerza interna. Entonces la pagina dificil empieza a competir."
+    },
+    {
+      "id": "scene-05-cta",
+      "label": "CTA",
+      "animation": "yelling",
+      "screen_text": "Comenta ESCALERA.",
+      "visual_note": "Panel CTA con palabra ESCALERA.",
+      "text": "Comenta ESCALERA y te envio la guia para montar autoridad sin comprar enlaces como un imbecil con prisa."
+    }
+  ]
+}

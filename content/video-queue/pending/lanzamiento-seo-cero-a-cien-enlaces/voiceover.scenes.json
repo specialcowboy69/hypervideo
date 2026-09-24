@@ -1,0 +1,141 @@
+{
+  "project": {
+    "slug": "lanzamiento-seo-cero-a-cien-enlaces",
+    "language": "es",
+    "persona": "assets/character/personas/social-retention-teacher.md",
+    "target_duration_s": 50,
+    "visual_template": "data-lab",
+    "title": "Lanzamiento SEO 0 a 100 sin quemar el dominio",
+    "ghost": [
+      "LANZAMIENTO",
+      "CRAWL RATE"
+    ]
+  },
+  "elevenlabs": {
+    "model_id": "eleven_multilingual_v2",
+    "output_format": "mp3_44100_128",
+    "use_timestamps": true,
+    "pause_after_scene_ms": 180,
+    "voice_settings": {
+      "stability": 0.42,
+      "similarity_boost": 0.78,
+      "style": 0.28,
+      "use_speaker_boost": true
+    }
+  },
+  "scenes": [
+    {
+      "id": "scene-01-hook",
+      "label": "HOOK",
+      "animation": "talking",
+      "screen_text": "NO LANCES A MEDIAS",
+      "visual_note": "Comparativa entre publicar una web por trozos y lanzar una estructura completa.",
+      "text": "Si lanzas una web nueva poco a poco, Google no ve un proyecto. Ve migas sueltas. La estrategia empieza antes: staging cerrado y cero indexación.",
+      "stage": {
+        "type": "comparison",
+        "left": {
+          "label": "A TROZOS",
+          "value": "Migas sueltas"
+        },
+        "right": {
+          "label": "COMPLETO",
+          "value": "Proyecto claro"
+        }
+      }
+    },
+    {
+      "id": "scene-02-staging",
+      "label": "STAGING",
+      "animation": "talking",
+      "screen_text": "DIA 1 COMPLETO",
+      "visual_note": "Timeline de publicación: staging cerrado, lanzamiento, sitemap y Search Console.",
+      "text": "Cuando está completa, publicas el día uno. Envías sitemap, fuerzas URLs clave en Search Console y enseñas una estructura terminada, no una obra a medias.",
+      "stage": {
+        "type": "timeline",
+        "label": "Lanzamiento",
+        "points": [
+          "Staging",
+          "Dia 1",
+          "Sitemap",
+          "GSC"
+        ],
+        "values": [
+          "NO",
+          "D1",
+          "MAP",
+          "GSC"
+        ]
+      }
+    },
+    {
+      "id": "scene-03-links",
+      "label": "LINKS",
+      "animation": "talking",
+      "screen_text": "50-150 SENALES",
+      "visual_note": "Dashboard de señales de confianza y crecimiento de rastreo.",
+      "text": "Después activas confianza: perfiles sociales, directorios, citas locales y referencias reales. En proyectos medianos, cincuenta a ciento cincuenta enlaces pueden subir el rastreo.",
+      "stage": {
+        "type": "dashboard",
+        "label": "Senales iniciales",
+        "metrics": [
+          {
+            "label": "Social",
+            "value": "Activo"
+          },
+          {
+            "label": "Directorios",
+            "value": "Base"
+          },
+          {
+            "label": "Citas",
+            "value": "Local"
+          },
+          {
+            "label": "Rastreo",
+            "value": "Pico"
+          }
+        ],
+        "trend": [
+          22,
+          34,
+          48,
+          63,
+          76,
+          88
+        ]
+      }
+    },
+    {
+      "id": "scene-04-scale",
+      "label": "SCALE",
+      "animation": "talking",
+      "screen_text": "ESCALA POR TAMANO",
+      "visual_note": "Comparativa de volumen de enlaces según tamaño del sitio.",
+      "text": "Pero manda la proporción. Mil páginas pueden recibir cien o doscientos enlaces repartidos. Diez páginas deberían ir mucho más despacio: unos cinco al mes.",
+      "stage": {
+        "type": "comparison",
+        "left": {
+          "label": "1.000 PAGINAS",
+          "value": "100-200 repartidos"
+        },
+        "right": {
+          "label": "10 PAGINAS",
+          "value": "5 al mes"
+        }
+      }
+    },
+    {
+      "id": "scene-05-cta",
+      "label": "CTA",
+      "animation": "talking",
+      "screen_text": "COMENTA LANZAR",
+      "visual_note": "Panel CTA con checklist de lanzamiento SEO.",
+      "text": "Y nunca concentres todo en una URL. Reparte señales, mantén redes activas y usa IA para publicar a diario. Comenta LANZAR y te paso la checklist.",
+      "stage": {
+        "type": "cta",
+        "word": "LANZAR",
+        "box": "Comenta LANZAR y te paso la checklist de lanzamiento SEO."
+      }
+    }
+  ]
+}

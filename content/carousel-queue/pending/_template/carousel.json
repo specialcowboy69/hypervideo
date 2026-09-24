@@ -1,0 +1,91 @@
+{
+  "slug": "_template",
+  "title": "Ejemplo de carrusel",
+  "status": "pending",
+  "handle": "@crecimientosc",
+  "publish_at": "",
+  "default_interval_minutes": 240,
+  "caption": "Caption del carrusel con CTA. Ajustar hashtags, promesa y llamada a la accion antes de programar.",
+  "theme": "editorial-moody-green",
+  "slides": [
+    {
+      "type": "hook",
+      "tag": "SISTEMA DE DISEÑO UI",
+      "icon": "layout",
+      "headline": ["POR QUE TU WEB", "PARECE"],
+      "serif": "una plantilla barata"
+    },
+    {
+      "type": "problem",
+      "tag": "EL PROBLEMA",
+      "icon": "warning",
+      "title": "EL PROBLEMA:",
+      "accent": "TODO GRITA A LA VEZ",
+      "body": "Tu web no necesita mas adornos. Necesita jerarquia visual.",
+      "cards": [
+        { "label": "Botones peleando", "tone": "bad" },
+        { "label": "Colores sin criterio", "tone": "bad" },
+        { "label": "Tipografia en modo carnaval", "tone": "bad" }
+      ]
+    },
+    {
+      "type": "steps",
+      "tag": "ACCION: PASOS 1 & 2",
+      "icon": "tool",
+      "title": "EL SISTEMA:",
+      "serif": "Define tus variables maestras",
+      "steps": [
+        {
+          "number": "1",
+          "title": "REGLA DE LOS 3 COLORES",
+          "body": "Un fondo, un texto principal y un acento que mande."
+        },
+        {
+          "number": "2",
+          "title": "MAXIMO 2 FUENTES",
+          "body": "Una display con caracter y una fuente clara para explicar."
+        }
+      ]
+    },
+    {
+      "type": "steps",
+      "tag": "ACCION: PASOS 3 & 4",
+      "icon": "arrows",
+      "title": "LA EJECUCION:",
+      "serif": "Convierte el caos en criterio",
+      "steps": [
+        {
+          "number": "3",
+          "title": "USA ESPACIO EN BLANCO",
+          "body": "Si todo compite, nada importa."
+        },
+        {
+          "number": "4",
+          "title": "REPETICION VISUAL",
+          "body": "Mantener patrones hace que la marca parezca cara."
+        }
+      ]
+    },
+    {
+      "type": "payoff",
+      "tag": "EL RESULTADO",
+      "icon": "chart",
+      "title": "EL RESULTADO:",
+      "accent": "CONFIANZA INMEDIATA",
+      "items": [
+        "Identidad solida y memorable",
+        "Coherencia estetica",
+        "Mas conversion sin parecer una feria"
+      ]
+    },
+    {
+      "type": "cta",
+      "tag": "CTA",
+      "icon": "bookmark",
+      "title": "QUIERES CONFIGURAR TU PROPIO",
+      "accent": "SISTEMA DE DISEÑO?",
+      "keyword": "SISTEMA",
+      "body": "Comenta la palabra clave y te paso la guia."
+    }
+  ]
+}

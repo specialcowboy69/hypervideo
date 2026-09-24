@@ -1,0 +1,324 @@
+{
+  "version": 1,
+  "default_template": "videos/arquitectura-informacion",
+  "default_duration_s": 50,
+  "default_persona": "assets/character/personas/main-narrator.md",
+  "template_personas": {
+    "dark-tech": "assets/character/personas/main-narrator.md",
+    "light-workshop": "assets/character/personas/main-narrator.md",
+    "data-lab": "assets/character/personas/social-retention-teacher.md"
+  },
+  "items": [
+    {
+      "slug": "lanzamiento-seo-cero-a-cien-enlaces",
+      "title": "Lanzamiento SEO 0 a 100 sin quemar el dominio",
+      "status": "scheduled",
+      "folder": "pending/lanzamiento-seo-cero-a-cien-enlaces",
+      "created_at": "2026-09-21",
+      "updated_at": "2026-09-22",
+      "template": "data-lab",
+      "duration_target_s": 50,
+      "persona": "assets/character/personas/social-retention-teacher.md",
+      "outputs": {
+        "content_folder": "content/video-queue/pending/lanzamiento-seo-cero-a-cien-enlaces",
+        "project_folder": "videos/lanzamiento-seo-cero-a-cien-enlaces",
+        "audio_folder": "assets/character/audio/generated/lanzamiento-seo-cero-a-cien-enlaces",
+        "zip": "hfb-lanzamiento-seo-cero-a-cien-enlaces-1790017307122-source.zip",
+        "render": "https://media.urltovideo.es/hyperframes/drafts/lanzamiento-seo-cero-a-cien-enlaces-20260921-190210.mp4",
+        "preview": "",
+        "reel_publish": {
+          "jobId": "reel-lanzamiento-seo-cero-a-cien-enlaces-1790066820062",
+          "publish_at": "2026-09-22T08:47:00.056Z",
+          "platforms": [
+            "instagram",
+            "facebook"
+          ],
+          "video_url": "https://media.urltovideo.es/hyperframes/drafts/lanzamiento-seo-cero-a-cien-enlaces-20260921-190210.mp4",
+          "response": {
+            "ok": true,
+            "batch_id": null,
+            "created": 1,
+            "jobs": [
+              {
+                "jobId": "reel-lanzamiento-seo-cero-a-cien-enlaces-1790066820062",
+                "batch_id": null,
+                "status": "pending",
+                "platforms": [
+                  "instagram",
+                  "facebook"
+                ],
+                "publish_at": "2026-09-22T08:47:00.056Z",
+                "video_url": "https://media.urltovideo.es/hyperframes/drafts/lanzamiento-seo-cero-a-cien-enlaces-20260921-190210.mp4"
+              }
+            ]
+          },
+          "scheduled_at": "2026-09-22T08:47:00.834Z",
+          "status": "partial_error",
+          "platform_status": {
+            "instagram": "published",
+            "facebook": "retry"
+          },
+          "instagram_media_id": "17907908601520750",
+          "facebook_error": "Request failed with status code 403",
+          "checked_at": "2026-09-22T10:55:41+02:00"
+        }
+      },
+      "notes": "Draft remoto data-lab generado en VPS. Audio por escenas 48.9s. Primer job fallo por etiquetas largas en timeline; corregido y rerender completado con check, snapshots y subida a R2. Pendiente de revision. Reel scheduled through n8n for 2026-09-22T08:47:00.056Z (instagram, facebook). Reel publication result: Instagram published; Facebook Reels returned 403 and remains retry/partial_error."
+    },
+    {
+      "slug": "rank-rent-seo-local-canalla",
+      "title": "El fin de las agencias de SEO tradicionales",
+      "status": "needs_review",
+      "folder": "pending/rank-rent-seo-local-canalla",
+      "created_at": "2026-08-27",
+      "updated_at": "2026-08-29",
+      "template": "videos/light-workshop",
+      "duration_target_s": 50,
+      "persona": "assets/character/personas/main-narrator.md",
+      "outputs": {
+        "content_folder": "content/video-queue/pending/rank-rent-seo-local-canalla",
+        "project_folder": "videos/rank-rent-seo-local-canalla",
+        "audio_folder": "assets/character/audio/generated/rank-rent-seo-local-canalla",
+        "zip": "hfb-rank-rent-seo-local-canalla-1788005679285-source.zip",
+        "render": "https://pub-5d88690ab45b4187800a2f33589c6c13.r2.dev/hyperframes/drafts/rank-rent-seo-local-canalla-20260829-121609.mp4",
+        "preview": ""
+      },
+      "notes": "Regenerated for the new 40-60s default. ElevenLabs scene voiceover is about 54.9s. Light Workshop cards were enlarged and the first-scene warning was moved/shortened for readability. Remote VPS build, check with snapshots, and draft render completed; ready for review."
+    },
+    {
+      "slug": "auditoria-enlaces-toxicos",
+      "title": "El filtro definitivo para detectar enlaces toxicos",
+      "status": "needs_review",
+      "folder": "pending/auditoria-enlaces-toxicos",
+      "created_at": "2026-08-22",
+      "updated_at": "2026-08-22",
+      "template": "videos/arquitectura-informacion",
+      "duration_target_s": 50,
+      "persona": "assets/character/personas/main-narrator.md",
+      "outputs": {
+        "content_folder": "content/video-queue/pending/auditoria-enlaces-toxicos",
+        "project_folder": "videos/auditoria-enlaces-toxicos",
+        "audio_folder": "assets/character/audio/generated/auditoria-enlaces-toxicos",
+        "zip": "auditoria-enlaces-toxicos.zip",
+        "render": "https://pub-5d88690ab45b4187800a2f33589c6c13.r2.dev/hyperframes/drafts/auditoria-enlaces-toxicos-20260822-191033.mp4",
+        "preview": ""
+      },
+      "notes": "Corrected modular template rerender completed via VPS/n8n draft workflow. Sub-composition scene selectors now target their own data-composition-id, host slide transforms removed, local post-8s checks/snapshots passed, and new R2 draft URL is ready for review."
+    },
+    {
+      "slug": "escalera-enlaces-seo-laddering",
+      "title": "Como posicionar palabras clave dificiles sin pagar por enlaces",
+      "status": "needs_review",
+      "folder": "pending/escalera-enlaces-seo-laddering",
+      "created_at": "2026-08-22",
+      "updated_at": "2026-08-22",
+      "template": "videos/arquitectura-informacion",
+      "duration_target_s": 50,
+      "persona": "assets/character/personas/main-narrator.md",
+      "outputs": {
+        "content_folder": "content/video-queue/pending/escalera-enlaces-seo-laddering",
+        "project_folder": "videos/escalera-enlaces-seo-laddering",
+        "audio_folder": "assets/character/audio/generated/escalera-enlaces-seo-laddering",
+        "zip": "escalera-enlaces-seo-laddering.zip",
+        "render": "https://pub-5d88690ab45b4187800a2f33589c6c13.r2.dev/hyperframes/drafts/escalera-enlaces-seo-laddering-20260822-191744.mp4",
+        "preview": ""
+      },
+      "notes": "Corrected modular template rerender completed via VPS/n8n draft workflow. Sub-composition scene selectors now target their own data-composition-id, host slide transforms removed, local post-8s checks/snapshots passed, and new R2 draft URL is ready for review."
+    },
+    {
+      "slug": "mito-domain-rating-seo",
+      "title": "El engano del Domain Rating al comprar dominios",
+      "status": "needs_review",
+      "folder": "pending/mito-domain-rating-seo",
+      "created_at": "2026-08-22",
+      "updated_at": "2026-08-22",
+      "template": "videos/arquitectura-informacion",
+      "duration_target_s": 50,
+      "persona": "assets/character/personas/main-narrator.md",
+      "outputs": {
+        "content_folder": "content/video-queue/pending/mito-domain-rating-seo",
+        "project_folder": "videos/mito-domain-rating-seo",
+        "audio_folder": "assets/character/audio/generated/mito-domain-rating-seo",
+        "zip": "mito-domain-rating-seo.zip",
+        "render": "https://pub-5d88690ab45b4187800a2f33589c6c13.r2.dev/hyperframes/drafts/mito-domain-rating-seo-20260822-192306.mp4",
+        "preview": ""
+      },
+      "notes": "Corrected modular template rerender completed via VPS/n8n draft workflow. Sub-composition scene selectors now target their own data-composition-id, host slide transforms removed, local post-8s checks/snapshots passed, and new R2 draft URL is ready for review."
+    },
+    {
+      "slug": "estrategia-colonias-seo",
+      "title": "Cómo multiplicar una página de éxito en decenas de rankings (Estrategia de Colonias)",
+      "status": "needs_review",
+      "folder": "pending/estrategia-colonias-seo",
+      "created_at": "2026-08-21",
+      "updated_at": "2026-08-21",
+      "template": "videos/arquitectura-informacion",
+      "duration_target_s": 50,
+      "persona": "assets/character/personas/main-narrator.md",
+      "outputs": {
+        "content_folder": "content/video-queue/pending/estrategia-colonias-seo",
+        "project_folder": "videos/estrategia-colonias-seo",
+        "audio_folder": "assets/character/audio/generated/estrategia-colonias-seo",
+        "zip": "estrategia-colonias-seo.zip",
+        "render": "https://pub-5d88690ab45b4187800a2f33589c6c13.r2.dev/hyperframes/drafts/estrategia-colonias-seo-20260821-172432.mp4",
+        "preview": ""
+      },
+      "notes": "Visual plan and ElevenLabs scene voiceover generated. Built with the recurring dark 3D narrator template using HyperFrames 0.8.6. Check passed with snapshots. Remote draft render via n8n completed and uploaded to R2."
+    },
+    {
+      "slug": "modificador-barato-seo",
+      "title": "El truco del título que multiplica tus clics en Google",
+      "status": "needs_review",
+      "folder": "pending/modificador-barato-seo",
+      "created_at": "2026-08-21",
+      "updated_at": "2026-08-21",
+      "template": "videos/arquitectura-informacion",
+      "duration_target_s": 50,
+      "persona": "assets/character/personas/main-narrator.md",
+      "outputs": {
+        "content_folder": "content/video-queue/pending/modificador-barato-seo",
+        "project_folder": "videos/modificador-barato-seo",
+        "audio_folder": "assets/character/audio/generated/modificador-barato-seo",
+        "zip": "modificador-barato-seo.zip",
+        "render": "https://pub-5d88690ab45b4187800a2f33589c6c13.r2.dev/hyperframes/drafts/modificador-barato-seo-20260821-173352.mp4",
+        "preview": ""
+      },
+      "notes": "Visual plan and ElevenLabs scene voiceover generated. Built with the recurring dark 3D narrator template using HyperFrames 0.8.6. Check passed with snapshots. Remote draft render via n8n completed and uploaded to R2."
+    },
+    {
+      "slug": "pagerank-decay-compra",
+      "title": "El error de tu menú web que destruye la autoridad de tus páginas de venta",
+      "status": "needs_review",
+      "folder": "pending/pagerank-decay-compra",
+      "created_at": "2026-08-21",
+      "updated_at": "2026-08-21",
+      "template": "videos/arquitectura-informacion",
+      "duration_target_s": 50,
+      "persona": "assets/character/personas/main-narrator.md",
+      "outputs": {
+        "content_folder": "content/video-queue/pending/pagerank-decay-compra",
+        "project_folder": "videos/pagerank-decay-compra",
+        "audio_folder": "assets/character/audio/generated/pagerank-decay-compra",
+        "zip": "pagerank-decay-compra.zip",
+        "render": "https://pub-5d88690ab45b4187800a2f33589c6c13.r2.dev/hyperframes/drafts/pagerank-decay-compra-20260821-174123.mp4",
+        "preview": ""
+      },
+      "notes": "Visual plan and ElevenLabs scene voiceover generated. Built with the recurring dark 3D narrator template using HyperFrames 0.8.6. Check passed with snapshots. Remote draft render via n8n completed and uploaded to R2."
+    },
+    {
+      "slug": "analisis-competidores-data",
+      "title": "Deja de adivinar el SEO de tus competidores (usa Data Science)",
+      "status": "needs_review",
+      "folder": "pending/analisis-competidores-data",
+      "created_at": "2026-08-19",
+      "updated_at": "2026-08-19",
+      "template": "videos/arquitectura-informacion",
+      "duration_target_s": 50,
+      "persona": "assets/character/personas/main-narrator.md",
+      "outputs": {
+        "content_folder": "content/video-queue/pending/analisis-competidores-data",
+        "project_folder": "videos/analisis-competidores-data",
+        "audio_folder": "assets/character/audio/generated/analisis-competidores-data",
+        "zip": "analisis-competidores-data.zip",
+        "render": "https://pub-5d88690ab45b4187800a2f33589c6c13.r2.dev/hyperframes/drafts/analisis-competidores-data-20260819-165956.mp4",
+        "preview": ""
+      },
+      "notes": "Built with smaller 3D narrator, wider visual stage, and medium-light profanity persona. ElevenLabs scene voiceover generated. HyperFrames check passed with snapshots. n8n workflow is active and stable for zipName/zipUrl, but direct multipart ZIP upload was blocked by n8n filesystem/module restrictions. Remote draft render via n8n completed and uploaded to R2."
+    },
+    {
+      "slug": "arquitectura-informacion",
+      "title": "Tus clientes se pierden en tu web?",
+      "status": "needs_review",
+      "folder": "pending/arquitectura-informacion",
+      "created_at": "2026-08-14",
+      "updated_at": "2026-08-14",
+      "template": "videos/arquitectura-informacion",
+      "duration_target_s": 50,
+      "persona": "assets/character/personas/main-narrator.md",
+      "outputs": {
+        "content_folder": "content/video-queue/pending/arquitectura-informacion",
+        "project_folder": "videos/arquitectura-informacion",
+        "audio_folder": "assets/character/audio/generated/arquitectura-informacion",
+        "render": "",
+        "preview": "http://localhost:3004/#project/arquitectura-informacion"
+      },
+      "notes": "Rich visual rebuild inspired by dominar-seo-local-restaurado. ElevenLabs scene voiceover regenerated with corrected Spanish accents. HyperFrames check passed; waiting for user preview approval before final render."
+    },
+    {
+      "slug": "no-me-hagas-pensar-ux",
+      "title": "Tu web hace pensar al usuario?",
+      "status": "needs_review",
+      "folder": "pending/no-me-hagas-pensar-ux",
+      "created_at": "2026-08-14",
+      "updated_at": "2026-08-14",
+      "template": "videos/arquitectura-informacion",
+      "duration_target_s": 50,
+      "persona": "assets/character/personas/main-narrator.md",
+      "outputs": {
+        "content_folder": "content/video-queue/pending/no-me-hagas-pensar-ux",
+        "project_folder": "videos/no-me-hagas-pensar-ux",
+        "audio_folder": "assets/character/audio/generated/no-me-hagas-pensar-ux",
+        "render": "",
+        "preview": "http://localhost:3005/#project/no-me-hagas-pensar-ux"
+      },
+      "notes": "Voiceover generated with ElevenLabs by scenes. Built from the rich dark 3D narrator template with visible scene labels, timestamps, and progress bar removed. HyperFrames check passed; waiting for user preview approval before final render."
+    },
+    {
+      "slug": "animaciones-ux-funcionales",
+      "title": "Tus animaciones web estan molestando a tus usuarios",
+      "status": "needs_review",
+      "folder": "pending/animaciones-ux-funcionales",
+      "created_at": "2026-08-18",
+      "updated_at": "2026-08-18",
+      "template": "videos/arquitectura-informacion",
+      "duration_target_s": 50,
+      "persona": "assets/character/personas/main-narrator.md",
+      "outputs": {
+        "content_folder": "content/video-queue/pending/animaciones-ux-funcionales",
+        "project_folder": "videos/animaciones-ux-funcionales",
+        "audio_folder": "assets/character/audio/generated/animaciones-ux-funcionales",
+        "render": "",
+        "preview": "http://localhost:3002/#project/animaciones-ux-funcionales"
+      },
+      "notes": "Visual plan and ElevenLabs scene voiceover generated. Built with the recurring dark 3D narrator template and validated with HyperFrames check; waiting for user preview approval before final render."
+    },
+    {
+      "slug": "berry-picking-ia",
+      "title": "El error de asumir que la busqueda web es lineal",
+      "status": "needs_review",
+      "folder": "pending/berry-picking-ia",
+      "created_at": "2026-08-18",
+      "updated_at": "2026-08-18",
+      "template": "videos/arquitectura-informacion",
+      "duration_target_s": 50,
+      "persona": "assets/character/personas/main-narrator.md",
+      "outputs": {
+        "content_folder": "content/video-queue/pending/berry-picking-ia",
+        "project_folder": "videos/berry-picking-ia",
+        "audio_folder": "assets/character/audio/generated/berry-picking-ia",
+        "render": "",
+        "preview": "http://localhost:3003/#project/berry-picking-ia"
+      },
+      "notes": "Visual plan and ElevenLabs scene voiceover generated. Built with the recurring dark 3D narrator template and validated with HyperFrames check using a 60s load timeout; waiting for user preview approval before final render."
+    },
+    {
+      "slug": "disenar-funcionalidades-no-shell",
+      "title": "Deja de disenar layouts vacios",
+      "status": "needs_review",
+      "folder": "pending/disenar-funcionalidades-no-shell",
+      "created_at": "2026-08-18",
+      "updated_at": "2026-08-18",
+      "template": "videos/arquitectura-informacion",
+      "duration_target_s": 50,
+      "persona": "assets/character/personas/main-narrator.md",
+      "outputs": {
+        "content_folder": "content/video-queue/pending/disenar-funcionalidades-no-shell",
+        "project_folder": "videos/disenar-funcionalidades-no-shell",
+        "audio_folder": "assets/character/audio/generated/disenar-funcionalidades-no-shell",
+        "render": "",
+        "preview": "http://localhost:3004/#project/disenar-funcionalidades-no-shell"
+      },
+      "notes": "Visual plan and ElevenLabs scene voiceover generated. Built with the recurring dark 3D narrator template and validated with HyperFrames check; waiting for user preview approval before final render."
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+<!-- Paste this inside a HyperFrames scene or persistent overlay clip. -->
+<div id="narrator" class="narrator-wrap" data-layout-ignore>
+  <img id="narrator-art" src="../../assets/character/narrator.svg" alt="2D narrator" />
+</div>
+
+<!-- Recommended scene-local CSS:
+.narrator-wrap {
+  position: absolute;
+  left: 118px;
+  top: 610px;
+  width: 230px;
+  z-index: 8;
+  pointer-events: none;
+  transform-origin: 50% 88%;
+}
+
+.narrator-wrap img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+-->
+
+<!-- Recommended GSAP:
+tl.fromTo("#narrator", { opacity: 0, x: -38 }, { opacity: 1, x: 0, duration: 0.45, ease: "power3.out" }, 0.2);
+tl.to("#narrator", { y: -8, duration: 1.4, repeat: 3, yoyo: true, ease: "sine.inOut" }, 0.8);
+tl.to("#narrator", { rotation: -2, duration: 0.9, repeat: 4, yoyo: true, ease: "sine.inOut" }, 1.0);
+-->

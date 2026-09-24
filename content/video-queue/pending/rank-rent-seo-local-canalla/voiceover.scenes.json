@@ -1,0 +1,63 @@
+{
+  "project": {
+    "slug": "rank-rent-seo-local-canalla",
+    "language": "es",
+    "persona": "assets/character/personas/main-narrator.md",
+    "target_duration_s": 50,
+    "visual_template": "videos/light-workshop"
+  },
+  "elevenlabs": {
+    "model_id": "eleven_multilingual_v2",
+    "output_format": "mp3_44100_128",
+    "use_timestamps": true,
+    "pause_after_scene_ms": 180,
+    "voice_settings": {
+      "stability": 0.42,
+      "similarity_boost": 0.78,
+      "style": 0.35,
+      "use_speaker_boost": true
+    }
+  },
+  "scenes": [
+    {
+      "id": "scene-01-hook",
+      "label": "HOOK",
+      "animation": "yelling",
+      "screen_text": "¿SIGUES MENDIGANDO?",
+      "visual_note": "Tarjeta roja de alerta sobre una métrica SEO muerta; narrador en yelling.",
+      "text": "¿Sigues mendigando clientes SEO para cobrar una miseria por informes que nadie entiende? Maldita sea, deja de vender explicaciones y empieza a construir activos que generen llamadas reales."
+    },
+    {
+      "id": "scene-02-problem",
+      "label": "PROBLEM",
+      "animation": "talking",
+      "screen_text": "UNA COMPLETA MIERDA",
+      "visual_note": "Documento de informe SEO tachado con etiqueta de cancelado; narrador en talking.",
+      "text": "El modelo de agencia clásica está roto. Haces trabajo útil, subes rankings, mandas gráficas preciosas, y aun así te cancelan porque el cliente quería dopamina inmediata, no una clase de SEO."
+    },
+    {
+      "id": "scene-03-system",
+      "label": "SYSTEM",
+      "animation": "talking",
+      "screen_text": "CREA, REGALA Y COBRA",
+      "visual_note": "Flujo de tres tarjetas conectadas: Crear Web, Enviar Llamadas, Cobro Semanal.",
+      "text": "El giro es sencillo: montas webs propias para servicios locales, las posicionas, pones un número de rastreo con mensaje susurrado y empiezas enviando llamadas gratis para demostrar valor antes de pedir un euro."
+    },
+    {
+      "id": "scene-04-payoff",
+      "label": "PAYOFF",
+      "animation": "happy",
+      "screen_text": "TÚ TIENES EL CONTROL",
+      "visual_note": "Comparativa de rutas donde el flujo de llamadas cambia a otro competidor; narrador en happy.",
+      "text": "Cuando ya hay llamadas entrando, cobras una renta semanal. Y aquí está la gracia: el dominio, la web y la línea son tuyos. Si no pagan, el flujo cambia de destino en segundos."
+    },
+    {
+      "id": "scene-05-cta",
+      "label": "CTA",
+      "animation": "happy",
+      "screen_text": "COMENTA RENTAR",
+      "visual_note": "Panel CTA con checklist y subrayado verde en la palabra RENTAR; narrador en happy.",
+      "text": "Comenta RENTAR y te envío el blueprint técnico por privado: estructura de la web, tracking de llamadas, oferta inicial y cómo no convertir esto en otra chapuza de agencia."
+    }
+  ]
+}

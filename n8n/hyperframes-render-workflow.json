@@ -1,0 +1,374 @@
+{
+  "id": "joMtzKbe3RQ5CAKH",
+  "name": "HyperFrames Remote Render",
+  "nodes": [
+    {
+      "id": "0fd18460-d8af-4d8f-93db-84f6ebd06121",
+      "name": "Webhook HyperFrames Render",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -980,
+        -220
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "hyperframes-render",
+        "responseMode": "responseNode",
+        "options": {}
+      }
+    },
+    {
+      "id": "342e6d8c-5892-47f9-89e7-a6073769cc4c",
+      "name": "Prepare HyperFrames Render",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -760,
+        -220
+      ],
+      "parameters": {
+        "jsCode": "const item = $input.first();\nconst input = item.json?.body || item.json?.query || item.json || {};\nconst binaryEntries = Object.entries(item.binary || {});\nif (binaryEntries.length) {\n  throw new Error('Direct ZIP upload is not enabled in this n8n container. Upload the ZIP to /opt/n8n/hyperframes_uploads first, or pass an https zipUrl.');\n}\n\nconst publicBaseUrl = 'https://pub-5d88690ab45b4187800a2f33589c6c13.r2.dev';\nconst rawMode = String(input.mode || input.quality || 'draft').trim().toLowerCase();\nconst mode = rawMode === 'final' || rawMode === 'standard' ? 'final' : rawMode;\nif (!['draft', 'final'].includes(mode)) throw new Error('Invalid mode. Use draft or final.');\n\nconst rawSlug = String(input.slug || input.project || '').trim();\nconst rawZipName = String(input.zipName || input.zip || input.fileName || (rawSlug ? rawSlug + '.zip' : '')).trim();\nif (!rawZipName) throw new Error('Missing zipName. Example: animaciones-ux-funcionales.zip');\nif (!/^[A-Za-z0-9._-]+\\.zip$/.test(rawZipName) || rawZipName.includes('..') || rawZipName.includes('/') || rawZipName.includes('\\\\')) {\n  throw new Error('Invalid zipName. Use only letters, numbers, dot, dash and underscore, ending in .zip.');\n}\n\nconst slug = rawSlug || rawZipName.replace(/\\.zip$/i, '');\nif (!/^[A-Za-z0-9._-]{1,80}$/.test(slug) || slug.includes('..')) {\n  throw new Error('Invalid slug. Use only letters, numbers, dot, dash and underscore.');\n}\n\nconst zipName = rawZipName;\nconst rawZipUrl = String(input.zipUrl || input.url || '').trim();\nif (rawZipUrl && !/^https:\\/\\/[^\\s\"'<>]+$/i.test(rawZipUrl)) throw new Error('Invalid zipUrl. Use an https URL.');\n\nfunction sh(value) {\n  return \"'\" + String(value).replace(/'/g, \"'\\\\''\") + \"'\";\n}\n\nconst outputPrefix = mode === 'final' ? 'hyperframes/finals' : 'hyperframes/drafts';\nconst jobId = String(input.jobId || 'hf_' + $execution.id + '_' + Date.now());\nif (!/^[A-Za-z0-9._-]{1,120}$/.test(jobId) || jobId.includes('..')) {\n  throw new Error('Invalid jobId. Use only letters, numbers, dot, dash and underscore.');\n}\n\nconst uploadPath = '/opt/n8n/hyperframes_uploads/' + zipName;\nconst containerZipPath = '/work/uploads/' + zipName;\nconst fetchCommand = rawZipUrl ? 'mkdir -p /opt/n8n/hyperframes_uploads && curl -fsSL ' + sh(rawZipUrl) + ' -o ' + sh(uploadPath) + ' && ' : '';\nconst wrapperCommand = '/work/scripts/render-with-status.sh ' + sh(containerZipPath) + ' ' + sh(mode) + ' ' + sh(slug) + ' ' + sh(jobId);\nconst sshCommand = 'cd /opt/n8n && ' + fetchCommand + 'nohup docker compose exec -T hyperframes-renderer bash -lc ' + sh(wrapperCommand) + ' >/tmp/' + jobId + '.launcher.log 2>&1 &';\n\nconst expectedDownloadUrl = publicBaseUrl + '/' + outputPrefix + '/' + slug + '.mp4';\nconst job = {\n  jobId,\n  status: 'processing',\n  stage: rawZipUrl ? 'fetching_zip' : 'accepted',\n  progress: 0,\n  step: 'accepted',\n  mode,\n  slug,\n  zipName,\n  zipUrl: rawZipUrl || undefined,\n  expectedDownloadUrl,\n  uploadPath,\n  containerZipPath,\n  sshCommand,\n  createdAt: new Date().toISOString(),\n  updatedAt: new Date().toISOString()\n};\n\nconst staticData = $getWorkflowStaticData('global');\nstaticData.hyperframesJobs = staticData.hyperframesJobs || {};\nstaticData.hyperframesJobs[jobId] = job;\nreturn [{ json: job }];"
+      }
+    },
+    {
+      "id": "538b8e1e-6138-40d5-8509-bb383985ec54",
+      "name": "Respond HyperFrames Accepted",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        -520,
+        -220
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { jobId: $json.jobId, status: 'processing', stage: $json.stage, step: $json.step, progress: $json.progress, slug: $json.slug, mode: $json.mode, statusWebhook: '/webhook/hyperframes-render-status' } }}",
+        "options": {}
+      }
+    },
+    {
+      "id": "c76dd115-9835-4050-934f-0a0f60730d1b",
+      "name": "SSH Render HyperFrames",
+      "type": "n8n-nodes-base.ssh",
+      "typeVersion": 1,
+      "position": [
+        -280,
+        -220
+      ],
+      "parameters": {
+        "command": "={{ $json.sshCommand }}"
+      },
+      "credentials": {
+        "sshPassword": {
+          "id": "mWkSfxsxrg38m28T",
+          "name": "SSH Password account"
+        }
+      },
+      "continueOnFail": true
+    },
+    {
+      "id": "cd2a5737-b931-49c2-a2f7-70cf28fc3fd2",
+      "name": "Store HyperFrames Result",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -40,
+        -220
+      ],
+      "parameters": {
+        "jsCode": "const source = $('Prepare HyperFrames Render').first().json;\nconst jobId = source.jobId;\nconst staticData = $getWorkflowStaticData('global');\nstaticData.hyperframesJobs = staticData.hyperframesJobs || {};\n\nconst text = [\n  $json.stdout,\n  $json.stderr,\n  $json.data,\n  $json.output,\n  $json.message,\n  typeof $json.error === 'string' ? $json.error : $json.error?.message\n].filter((value) => typeof value === 'string' && value.trim()).join('\\n');\n\nconst now = new Date().toISOString();\nconst previous = staticData.hyperframesJobs[jobId] || {};\nif ($json.error || /permission denied|not found|invalid|failed/i.test(text)) {\n  staticData.hyperframesJobs[jobId] = {\n    ...previous,\n    ...source,\n    status: 'failed',\n    stage: 'launcher_failed',\n    step: 'launcher',\n    progress: 100,\n    error: typeof $json.error === 'string' ? $json.error : $json.error?.message || text.slice(0, 4000) || 'HyperFrames launcher failed.',\n    rawOutput: text.slice(0, 12000),\n    updatedAt: now,\n    finishedAt: now\n  };\n  return [{ json: staticData.hyperframesJobs[jobId] }];\n}\n\nstaticData.hyperframesJobs[jobId] = {\n  ...previous,\n  ...source,\n  status: 'processing',\n  stage: 'launched',\n  step: 'queued',\n  progress: 5,\n  rawOutput: text.slice(0, 12000),\n  updatedAt: now\n};\nreturn [{ json: staticData.hyperframesJobs[jobId] }];"
+      }
+    },
+    {
+      "id": "aa1bfc63-eed0-42e2-9004-3cc6d0807f53",
+      "name": "Webhook HyperFrames Status",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -980,
+        80
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "hyperframes-render-status",
+        "responseMode": "responseNode",
+        "options": {}
+      }
+    },
+    {
+      "id": "0dd97a4b-58cd-411e-8f26-7a111fb875ec",
+      "name": "HyperFrames Status Lookup",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -760,
+        80
+      ],
+      "parameters": {
+        "jsCode": "const input = $json.body || $json.query || $json;\nconst jobId = String(input.jobId || input.id || '').trim();\nif (!jobId) return [{ json: { status: 'failed', error: 'Missing jobId' } }];\nif (!/^[A-Za-z0-9._-]{1,120}$/.test(jobId) || jobId.includes('..')) {\n  return [{ json: { jobId, status: 'failed', error: 'Invalid jobId' } }];\n}\n\nfunction sh(value) {\n  return \"'\" + String(value).replace(/'/g, \"'\\\\''\") + \"'\";\n}\n\nconst staticData = $getWorkflowStaticData('global');\nstaticData.hyperframesJobs = staticData.hyperframesJobs || {};\nconst job = staticData.hyperframesJobs[jobId] || { jobId, status: 'processing', stage: 'queued' };\nconst statusPath = '/work/jobs/' + jobId + '/status.json';\nconst inner = 'if [ -f ' + sh(statusPath) + ' ]; then cat ' + sh(statusPath) + '; else printf ' + sh(JSON.stringify({\n  jobId,\n  status: 'processing',\n  step: 'queued',\n  progress: 0,\n  message: 'Status file not created yet'\n}) + '\\n') + '; fi';\n\nreturn [{\n  json: {\n    ...job,\n    jobId,\n    sshStatusCommand: 'cd /opt/n8n && docker compose exec -T hyperframes-renderer bash -lc ' + sh(inner)\n  }\n}];"
+      }
+    },
+    {
+      "id": "fc5d38e2-ff2b-4f44-8f43-14578d1919fb",
+      "name": "Respond HyperFrames Status",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        -40,
+        80
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {}
+      }
+    },
+    {
+      "id": "e8b7f456-f0f6-4a1f-a0bc-25f4964b3dfd",
+      "name": "SSH Read HyperFrames Status",
+      "type": "n8n-nodes-base.ssh",
+      "typeVersion": 1,
+      "position": [
+        -520,
+        80
+      ],
+      "parameters": {
+        "command": "={{ $json.sshStatusCommand }}"
+      },
+      "credentials": {
+        "sshPassword": {
+          "id": "mWkSfxsxrg38m28T",
+          "name": "SSH Password account"
+        }
+      },
+      "continueOnFail": true
+    },
+    {
+      "id": "6eeb00d2-3771-43d4-b9de-d4dfd8281849",
+      "name": "Format HyperFrames Status",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -280,
+        80
+      ],
+      "parameters": {
+        "jsCode": "const source = $('HyperFrames Status Lookup').first().json;\nconst jobId = source.jobId;\nconst staticData = $getWorkflowStaticData('global');\nstaticData.hyperframesJobs = staticData.hyperframesJobs || {};\n\nconst text = [\n  $json.stdout,\n  $json.stderr,\n  $json.data,\n  $json.output,\n  $json.message,\n  typeof $json.error === 'string' ? $json.error : $json.error?.message\n].filter((value) => typeof value === 'string' && value.trim()).join('\\n');\n\nlet remote = {};\ntry {\n  const match = text.match(/\\{[\\s\\S]*\\}/);\n  remote = match ? JSON.parse(match[0]) : {};\n} catch (error) {\n  remote = {\n    status: 'processing',\n    step: 'status_parse',\n    progress: source.progress || 0,\n    message: 'No se pudo parsear status.json',\n    error: error.message,\n    rawStatusOutput: text.slice(0, 4000)\n  };\n}\n\nif ($json.error && !remote.error) {\n  remote.error = typeof $json.error === 'string' ? $json.error : $json.error?.message || 'SSH status lookup failed';\n}\n\nconst mp4Url = [remote.downloadUrl, remote.lastLog, text]\n  .filter((value) => typeof value === 'string')\n  .join('\\n')\n  .match(/https?:\\/\\/[^\\s\"'<>]+\\.mp4(?:\\?[^\\s\"'<>]+)?/i)?.[0];\n\nconst now = new Date().toISOString();\nconst previous = staticData.hyperframesJobs[jobId] || {};\nconst merged = {\n  ...previous,\n  ...source,\n  ...remote,\n  jobId,\n  status: remote.status || previous.status || source.status || 'processing',\n  stage: remote.step || previous.stage || source.stage,\n  step: remote.step || source.step,\n  progress: Number.isFinite(Number(remote.progress)) ? Number(remote.progress) : source.progress,\n  message: remote.message,\n  lastLog: remote.lastLog,\n  logFile: remote.logFile,\n  downloadUrl: mp4Url || previous.downloadUrl || source.downloadUrl,\n  updatedAt: remote.updatedAt || now\n};\n\nif (merged.status === 'completed' || merged.status === 'failed') {\n  merged.finishedAt = merged.finishedAt || now;\n}\n\ndelete merged.sshCommand;\ndelete merged.sshStatusCommand;\nstaticData.hyperframesJobs[jobId] = merged;\n\nreturn [{\n  json: {\n    jobId,\n    status: merged.status,\n    stage: merged.stage,\n    step: merged.step,\n    progress: merged.progress,\n    message: merged.message,\n    mode: merged.mode,\n    slug: merged.slug,\n    zipName: merged.zipName,\n    downloadUrl: merged.downloadUrl,\n    outputPath: merged.outputPath,\n    expectedDownloadUrl: merged.expectedDownloadUrl,\n    lastLog: merged.lastLog,\n    logFile: merged.logFile,\n    error: merged.error,\n    updatedAt: merged.updatedAt,\n    finishedAt: merged.finishedAt\n  }\n}];"
+      }
+    },
+    {
+      "id": "d53cd0ac-4dcc-46e9-a7f4-2d88f536a2a2",
+      "name": "Webhook HyperFrames Build Render",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -980,
+        -520
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "hyperframes-build-render",
+        "responseMode": "responseNode",
+        "options": {}
+      }
+    },
+    {
+      "id": "f567faaa-2c40-4379-91df-7dbeb9857c20",
+      "name": "Prepare HyperFrames Build Render",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -760,
+        -520
+      ],
+      "parameters": {
+        "jsCode": "const item = $input.first();\nconst input = item.json?.body || item.json?.query || item.json || {};\nconst binaryEntries = Object.entries(item.binary || {});\nif (binaryEntries.length) {\n  throw new Error('Direct source ZIP upload is not enabled. Upload to /opt/n8n/hyperframes_uploads first, or pass an https sourceZipUrl.');\n}\n\nconst publicBaseUrl = 'https://pub-5d88690ab45b4187800a2f33589c6c13.r2.dev';\nconst rawMode = String(input.mode || input.quality || 'draft').trim().toLowerCase();\nconst mode = rawMode === 'final' || rawMode === 'standard' ? 'final' : rawMode;\nif (!['draft', 'final'].includes(mode)) throw new Error('Invalid mode. Use draft, standard or final.');\n\nconst slug = String(input.slug || input.project || '').trim();\nif (!/^[A-Za-z0-9._-]{1,80}$/.test(slug) || slug.includes('..')) {\n  throw new Error('Invalid slug. Use only letters, numbers, dot, dash and underscore.');\n}\n\nconst rawSourceZipName = String(input.sourceZipName || input.sourceZip || input.zipName || (slug ? slug + '-source.zip' : '')).trim();\nif (!/^[A-Za-z0-9._-]+\\.zip$/.test(rawSourceZipName) || rawSourceZipName.includes('..') || rawSourceZipName.includes('/') || rawSourceZipName.includes('\\\\')) {\n  throw new Error('Invalid sourceZipName. Use only letters, numbers, dot, dash and underscore, ending in .zip.');\n}\n\nconst template = String(input.template || input.visualTemplate || '').trim();\nif (template && !/^[A-Za-z0-9._/-]{1,120}$/.test(template)) {\n  throw new Error('Invalid template.');\n}\n\nconst rawSourceZipUrl = String(input.sourceZipUrl || input.zipUrl || input.url || '').trim();\nif (rawSourceZipUrl && !/^https:\\/\\/[^\\s\"'<>]+$/i.test(rawSourceZipUrl)) {\n  throw new Error('Invalid sourceZipUrl. Use an https URL.');\n}\n\nconst jobId = String(input.jobId || 'hfb_' + $execution.id + '_' + Date.now());\nif (!/^[A-Za-z0-9._-]{1,120}$/.test(jobId) || jobId.includes('..')) {\n  throw new Error('Invalid jobId. Use only letters, numbers, dot, dash and underscore.');\n}\n\nfunction sh(value) {\n  return \"'\" + String(value).replace(/'/g, \"'\\\\''\") + \"'\";\n}\n\nconst sourceZipName = rawSourceZipName;\nconst uploadPath = '/opt/n8n/hyperframes_uploads/' + sourceZipName;\nconst containerSourceZipPath = '/work/uploads/' + sourceZipName;\nconst fetchCommand = rawSourceZipUrl ? 'mkdir -p /opt/n8n/hyperframes_uploads && curl -fsSL ' + sh(rawSourceZipUrl) + ' -o ' + sh(uploadPath) + ' && ' : '';\nconst wrapperArgs = [\n  '/work/scripts/build-check-render-with-status.sh',\n  containerSourceZipPath,\n  mode,\n  slug,\n  jobId\n];\nif (template) wrapperArgs.push(template);\nconst wrapperCommand = wrapperArgs.map(sh).join(' ');\nconst sshCommand = 'cd /opt/n8n && ' + fetchCommand + 'nohup docker compose exec -T hyperframes-renderer bash -lc ' + sh(wrapperCommand) + ' >/tmp/' + jobId + '.launcher.log 2>&1 &';\n\nconst outputPrefix = mode === 'final' ? 'hyperframes/finals' : 'hyperframes/drafts';\nconst expectedDownloadUrl = publicBaseUrl + '/' + outputPrefix + '/' + slug + '.mp4';\nconst job = {\n  jobId,\n  status: 'processing',\n  stage: rawSourceZipUrl ? 'fetching_source_zip' : 'accepted',\n  progress: 0,\n  step: 'accepted',\n  mode,\n  slug,\n  template: template || undefined,\n  sourceZipName,\n  sourceZipUrl: rawSourceZipUrl || undefined,\n  zipName: sourceZipName,\n  expectedDownloadUrl,\n  uploadPath,\n  containerSourceZipPath,\n  sshCommand,\n  createdAt: new Date().toISOString(),\n  updatedAt: new Date().toISOString()\n};\n\nconst staticData = $getWorkflowStaticData('global');\nstaticData.hyperframesJobs = staticData.hyperframesJobs || {};\nstaticData.hyperframesJobs[jobId] = job;\nreturn [{ json: job }];"
+      }
+    },
+    {
+      "id": "fa32e476-15b1-46cc-b615-6f12647dd043",
+      "name": "Respond HyperFrames Build Accepted",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        -520,
+        -520
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { jobId: $json.jobId, status: 'processing', stage: $json.stage, step: $json.step, progress: $json.progress, slug: $json.slug, mode: $json.mode, sourceZipName: $json.sourceZipName, statusWebhook: '/webhook/hyperframes-render-status' } }}",
+        "options": {}
+      }
+    },
+    {
+      "id": "f6346f7c-5d0a-4e94-aef6-0d33043cefa5",
+      "name": "SSH Build Render HyperFrames",
+      "type": "n8n-nodes-base.ssh",
+      "typeVersion": 1,
+      "position": [
+        -280,
+        -520
+      ],
+      "parameters": {
+        "command": "={{ $json.sshCommand }}"
+      },
+      "credentials": {
+        "sshPassword": {
+          "id": "mWkSfxsxrg38m28T",
+          "name": "SSH Password account"
+        }
+      },
+      "continueOnFail": true
+    },
+    {
+      "id": "d7a0ebf8-5955-4f38-a063-10c7badf116e",
+      "name": "Store HyperFrames Build Result",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -40,
+        -520
+      ],
+      "parameters": {
+        "jsCode": "const source = $('Prepare HyperFrames Build Render').first().json;\nconst jobId = source.jobId;\nconst staticData = $getWorkflowStaticData('global');\nstaticData.hyperframesJobs = staticData.hyperframesJobs || {};\n\nconst text = [\n  $json.stdout,\n  $json.stderr,\n  $json.data,\n  $json.output,\n  $json.message,\n  typeof $json.error === 'string' ? $json.error : $json.error?.message\n].filter((value) => typeof value === 'string' && value.trim()).join('\\n');\n\nconst now = new Date().toISOString();\nconst previous = staticData.hyperframesJobs[jobId] || {};\nif ($json.error || /permission denied|not found|invalid|failed/i.test(text)) {\n  staticData.hyperframesJobs[jobId] = {\n    ...previous,\n    ...source,\n    status: 'failed',\n    stage: 'launcher_failed',\n    step: 'launcher',\n    progress: 100,\n    error: typeof $json.error === 'string' ? $json.error : $json.error?.message || text.slice(0, 4000) || 'HyperFrames build/render launcher failed.',\n    rawOutput: text.slice(0, 12000),\n    updatedAt: now,\n    finishedAt: now\n  };\n  return [{ json: staticData.hyperframesJobs[jobId] }];\n}\n\nstaticData.hyperframesJobs[jobId] = {\n  ...previous,\n  ...source,\n  status: 'processing',\n  stage: 'launched',\n  step: 'queued',\n  progress: 5,\n  rawOutput: text.slice(0, 12000),\n  updatedAt: now\n};\nreturn [{ json: staticData.hyperframesJobs[jobId] }];"
+      }
+    }
+  ],
+  "connections": {
+    "Webhook HyperFrames Render": {
+      "main": [
+        [
+          {
+            "node": "Prepare HyperFrames Render",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare HyperFrames Render": {
+      "main": [
+        [
+          {
+            "node": "Respond HyperFrames Accepted",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respond HyperFrames Accepted": {
+      "main": [
+        [
+          {
+            "node": "SSH Render HyperFrames",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SSH Render HyperFrames": {
+      "main": [
+        [
+          {
+            "node": "Store HyperFrames Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook HyperFrames Status": {
+      "main": [
+        [
+          {
+            "node": "HyperFrames Status Lookup",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HyperFrames Status Lookup": {
+      "main": [
+        [
+          {
+            "node": "SSH Read HyperFrames Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SSH Read HyperFrames Status": {
+      "main": [
+        [
+          {
+            "node": "Format HyperFrames Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format HyperFrames Status": {
+      "main": [
+        [
+          {
+            "node": "Respond HyperFrames Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook HyperFrames Build Render": {
+      "main": [
+        [
+          {
+            "node": "Prepare HyperFrames Build Render",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare HyperFrames Build Render": {
+      "main": [
+        [
+          {
+            "node": "Respond HyperFrames Build Accepted",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respond HyperFrames Build Accepted": {
+      "main": [
+        [
+          {
+            "node": "SSH Build Render HyperFrames",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SSH Build Render HyperFrames": {
+      "main": [
+        [
+          {
+            "node": "Store HyperFrames Build Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

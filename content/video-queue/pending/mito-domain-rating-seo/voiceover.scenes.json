@@ -1,0 +1,63 @@
+{
+  "project": {
+    "slug": "mito-domain-rating-seo",
+    "language": "es",
+    "persona": "assets/character/personas/main-narrator.md",
+    "target_duration_s": 50,
+    "visual_template": "videos/arquitectura-informacion"
+  },
+  "elevenlabs": {
+    "model_id": "eleven_multilingual_v2",
+    "output_format": "mp3_44100_128",
+    "use_timestamps": true,
+    "pause_after_scene_ms": 180,
+    "voice_settings": {
+      "stability": 0.42,
+      "similarity_boost": 0.78,
+      "style": 0.35,
+      "use_speaker_boost": true
+    }
+  },
+  "scenes": [
+    {
+      "id": "scene-01-hook",
+      "label": "HOOK",
+      "animation": "yelling",
+      "screen_text": "El DR no es confianza.",
+      "visual_note": "Medidor DR alto con grietas y alerta.",
+      "text": "Si compras por Domain Rating alto, pueden venderte humo con numeritos bonitos. Pasa todos los dias."
+    },
+    {
+      "id": "scene-02-problem",
+      "label": "PROBLEM",
+      "animation": "talking",
+      "screen_text": "El DR se infla.",
+      "visual_note": "Dominio brillante por fuera, vacio por dentro.",
+      "text": "El DR no es una bendicion divina. Se infla con enlaces automatizados, y tu compras un cascaron sin trust."
+    },
+    {
+      "id": "scene-03-main-idea",
+      "label": "MAIN IDEA",
+      "animation": "talking",
+      "screen_text": "Busca Trust, no maquillaje.",
+      "visual_note": "Checklist de trust, anchors limpios y trafico.",
+      "text": "Mira trust, enlaces limpios, trafico y anchors de marca. Si ves spam raro, no negocies: descarta."
+    },
+    {
+      "id": "scene-04-payoff",
+      "label": "PAYOFF",
+      "animation": "happy",
+      "screen_text": "Un dominio limpio ahorra meses.",
+      "visual_note": "Dominio limpio saltando meses de espera.",
+      "text": "Un dominio antiguo y limpio ahorra meses. Uno inflado solo compra problemas caros con envoltorio premium."
+    },
+    {
+      "id": "scene-05-cta",
+      "label": "CTA",
+      "animation": "yelling",
+      "screen_text": "Comenta DOMINIO.",
+      "visual_note": "Panel CTA con palabra DOMINIO.",
+      "text": "Comenta DOMINIO y te envio la checklist para auditar toxicidad y trust antes de comprar."
+    }
+  ]
+}

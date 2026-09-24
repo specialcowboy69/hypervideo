@@ -1,0 +1,463 @@
+{
+  "updatedAt": "2026-09-22T11:24:44.122Z",
+  "createdAt": "2026-09-22T09:49:04.998Z",
+  "id": "eXLSEY7Fzg0kGBit",
+  "name": "HyperFrames Content Intake",
+  "description": null,
+  "active": false,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "01edf188-b593-48a0-8b63-90bf5fc498d5",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -720,
+        -120
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "hyperframes-summary-intake",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "5342c476-83d6-466f-93a4-48e473da665a",
+      "name": "Webhook Summary Intake",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -720,
+        80
+      ],
+      "webhookId": "e5746a14-106f-47c3-a013-80f58671b7d6"
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $json.body || $json.query || $json;\nconst summary = String(input.summary || '').trim();\nif (!summary) throw new Error('Missing summary. Send only { \"summary\": \"...\" }.');\nif (summary.length < 40) throw new Error('summary is too short for a data-lab video.');\nconst systemPrompt = \"# Data Lab AI Intake Prompt\\n\\nYou receive one Spanish summary from the user. Convert it into one JSON object for a vertical 40-60 second `data-lab` video.\\n\\nRules:\\n- Return JSON only.\\n- Do not wrap the JSON in markdown.\\n- Use Spanish.\\n- Use a clear retention-teacher voice.\\n- No jokes, no profanity, no wordplay.\\n- Do not include NotebookLM citation numbers.\\n- Do not guarantee SEO results.\\n- The user only gives `summary`; infer the rest conservatively.\\n- Default platforms must be `[\\\"instagram\\\"]` unless the summary clearly asks for Facebook too.\\n- Use 5 scenes by default.\\n- Use only these stage types: `serp`, `dashboard`, `keyword-map`, `funnel`, `comparison`, `checklist`, `timeline`, `cta`.\\n\\nRequired JSON shape:\\n\\n```json\\n{\\n  \\\"title\\\": \\\"short title\\\",\\n  \\\"summary\\\": \\\"clean summary\\\",\\n  \\\"cta\\\": \\\"Comenta PALABRA\\\",\\n  \\\"caption\\\": \\\"post caption under 2200 chars\\\",\\n  \\\"platforms\\\": [\\\"instagram\\\"],\\n  \\\"scenes\\\": [\\n    {\\n      \\\"id\\\": \\\"scene-01-hook\\\",\\n      \\\"label\\\": \\\"HOOK\\\",\\n      \\\"screen_text\\\": \\\"MAX 4 WORDS\\\",\\n      \\\"visual_note\\\": \\\"brief visual direction\\\",\\n      \\\"text\\\": \\\"voiceover sentence\\\",\\n      \\\"stage\\\": {\\n        \\\"type\\\": \\\"comparison\\\",\\n        \\\"left\\\": { \\\"label\\\": \\\"ANTES\\\", \\\"value\\\": \\\"problem\\\" },\\n        \\\"right\\\": { \\\"label\\\": \\\"DESPUES\\\", \\\"value\\\": \\\"better state\\\" }\\n      }\\n    }\\n  ]\\n}\\n```\\n\";\nreturn [{ json: { summary, aiPrompt: systemPrompt + '\\n\\nResumen del usuario:\\n' + summary } }];"
+      },
+      "id": "79a3ff12-6093-4881-8f36-059ce3647cf3",
+      "name": "Set Summary And Prompt",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -440,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemma-4-31b-it",
+          "mode": "list",
+          "cachedResultName": "models/gemma-4-31b-it"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "={{ $json.aiPrompt }}"
+            }
+          ]
+        },
+        "simplify": false,
+        "builtInTools": {},
+        "options": {
+          "temperature": 0.3
+        }
+      },
+      "id": "60879143-2c44-435f-ae77-0b3d982b05f4",
+      "name": "AI Generate Data Lab JSON",
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1.2,
+      "position": [
+        -160,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "function collectStrings(value, output = []) {\n  if (typeof value === 'string') output.push(value);\n  else if (Array.isArray(value)) for (const item of value) collectStrings(item, output);\n  else if (value && typeof value === 'object') for (const item of Object.values(value)) collectStrings(item, output);\n  return output;\n}\nfunction extractJson(text) {\n  const fence = String.fromCharCode(96, 96, 96);\n  const raw = String(text || '').trim()\n    .replace(new RegExp('^' + fence + '(?:json)?', 'i'), '')\n    .replace(new RegExp(fence + '$', 'i'), '')\n    .trim();\n  try { return JSON.parse(raw); } catch {}\n  const start = raw.indexOf('{');\n  const end = raw.lastIndexOf('}');\n  if (start >= 0 && end > start) return JSON.parse(raw.slice(start, end + 1));\n  throw new Error('AI output was not valid JSON.');\n}\nfunction sh(value) {\n  return \"'\" + String(value).replace(/'/g, \"'\\\\''\") + \"'\";\n}\nfunction dockerRun(args, extraMounts = []) {\n  const command = [\n    'sudo', '-n', 'docker', 'run', '--rm', '--network', 'host',\n    '-v', '/opt/n8n/hyperframes:/work',\n    ...extraMounts,\n    '-w', '/work',\n    'n8n-hyperframes-renderer',\n    ...args\n  ];\n  return command.map(sh).join(' ');\n}\nconst direct = ($json && typeof $json === 'object' && $json.title && Array.isArray($json.scenes)) ? $json : null;\nconst strings = collectStrings($json);\nconst data = direct || extractJson(strings.find((entry) => entry.includes('{') && entry.includes('scenes')) || strings[0] || '');\nif (!data.summary || !Array.isArray(data.scenes)) throw new Error('AI output must include summary and scenes[].');\nif (data.scenes.length < 4 || data.scenes.length > 7) throw new Error('AI output must include 4-7 scenes.');\nconst allowed = new Set(['serp','dashboard','keyword-map','funnel','comparison','checklist','timeline','cta']);\nfor (const [index, scene] of data.scenes.entries()) {\n  if (!scene.screen_text) throw new Error('Scene ' + (index + 1) + ' is missing screen_text.');\n  if (!scene.text) throw new Error('Scene ' + (index + 1) + ' is missing text.');\n  if (!scene.stage || !allowed.has(scene.stage.type)) throw new Error('Scene ' + (index + 1) + ' has invalid stage type.');\n}\nconst json = JSON.stringify(data);\nconst b64 = Buffer.from(json, 'utf8').toString('base64');\nconst fileName = 'summary-intake-' + Date.now() + '-' + Math.random().toString(36).slice(2) + '.json';\nconst hostInputPath = '/opt/n8n/hyperframes/tmp/summary-intake/' + fileName;\nconst containerInputPath = 'tmp/summary-intake/' + fileName;\nconst dockerCommand = dockerRun(\n  ['node', 'scripts/run-data-lab-video-pipeline.mjs', '--input', containerInputPath, '--env', '.env.n8n', '--vps-local'],\n  ['-v', '/opt/n8n/hyperframes_uploads:/opt/n8n/hyperframes_uploads']\n);\nconst sshCommand = '(mkdir -p /opt/n8n/hyperframes/tmp/summary-intake && printf %s ' + sh(b64) + ' | base64 -d > ' + sh(hostInputPath) + ' && cd /opt/n8n && ' + dockerCommand + '); status=$?; sudo -n chown -R codex_tmp:codex_tmp /opt/n8n/hyperframes || true; exit $status';\nreturn [{ json: { summary: data.summary, title: data.title, caption: data.caption, platforms: data.platforms || ['instagram'], aiData: data, inputPath: hostInputPath, sshCommand } }];"
+      },
+      "id": "0e51789c-8ad2-4b25-a04d-819675a26d50",
+      "name": "Validate AI JSON And Prepare Pipeline",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        120,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "command": "={{ $json.sshCommand }}"
+      },
+      "id": "f013505a-ff16-4c5f-b40e-47c0ea51a539",
+      "name": "SSH Run Data Lab Pipeline",
+      "type": "n8n-nodes-base.ssh",
+      "typeVersion": 1,
+      "position": [
+        400,
+        0
+      ],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "jsCode": "function extractJsonObjects(text) {\n  const objects = [];\n  let start = -1, depth = 0, inString = false, escaped = false;\n  for (let i = 0; i < text.length; i++) {\n    const char = text[i];\n    if (inString) {\n      if (escaped) escaped = false;\n      else if (char === '\\\\') escaped = true;\n      else if (char === '\"') inString = false;\n      continue;\n    }\n    if (char === '\"') { inString = true; continue; }\n    if (char === '{') { if (depth === 0) start = i; depth++; }\n    else if (char === '}') { depth--; if (depth === 0 && start >= 0) { try { objects.push(JSON.parse(text.slice(start, i + 1))); } catch {} start = -1; } }\n  }\n  return objects;\n}\nconst text = [$json.stdout, $json.stderr, $json.data, $json.output, $json.message, typeof $json.error === 'string' ? $json.error : $json.error?.message]\n  .filter((value) => typeof value === 'string' && value.trim()).join('\\n');\nif ($json.error) return [{ json: { status: 'failed', error: typeof $json.error === 'string' ? $json.error : $json.error?.message || 'Pipeline failed', rawOutput: text.slice(0, 4000) } }];\nconst objects = extractJsonObjects(text);\nconst final = [...objects].reverse().find((entry) => entry.event === 'data_lab_review_ready') || objects.at(-1) || {};\nreturn [{ json: { status: final.video_url ? 'needs_review' : 'processing', slug: final.slug, video_url: final.video_url, caption: final.caption, platforms: final.platforms, approve_url: final.approve_url, reject_url: final.reject_url, rawOutput: text.slice(-4000) } }];"
+      },
+      "id": "df4e321a-38d4-4d49-ab4d-e393655fd555",
+      "name": "Format Summary Intake Result",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        680,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {}
+      },
+      "id": "80b5247a-f12e-44a5-afe0-94bf691d6da5",
+      "name": "Respond Summary Intake",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        960,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "hyperframes-video-review-approve",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "236b7358-0a9b-4aa0-8f13-e3971da5eaeb",
+      "name": "Webhook Review Approve",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -720,
+        360
+      ],
+      "webhookId": "88ebc45f-cebc-4259-bf79-1c49e2e9a73a"
+    },
+    {
+      "parameters": {
+        "jsCode": "function sh(value) { return \"'\" + String(value).replace(/'/g, \"'\\\\''\") + \"'\"; }\nfunction dockerRun(args) {\n  const command = [\n    'sudo', '-n', 'docker', 'run', '--rm', '--network', 'host',\n    '-v', '/opt/n8n/hyperframes:/work',\n    '-w', '/work',\n    'n8n-hyperframes-renderer',\n    ...args\n  ];\n  return command.map(sh).join(' ');\n}\nconst input = $json.body || $json.query || $json;\nconst slug = String(input.slug || '').trim();\nif (!/^[A-Za-z0-9._-]{1,80}$/.test(slug) || slug.includes('..')) throw new Error('Invalid or missing slug.');\nconst action = \"approve\";\nlet args = ['node', 'scripts/review-video-job.mjs', '--slug', slug, '--action', action, '--env', '.env.n8n'];\nif (action === 'approve') {\n  const caption = String(input.caption || '').trim();\n  const publishAt = String(input.publish_at || input.publishAt || new Date().toISOString()).trim();\n  const platforms = Array.isArray(input.platforms) ? input.platforms.join(',') : String(input.platforms || 'instagram').trim();\n  args.push('--caption', caption, '--publish-at', publishAt, '--platforms', platforms);\n  if (input.video_url || input.videoUrl) args.push('--video-url', String(input.video_url || input.videoUrl).trim());\n  if (input.dry_run === true || input.dryRun === true || String(input.dry_run || input.dryRun || '').toLowerCase() === 'true') args.push('--dry-run');\n} else {\n  args.push('--reason', String(input.reason || 'Rejected').trim());\n}\nconst dockerCommand = dockerRun(args);\nconst sshCommand = '(cd /opt/n8n && ' + dockerCommand + '); status=$?; sudo -n chown -R codex_tmp:codex_tmp /opt/n8n/hyperframes || true; exit $status';\nreturn [{ json: { slug, action, sshCommand } }];"
+      },
+      "id": "0ea53064-adc3-4be5-a1f0-aac7297ee8ed",
+      "name": "Prepare Review Command",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -420,
+        360
+      ]
+    },
+    {
+      "parameters": {
+        "command": "={{ $json.sshCommand }}"
+      },
+      "id": "b571c82a-bd49-43cc-bf6f-8a2ea87e2821",
+      "name": "SSH Review Approve",
+      "type": "n8n-nodes-base.ssh",
+      "typeVersion": 1,
+      "position": [
+        -120,
+        360
+      ],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "jsCode": "function extractJsonObjects(text) {\n  const objects = [];\n  let start = -1, depth = 0, inString = false, escaped = false;\n  for (let i = 0; i < text.length; i++) {\n    const char = text[i];\n    if (inString) {\n      if (escaped) escaped = false;\n      else if (char === '\\\\') escaped = true;\n      else if (char === '\"') inString = false;\n      continue;\n    }\n    if (char === '\"') { inString = true; continue; }\n    if (char === '{') { if (depth === 0) start = i; depth++; }\n    else if (char === '}') { depth--; if (depth === 0 && start >= 0) { try { objects.push(JSON.parse(text.slice(start, i + 1))); } catch {} start = -1; } }\n  }\n  return objects;\n}\nconst source = $('Prepare Review Command').first().json;\nconst text = [$json.stdout, $json.stderr, $json.data, $json.output, $json.message, typeof $json.error === 'string' ? $json.error : $json.error?.message]\n  .filter((value) => typeof value === 'string' && value.trim()).join('\\n');\nconst objects = extractJsonObjects(text);\nconst parsed = [...objects].reverse().find((entry) => entry.event) || {};\nreturn [{ json: { ok: !$json.error, slug: source.slug, action: source.action, event: parsed.event, error: $json.error?.message || (typeof $json.error === 'string' ? $json.error : undefined), rawOutput: text.slice(-4000) } }];"
+      },
+      "id": "c9ac529e-d41f-42ed-8e31-5a16ab69d3fc",
+      "name": "Format Review Approve Result",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        180,
+        360
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {}
+      },
+      "id": "3271dae2-6527-4caa-a51b-1aef83eccf45",
+      "name": "Respond Review Approve",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        480,
+        360
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "hyperframes-video-review-reject",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "fbf674ce-dd40-44db-9a35-a3d461d21336",
+      "name": "Webhook Review Reject",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -720,
+        620
+      ],
+      "webhookId": "a1e2a41e-2ff6-4416-9ce7-af21a6022b58"
+    },
+    {
+      "parameters": {
+        "jsCode": "function sh(value) { return \"'\" + String(value).replace(/'/g, \"'\\\\''\") + \"'\"; }\nfunction dockerRun(args) {\n  const command = [\n    'sudo', '-n', 'docker', 'run', '--rm', '--network', 'host',\n    '-v', '/opt/n8n/hyperframes:/work',\n    '-w', '/work',\n    'n8n-hyperframes-renderer',\n    ...args\n  ];\n  return command.map(sh).join(' ');\n}\nconst input = $json.body || $json.query || $json;\nconst slug = String(input.slug || '').trim();\nif (!/^[A-Za-z0-9._-]{1,80}$/.test(slug) || slug.includes('..')) throw new Error('Invalid or missing slug.');\nconst action = \"reject\";\nlet args = ['node', 'scripts/review-video-job.mjs', '--slug', slug, '--action', action, '--env', '.env.n8n'];\nif (action === 'approve') {\n  const caption = String(input.caption || '').trim();\n  const publishAt = String(input.publish_at || input.publishAt || new Date().toISOString()).trim();\n  const platforms = Array.isArray(input.platforms) ? input.platforms.join(',') : String(input.platforms || 'instagram').trim();\n  args.push('--caption', caption, '--publish-at', publishAt, '--platforms', platforms);\n  if (input.video_url || input.videoUrl) args.push('--video-url', String(input.video_url || input.videoUrl).trim());\n  if (input.dry_run === true || input.dryRun === true || String(input.dry_run || input.dryRun || '').toLowerCase() === 'true') args.push('--dry-run');\n} else {\n  args.push('--reason', String(input.reason || 'Rejected').trim());\n}\nconst dockerCommand = dockerRun(args);\nconst sshCommand = '(cd /opt/n8n && ' + dockerCommand + '); status=$?; sudo -n chown -R codex_tmp:codex_tmp /opt/n8n/hyperframes || true; exit $status';\nreturn [{ json: { slug, action, sshCommand } }];"
+      },
+      "id": "cbc26cb2-44eb-48dd-8496-ad279788cc0d",
+      "name": "Prepare Reject Command",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -420,
+        620
+      ]
+    },
+    {
+      "parameters": {
+        "command": "={{ $json.sshCommand }}"
+      },
+      "id": "2fef83dc-9e24-425a-ab8a-10171efb1514",
+      "name": "SSH Review Reject",
+      "type": "n8n-nodes-base.ssh",
+      "typeVersion": 1,
+      "position": [
+        -120,
+        620
+      ],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "jsCode": "function extractJsonObjects(text) {\n  const objects = [];\n  let start = -1, depth = 0, inString = false, escaped = false;\n  for (let i = 0; i < text.length; i++) {\n    const char = text[i];\n    if (inString) {\n      if (escaped) escaped = false;\n      else if (char === '\\\\') escaped = true;\n      else if (char === '\"') inString = false;\n      continue;\n    }\n    if (char === '\"') { inString = true; continue; }\n    if (char === '{') { if (depth === 0) start = i; depth++; }\n    else if (char === '}') { depth--; if (depth === 0 && start >= 0) { try { objects.push(JSON.parse(text.slice(start, i + 1))); } catch {} start = -1; } }\n  }\n  return objects;\n}\nconst source = $('Prepare Reject Command').first().json;\nconst text = [$json.stdout, $json.stderr, $json.data, $json.output, $json.message, typeof $json.error === 'string' ? $json.error : $json.error?.message]\n  .filter((value) => typeof value === 'string' && value.trim()).join('\\n');\nconst objects = extractJsonObjects(text);\nconst parsed = [...objects].reverse().find((entry) => entry.event) || {};\nreturn [{ json: { ok: !$json.error, slug: source.slug, action: source.action, event: parsed.event, error: $json.error?.message || (typeof $json.error === 'string' ? $json.error : undefined), rawOutput: text.slice(-4000) } }];"
+      },
+      "id": "738854a9-6513-4396-8c53-8a399c676cce",
+      "name": "Format Review Reject Result",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        180,
+        620
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {}
+      },
+      "id": "f185ddae-26f3-4c6d-85ae-b09891e673d4",
+      "name": "Respond Review Reject",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        480,
+        620
+      ]
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Set Summary And Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook Summary Intake": {
+      "main": [
+        [
+          {
+            "node": "Set Summary And Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Summary And Prompt": {
+      "main": [
+        [
+          {
+            "node": "AI Generate Data Lab JSON",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Generate Data Lab JSON": {
+      "main": [
+        [
+          {
+            "node": "Validate AI JSON And Prepare Pipeline",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate AI JSON And Prepare Pipeline": {
+      "main": [
+        [
+          {
+            "node": "SSH Run Data Lab Pipeline",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SSH Run Data Lab Pipeline": {
+      "main": [
+        [
+          {
+            "node": "Format Summary Intake Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Summary Intake Result": {
+      "main": [
+        [
+          {
+            "node": "Respond Summary Intake",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook Review Approve": {
+      "main": [
+        [
+          {
+            "node": "Prepare Review Command",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Review Command": {
+      "main": [
+        [
+          {
+            "node": "SSH Review Approve",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SSH Review Approve": {
+      "main": [
+        [
+          {
+            "node": "Format Review Approve Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Review Approve Result": {
+      "main": [
+        [
+          {
+            "node": "Respond Review Approve",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook Review Reject": {
+      "main": [
+        [
+          {
+            "node": "Prepare Reject Command",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Reject Command": {
+      "main": [
+        [
+          {
+            "node": "SSH Review Reject",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SSH Review Reject": {
+      "main": [
+        [
+          {
+            "node": "Format Review Reject Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Review Reject Result": {
+      "main": [
+        [
+          {
+            "node": "Respond Review Reject",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "meta": null,
+  "nodeGroups": [],
+  "pinData": {},
+  "versionId": "4ca9cca1-426f-4c37-befe-84ca4b6921c2",
+  "activeVersionId": null,
+  "versionCounter": 5,
+  "triggerCount": 0,
+  "sourceWorkflowId": null,
+  "tags": [],
+  "activeVersion": null
+}

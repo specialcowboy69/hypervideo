@@ -1,0 +1,18 @@
+{
+  "slug": "replace-me",
+  "title": "",
+  "status": "pending",
+  "folder": "pending/000-replace-me",
+  "created_at": "",
+  "updated_at": "",
+  "template": "videos/arquitectura-informacion",
+  "duration_target_s": 50,
+  "persona": "assets/character/personas/main-narrator.md",
+  "script_persona": "",
+  "outputs": {
+    "content_folder": "",
+    "project_folder": "",
+    "render": ""
+  },
+  "notes": ""
+}

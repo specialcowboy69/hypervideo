@@ -1,0 +1,59 @@
+# Secrets and local environment
+.env
+.env.*
+.env local
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Local agent/tool state
+.agents/
+.codex-debug/
+.superpowers/
+
+# Dependencies and caches
+node_modules/
+**/node_modules/
+.npm/
+.pnpm-store/
+.yarn/
+.cache/
+.hf-tmp/
+
+# Generated HyperFrames projects and media outputs
+videos/
+carousels/
+renders/
+snapshots/
+**/renders/
+**/snapshots/
+**/snapshots-*/
+
+# Generated audio/video/image artifacts
+assets/character/audio/generated/
+*.mp3
+*.mp4
+*.mov
+*.webm
+*.gif
+*.wav
+*.aac
+*.m4a
+*.zip
+*.tar
+*.tar.gz
+*.7z
+
+# n8n backups may contain historical workflow state; keep sanitized exports.
+n8n/backups/
+
+# OS/editor noise
+Thumbs.db
+Desktop.ini
+.DS_Store
+*.swp
+*.tmp
+*.log
+

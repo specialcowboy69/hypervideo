@@ -1,0 +1,8 @@
+{
+  "version": 1,
+  "default_template": "editorial-moody-green",
+  "default_handle": "@crecimientosc",
+  "default_slide_count": 6,
+  "default_interval_minutes": 240,
+  "items": []
+}

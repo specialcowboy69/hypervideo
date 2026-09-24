@@ -1,0 +1,63 @@
+{
+  "project": {
+    "slug": "auditoria-enlaces-toxicos",
+    "language": "es",
+    "persona": "assets/character/personas/main-narrator.md",
+    "target_duration_s": 50,
+    "visual_template": "videos/arquitectura-informacion"
+  },
+  "elevenlabs": {
+    "model_id": "eleven_multilingual_v2",
+    "output_format": "mp3_44100_128",
+    "use_timestamps": true,
+    "pause_after_scene_ms": 180,
+    "voice_settings": {
+      "stability": 0.42,
+      "similarity_boost": 0.78,
+      "style": 0.35,
+      "use_speaker_boost": true
+    }
+  },
+  "scenes": [
+    {
+      "id": "scene-01-hook",
+      "label": "HOOK",
+      "animation": "yelling",
+      "screen_text": "El DR puede mentirte.",
+      "visual_note": "DR brillante con una alerta de spam escondida detras.",
+      "text": "Si compras dominios mirando solo el DR, te venden maquillaje con precio premium. Chapuza elegante, peligro real."
+    },
+    {
+      "id": "scene-02-problem",
+      "label": "PROBLEM",
+      "animation": "talking",
+      "screen_text": "Autoridad inflada, spam real.",
+      "visual_note": "Tarjetas de enlaces basura apiladas bajo una metrica bonita.",
+      "text": "El DR se infla con enlaces automatizados. Google mira spam, anchors raros y confianza. No compres basura con etiqueta premium."
+    },
+    {
+      "id": "scene-03-main-idea",
+      "label": "MAIN IDEA",
+      "animation": "talking",
+      "screen_text": "Cruza varias señales.",
+      "visual_note": "Pipeline de Spam Score, Trust Flow y toxicidad.",
+      "text": "Audita de verdad: cruza Spam Score, Trust Flow y toxicidad. Una herramienta es linterna; tres son alarma de incendio."
+    },
+    {
+      "id": "scene-04-payoff",
+      "label": "PAYOFF",
+      "animation": "happy",
+      "screen_text": "El filtro esta en los anchors.",
+      "visual_note": "Filtro separando marca y URL limpia de anchors spam.",
+      "text": "El filtro final son los anchors. Marca y URL limpia, bien. Casino, caracteres raros o spam: fuera."
+    },
+    {
+      "id": "scene-05-cta",
+      "label": "CTA",
+      "animation": "yelling",
+      "screen_text": "Comenta AUDITORIA.",
+      "visual_note": "Panel CTA con palabra AUDITORIA.",
+      "text": "Comenta AUDITORIA y te envio la checklist para detectar enlaces toxicos antes de pagar la broma."
+    }
+  ]
+}
