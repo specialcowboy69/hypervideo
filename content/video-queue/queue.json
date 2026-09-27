@@ -12,10 +12,10 @@
     {
       "slug": "puentes-tematicos-seo",
       "title": "Puentes temáticos para ampliar una web sin perder el foco",
-      "status": "pending",
+      "status": "in_progress",
       "folder": "pending/puentes-tematicos-seo",
       "created_at": "2026-09-28",
-      "updated_at": "2026-09-28",
+      "updated_at": "2026-09-27",
       "template": "data-lab",
       "duration_target_s": 55,
       "persona": "assets/character/personas/social-retention-teacher.md",
@@ -24,9 +24,16 @@
         "project_folder": "videos/puentes-tematicos-seo",
         "audio_folder": "assets/character/audio/generated/puentes-tematicos-seo",
         "render": "",
-        "preview": ""
+        "preview": "",
+        "render_job_id": "hfb-puentes-tematicos-seo-36358283326"
       },
-      "notes": "Idea aportada en chat. El caso de Floate se usa solo como ejemplo conceptual; sin cifras ni promesas de penalización o ranking."
+      "notes": "Idea aportada en chat. El caso de Floate se usa solo como ejemplo conceptual; sin cifras ni promesas de penalización o ranking.",
+      "render_attempt": {
+        "jobId": "hfb-puentes-tematicos-seo-36358283326",
+        "sourceSha": "0e0feb853d9be3dfaab6b41e1ab453d044de26d7",
+        "runUrl": "https://github.com/specialcowboy69/hypervideo/actions/runs/36358283326",
+        "error": "/usr/local/bin/node"
+      }
     },
     {
       "slug": "lanzamiento-seo-cero-a-cien-enlaces",
