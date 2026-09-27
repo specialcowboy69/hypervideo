@@ -59,6 +59,7 @@ export async function updateQueue(root, { slug, status, jobId = '', downloadUrl 
   if (status === 'needs_review') {
     item.outputs.render = downloadUrl;
     item.outputs.render_job_id = jobId;
+    delete item.render_attempt.error;
   }
   if (status === 'blocked') item.render_attempt.error = String(error || 'Remote draft failed; inspect the Actions job').slice(0, 300);
   row[header.indexOf('status')] = status;
@@ -81,7 +82,10 @@ export function readRenderResult(text) {
 
 if (process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href) {
   try {
-    const arg = name => process.argv[process.argv.indexOf(name) + 1];
+    const arg = name => {
+      const index = process.argv.indexOf(name);
+      return index < 0 ? undefined : process.argv[index + 1];
+    };
     const status = arg('--status');
     const result = status === 'needs_review' ? readRenderResult(await fs.readFile(arg('--result-file'), 'utf8')) : {};
     const slug = arg('--slug');

@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { mkdtemp, mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
+import { execFileSync } from 'node:child_process';
 import { draftCommands, parseCompletedRender } from './run-chat-render-draft.mjs';
 import { updateQueue } from './update-chat-render-queue.mjs';
 import { resultComment } from './report-chat-render-result.mjs';
@@ -42,6 +43,7 @@ try {
   assert.deepEqual(after.items[0], queue.items[0]);
   assert.equal(after.items[1].status, 'needs_review');
   assert.equal(after.items[1].outputs.render, 'https://example.com/new.mp4');
+  assert.equal(after.items[1].render_attempt.error, undefined, 'a successful render clears an earlier connection error');
   assert.equal(checkCurrent(after.items[1]).proceed, false); // Queued request must skip paid work.
   const afterCsv = await readFile(path.join(root, 'content/video-queue/video-queue.csv'), 'utf8');
   assert.ok(afterCsv.includes('otro,done,https://example.com/old.mp4,old,"texto, con coma"'));
@@ -53,6 +55,13 @@ try {
   await updateQueue(root, { slug: 'nuevo-video', status: 'blocked', jobId: 'hfb-nuevo-video-2' });
   const failed = JSON.parse(await readFile(path.join(root, 'content/video-queue/queue.json'), 'utf8'));
   assert.equal(failed.items[1].status, 'blocked');
+  await writeFile(path.join(root, 'content/video-queue/queue.json'), JSON.stringify({ items: [queue.items[0], { slug: 'nuevo-video', status: 'pending', outputs: {} }] }));
+  execFileSync(process.execPath, [new URL('./update-chat-render-queue.mjs', import.meta.url).pathname,
+    '--slug', 'nuevo-video', '--status', 'in_progress', '--job-id', 'hfb-nuevo-video-3',
+    '--source-sha', 'c'.repeat(40), '--run-url', 'https://github.com/example/run/3',
+    '--output', path.join(root, 'result.json')], { cwd: root });
+  const started = JSON.parse(await readFile(path.join(root, 'content/video-queue/queue.json'), 'utf8'));
+  assert.equal(started.items[1].render_attempt.error, undefined, 'omitting --error must not record the Node executable as an error');
 } finally {
   await rm(root, { recursive: true, force: true });
 }
