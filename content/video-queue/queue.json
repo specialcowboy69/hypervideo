@@ -10,6 +10,25 @@
   },
   "items": [
     {
+      "slug": "puentes-tematicos-seo",
+      "title": "Puentes temáticos para ampliar una web sin perder el foco",
+      "status": "pending",
+      "folder": "pending/puentes-tematicos-seo",
+      "created_at": "2026-09-28",
+      "updated_at": "2026-09-28",
+      "template": "data-lab",
+      "duration_target_s": 55,
+      "persona": "assets/character/personas/social-retention-teacher.md",
+      "outputs": {
+        "content_folder": "content/video-queue/pending/puentes-tematicos-seo",
+        "project_folder": "videos/puentes-tematicos-seo",
+        "audio_folder": "assets/character/audio/generated/puentes-tematicos-seo",
+        "render": "",
+        "preview": ""
+      },
+      "notes": "Idea aportada en chat. El caso de Floate se usa solo como ejemplo conceptual; sin cifras ni promesas de penalización o ranking."
+    },
+    {
       "slug": "lanzamiento-seo-cero-a-cien-enlaces",
       "title": "Lanzamiento SEO 0 a 100 sin quemar el dominio",
       "status": "scheduled",

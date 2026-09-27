@@ -1,0 +1,90 @@
+{
+  "project": {
+    "slug": "puentes-tematicos-seo",
+    "language": "es",
+    "persona": "assets/character/personas/social-retention-teacher.md",
+    "target_duration_s": 55,
+    "visual_template": "data-lab",
+    "title": "Puentes temáticos para ampliar una web sin perder el foco",
+    "ghost": ["FOCO", "PUENTES"]
+  },
+  "elevenlabs": {
+    "model_id": "eleven_multilingual_v2",
+    "output_format": "mp3_44100_128",
+    "use_timestamps": true,
+    "pause_after_scene_ms": 180,
+    "voice_settings": {
+      "stability": 0.42,
+      "similarity_boost": 0.78,
+      "style": 0.28,
+      "use_speaker_boost": true
+    }
+  },
+  "scenes": [
+    {
+      "id": "scene-01-hook",
+      "label": "HOOK",
+      "animation": "talking",
+      "screen_text": "¿QUÉ TIENE QUE VER?",
+      "visual_note": "Web de pérdida de peso y sección de compostaje añadida de golpe.",
+      "text": "Si una web sobre pérdida de peso publica de golpe cien guías de compostaje, el lector puede preguntarse: ¿qué tiene que ver esto conmigo?",
+      "stage": {
+        "type": "comparison",
+        "left": {"label": "WEB ORIGINAL", "value": "Pérdida de peso"},
+        "right": {"label": "NUEVA SECCIÓN", "value": "Compostaje"}
+      }
+    },
+    {
+      "id": "scene-02-context",
+      "label": "CONTEXTO",
+      "animation": "talking",
+      "screen_text": "EL FOCO IMPORTA",
+      "visual_note": "Dos rutas: la necesidad del lector frente a temas elegidos solo por tráfico.",
+      "text": "Una sección nueva no provoca una penalización automática. El riesgo es llenar la web de temas que tu audiencia no espera y que no responden a su búsqueda.",
+      "stage": {
+        "type": "comparison",
+        "left": {"label": "SOLO TRÁFICO", "value": "Temas dispersos"},
+        "right": {"label": "PARA TU PÚBLICO", "value": "Propósito claro"}
+      }
+    },
+    {
+      "id": "scene-03-bridge",
+      "label": "PUENTE",
+      "animation": "talking",
+      "screen_text": "CREA UN PUENTE ÚTIL",
+      "visual_note": "Mapa de palabras clave: alimentación, guía puente y huerto doméstico.",
+      "text": "Antes de abrir jardinería, crea una página puente útil: cómo cultivar verduras en casa para incorporarlas a comidas equilibradas. Así conectas las dos necesidades.",
+      "stage": {
+        "type": "keyword-map",
+        "core": "COMIDAS EQUILIBRADAS",
+        "clusters": ["Alimentación", "Cultivar verduras", "Huerto en casa", "Guía puente"]
+      }
+    },
+    {
+      "id": "scene-04-method",
+      "label": "MÉTODO",
+      "animation": "talking",
+      "screen_text": "ENLAZA Y MIDE",
+      "visual_note": "Checklist: guía puente, enlaces pertinentes, medición en Search Console.",
+      "text": "Desde esa guía enlaza contenidos realmente relacionados. Amplía la sección poco a poco y observa en Search Console qué páginas encuentran los usuarios y cuáles les sirven.",
+      "stage": {
+        "type": "checklist",
+        "items": ["Publica la guía puente", "Enlaza lo relacionado", "Revisa Search Console"],
+        "checked": 3
+      }
+    },
+    {
+      "id": "scene-05-cta",
+      "label": "CIERRE",
+      "animation": "talking",
+      "screen_text": "¿QUÉ TEMAS CONECTAS?",
+      "visual_note": "Panel con dos temas y una pregunta al público; sin prometer recursos externos.",
+      "text": "La clave es conservar un propósito claro mientras amplías lo que ayudas a resolver. ¿Qué dos temas conectarías tú? Te leo en comentarios.",
+      "stage": {
+        "type": "cta",
+        "word": "PUENTES",
+        "box": "¿Qué dos temas conectarías?"
+      }
+    }
+  ]
+}
