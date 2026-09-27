@@ -34,7 +34,7 @@ Recommended CSS variables:
 }
 ```
 
-Before final render, check at least the hook, middle instructional beat, and final CTA frames with this lane in mind. If text or CTA depends on the right edge or bottom band, revise before rendering.
+Before final render, check at least the hook, middle instructional beat, and final closing frames (including any CTA) with this lane in mind. If text or CTA depends on the right edge or bottom band, revise before rendering.
 
 ## Default Social Narrator Template
 
@@ -59,7 +59,7 @@ Rules:
 - Do not let the narrator cover critical text, chart labels, CTAs, or captions.
 - Current default character system: 3D GLB files under `assets/character/`.
 - Current default animations: `breathing`, `talking`, `happy`, `yelling`.
-- Use 4-7 short scenes per 40-60s video: hook, problem/context, main idea/steps, payoff, CTA.
+- Write one continuous 40-60s script first, then split it into 4-7 connected scenes: hook, stakes/context, example or mechanism, payoff, closing. CTA is optional. Choose among three internal hook candidates; cut filler and resolve the opening promise before generating voice.
 - Keep motion subtle enough that it supports the lesson: animated narrator, scene transitions, grid/background motion, and concise text.
 - On-screen text should be short, scan-friendly, and rewritten per topic.
 - Use the lower mask trick from the current template if the 3D model clips or overlaps around the legs/coat.
@@ -97,7 +97,7 @@ Data Lab rules:
 
 - No 3D narrator, no GLB character assets, no Three.js narrator layer.
 - Default script persona: `assets/character/personas/social-retention-teacher.md`.
-- Default tone: clear, direct, retention-focused, no jokes, no wordplay, and no profanity by default.
+- Default tone: a close, direct, slightly incisive expert. Light irony is optional; jokes and profanity are not required. Follow the canonical persona for hook selection, continuous narration, grounding and a natural closing.
 - Voiceover, scene timing, subtitles, lower mask, and transition beats still apply.
 - The visual guide is the graphic system: cursor-like emphasis, zoom-like composition, highlights, cards, metrics, and panel motion.
 - Keep all critical text and chart values inside the vertical social safe lane.
@@ -313,7 +313,7 @@ Rules:
 - Use `assets/character/personas/main-narrator.md` for narrator-led `dark-tech` and `light-workshop` videos.
 - Use `assets/character/personas/social-retention-teacher.md` for `data-lab` videos unless explicitly overridden.
 - The narrator templates may be sarcastic and use mild Spanish profanity, but the useful point must remain clear.
-- The `data-lab` retention persona should avoid jokes, wordplay, and profanity by default.
+- The `data-lab` persona allows light irony when useful, with no compulsory jokes or profanity by default. Write and tighten the whole narration before scene segmentation; generate audio separately per scene afterwards. Never invent an offer or add a comment CTA automatically.
 
 ## Remote Build And Render Workflow
 

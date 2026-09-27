@@ -76,7 +76,7 @@ function normalizeScene(scene, index) {
 export function normalizeAiVideoIntake(raw = {}) {
   const title = cleanText(raw.title || raw.headline || "Video Data Lab");
   const summary = softenGuaranteedClaims(raw.summary || raw.brief || "");
-  const cta = cleanText(raw.cta || "Comenta INFO");
+  const cta = cleanText(raw.cta);
   const caption = softenGuaranteedClaims(
     raw.caption || raw.post_caption || `${summary} ${cta}`.trim()
   ).slice(0, 2200);
@@ -89,7 +89,7 @@ export function normalizeAiVideoIntake(raw = {}) {
     summary,
     template: DEFAULT_TEMPLATE,
     persona: DEFAULT_PERSONA,
-    tone: "claro, directo, retencion, sin bromas",
+    tone: "experto cercano, directo e incisivo; ironia ligera opcional",
     duration_target_s: Number(raw.duration_target_s || DEFAULT_DURATION),
     cta,
     caption,

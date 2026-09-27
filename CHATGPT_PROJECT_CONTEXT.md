@@ -107,7 +107,7 @@ carruseles con el de Reels salvo que el usuario lo pida claramente.
   visuales.
 - Persona por defecto:
   `assets/character/personas/social-retention-teacher.md`.
-- Tono claro, directo, de alta retencion, sin bromas ni palabrotas por defecto.
+- Voz de experto cercano, directo e incisivo; ironia ligera opcional y sin palabrotas por defecto. Escribir primero el guion continuo, elegir entre tres ganchos y despues dividir en 4-7 escenas. Cierre util con CTA opcional; no inventar ofertas.
 - Usa graficos grandes: SERPs, dashboards, keyword maps, funnels, comparativas,
   checklists, timelines y CTA.
 

@@ -14,7 +14,7 @@ In practice:
 
 1. The user sends the video topic, notes, structure, offer, CTA, and constraints in chat.
 2. Codex rewrites that into a clean production row in `video-queue.csv` / `video-queue.xlsx`.
-3. Codex creates or updates `pending/<slug>/` from the row.
+3. Codex chooses one of three internal hooks, writes and tightens one continuous script, then splits it into 4-7 connected scenes and creates or updates `pending/<slug>/` from the row.
 4. Codex generates `visual-plan.md` and `voiceover.scenes.json` when missing.
 5. ElevenLabs creates scene audio.
 6. The VPS pipeline builds, checks, snapshots, renders, and uploads the draft.
@@ -23,7 +23,10 @@ In practice:
 ## AI Summary Intake
 
 For n8n V1 summary intake, the user only fills a `summary` field. The AI node
-must use `content/video-queue/ai-intake-prompt.md` and return strict JSON. The
+must receive both `assets/character/personas/social-retention-teacher.md` and
+`content/video-queue/ai-intake-prompt.md`, then return strict JSON. Regenerate the
+local export with `node scripts/sync-summary-intake-prompt.mjs` when either
+source changes; updating the live workflow is a separate deployment step. The
 JSON is validated by `scripts/ai-video-intake-schema.mjs` before voiceover,
 render, or publication.
 
@@ -80,9 +83,9 @@ Important columns:
 - `audience`: who should care.
 - `goal`: what the video should achieve.
 - `brief`: compact narrative brief.
-- `structure`: hook, problem, system, payoff, CTA.
+- `structure`: one continuous narrative, then hook, context, example/mechanism, payoff and closing beats. CTA optional.
 - `offer`: thing being offered.
-- `cta`: viewer action.
+- `cta`: optional viewer action; leave empty for a natural closing. Do not invent offers.
 - `template`: `dark-tech`, `light-workshop`, or `data-lab`.
 - `tone`: voice and attitude.
 - `script_persona`: persona file used when writing `voiceover.scenes.json`.
@@ -137,7 +140,7 @@ Available recurring templates:
 Default script personas:
 
 - `dark-tech` and `light-workshop`: `assets/character/personas/main-narrator.md`.
-- `data-lab`: `assets/character/personas/social-retention-teacher.md`.
+- `data-lab`: `assets/character/personas/social-retention-teacher.md`; a close, direct, slightly incisive expert with optional light irony.
 - A video may override this through the spreadsheet `script_persona`, the brief, or `project.persona` in `voiceover.scenes.json`.
 - Apply the persona when writing the scene text. ElevenLabs receives only the final `scene.text` values.
 

@@ -69,7 +69,24 @@ logic.
 Do not patch n8n for template-only or builder-only changes such as `data-lab`
 CSS/layout/animation updates. For those, use the runtime deployment path below.
 
-Patch script:
+The script voice is maintained in
+`assets/character/personas/social-retention-teacher.md`; the JSON contract is in
+`content/video-queue/ai-intake-prompt.md`. The n8n prompt embeds both files, so a
+persona edit also needs a prompt sync and a live workflow patch.
+
+Regenerate and verify the local sanitized export without accessing n8n:
+
+```powershell
+node scripts\sync-summary-intake-prompt.mjs
+node scripts\test-summary-intake-prompt.mjs
+```
+
+This only updates `n8n/hyperframes-summary-intake-workflow.json` in the checkout.
+It does not update or activate the live workflow. A GitHub merge or VPS runtime
+copy alone also does not update the prompt stored in n8n.
+
+Live patch script (run from the configured Windows workstation; it currently
+uses the existing `C:/Users/USUARIO/Downloads/mcp-n8n` client and env file):
 
 ```powershell
 node scripts\patch-summary-intake-vps-runtime.mjs
@@ -78,6 +95,7 @@ node scripts\patch-summary-intake-vps-runtime.mjs
 The patch:
 
 - backs up the live n8n workflow under `n8n/backups/`;
+- rebuilds `Set Summary And Prompt` from the same two canonical files;
 - keeps workflow `eXLSEY7Fzg0kGBit` inactive unless it was already changed
   elsewhere;
 - sets SSH nodes to `continueOnFail`;
@@ -86,8 +104,9 @@ The patch:
 
 ## Template Or Runtime Deployment Without Workflow Patch
 
-Use this path when updating the `data-lab` template, the video builder, persona
-files, or local tests without changing n8n node logic.
+Use this path when updating the `data-lab` template, the video builder or local
+tests without changing n8n node logic. Persona and intake-prompt edits need both
+the runtime file update and the workflow patch described above.
 
 Source of truth plan:
 
@@ -138,6 +157,7 @@ Run after editing scripts or workflow patch code:
 
 ```powershell
 node scripts\test-ai-video-intake.mjs
+node scripts\test-summary-intake-prompt.mjs
 node scripts\test-data-lab-template.mjs
 node scripts\test-review-video-job.mjs
 node scripts\test-trigger-n8n-build-render.mjs

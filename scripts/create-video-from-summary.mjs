@@ -102,7 +102,7 @@ async function upsertCsv(root, intake) {
     script_persona: intake.persona,
     duration_target_s: intake.duration_target_s,
     must_include: "",
-    avoid: "promesas garantizadas; bromas; palabrotas",
+    avoid: "promesas garantizadas; datos u ofertas inventados; relleno; palabrotas por defecto",
     source_urls: "",
     voiceover_status: "not_started",
     render_mode: "draft",

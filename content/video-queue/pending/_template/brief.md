@@ -9,12 +9,14 @@
 - Target duration: 40-60 seconds
 - Audience:
 - Goal:
-- CTA:
+- CTA (optional; leave empty for a natural closing):
 
 ## Inputs
 
 - Topic:
 - Offer:
+- Central question:
+- Useful answer / payoff:
 - Main promise:
 - Proof points:
 - Constraints:
@@ -30,6 +32,7 @@
 
 - Persona for `dark-tech` / `light-workshop`: `assets/character/personas/main-narrator.md`
 - Persona for `data-lab`: `assets/character/personas/social-retention-teacher.md`
+- Default data-lab voice: close, direct, slightly incisive expert; light irony optional
 - Tone override:
 - Profanity level for narrator templates: medium-light by default, 1-3 mild Spanish profanities per 40-60s video
 - Profanity level for `data-lab`: none by default

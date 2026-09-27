@@ -9,7 +9,7 @@
 - Template: use `videos/arquitectura-informacion/` by default, or `videos/light-workshop` for the bright editorial workshop variant
 - Narrator: 3D GLB character from `assets/character/`
 - Background: template-specific grid, soft radial light, ambient ghost topic word
-- Typography: large concise hook, compact explanatory cards, strong CTA
+- Typography: large concise hook, compact explanatory cards, clear closing with an optional CTA
 - Layout: narrator left/lower-left, headline/copy in safe lane, visual stage/cards on the right
 - Palette: dark green/black base for `arquitectura-informacion`; light paper/workshop base with blue, green, pink, and amber accents for `light-workshop`
 - Do not show scene label pills, visible scene timestamps, or a bottom progress bar

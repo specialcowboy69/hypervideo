@@ -46,6 +46,16 @@ const input = {
 const normalized = normalizeAiVideoIntake(input);
 validateNormalizedIntake(normalized);
 
+// A useful closing must survive intake without an invented comment request.
+for (const cta of [undefined, "", "   "]) {
+  const noCta = normalizeAiVideoIntake({ ...input, cta });
+  assert.equal(noCta.cta, "");
+  assert.equal(noCta.caption, input.summary);
+}
+const explicitCta = normalizeAiVideoIntake({ ...input, cta: "Guarda este ejemplo" });
+assert.equal(explicitCta.cta, "Guarda este ejemplo");
+assert.equal(explicitCta.caption, `${input.summary} Guarda este ejemplo`);
+
 assert.equal(normalized.template, "data-lab");
 assert.equal(normalized.persona, "assets/character/personas/social-retention-teacher.md");
 assert.equal(normalized.duration_target_s, 50);
@@ -78,7 +88,7 @@ try {
       { screen_text: "HOOK", text: "Texto uno", stage: { type: "comparison", left: { label: "A", value: "B" }, right: { label: "C", value: "D" } } },
       { screen_text: "SISTEMA", text: "Texto dos", stage: { type: "timeline", points: ["A", "B", "C", "D"], values: ["1", "2", "3", "4"] } },
       { screen_text: "DATO", text: "Texto tres", stage: { type: "dashboard", metrics: [{ label: "CTR", value: "6%" }] } },
-      { screen_text: "ACCION", text: "Texto cuatro", stage: { type: "cta", word: "INFO", box: "Comenta INFO" } }
+      { screen_text: "APLICALO", text: "Texto cuatro", stage: { type: "checklist", items: ["Conecta los temas"], checked: 1 } }
     ]
   });
   const result = await writeVideoPackage({ root, intake: packageIntake });
@@ -89,6 +99,11 @@ try {
   assert.equal(voiceover.project.visual_template, "data-lab");
   assert.equal(voiceover.project.persona, DEFAULT_PERSONA);
   assert.equal(queue.items[0].status, "pending");
+  assert.equal(queue.items[0].cta, "");
+  assert.equal(queue.items[0].caption, "Caption de prueba");
+  assert.deepEqual(voiceover.scenes.at(-1), packageIntake.scenes.at(-1));
+  assert.equal(voiceover.scenes.at(-1).stage.type, "checklist");
+  assert.ok(!csv.includes("Comenta INFO"));
   assert.match(csv, /prueba-data-lab/);
 } finally {
   await rm(root, { recursive: true, force: true });
