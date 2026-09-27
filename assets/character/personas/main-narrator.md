@@ -39,12 +39,9 @@ Preferred pattern:
 
 ## Script Formula
 
-For each scene:
+Write one continuous narration before splitting it into scenes, following `content/CONTENT-WORKFLOW.md`. Choose one of three internal hooks, develop one idea with a concrete example, deliver a useful payoff and close naturally. Keep this narrator's voice throughout; use jabs where they help, not as a quota per scene.
 
-1. Start with the emotional job of the scene.
-2. Make the point in plain language.
-3. Add one narrator-flavored jab or image.
-4. End with a phrase that hands momentum to the next scene.
+Read the script aloud and remove filler before dividing it into 4-7 connected beats. Each scene advances the same explanation. A CTA is optional; never invent a resource or offer to justify one.
 
 ## Scene Energy Map
 

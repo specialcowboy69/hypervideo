@@ -1,5 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import { buildSummaryPromptCode, patchSummaryPrompt } from "./sync-summary-intake-prompt.mjs";
 
 const WORKFLOW_ID = "eXLSEY7Fzg0kGBit";
 const N8N_ENV_PATH = "C:/Users/USUARIO/Downloads/mcp-n8n/.env";
@@ -152,12 +153,16 @@ function syntaxCheck(name, source) {
 await loadEnvFile(N8N_ENV_PATH);
 const { getWorkflow, updateWorkflow } = await import("file:///C:/Users/USUARIO/Downloads/mcp-n8n/build/n8n-api.js");
 
-const workflow = await getWorkflow(WORKFLOW_ID);
+let workflow = await getWorkflow(WORKFLOW_ID);
 const backupDir = path.resolve("n8n", "backups");
 await fs.mkdir(backupDir, { recursive: true });
 const stamp = new Date().toISOString().replace(/[:.]/g, "-");
 const backupPath = path.join(backupDir, `${WORKFLOW_ID}-${stamp}-before-vps-runtime.json`);
 await fs.writeFile(backupPath, JSON.stringify(workflow, null, 2), "utf8");
+
+const promptCode = await buildSummaryPromptCode();
+syntaxCheck("Set Summary And Prompt", promptCode);
+workflow = patchSummaryPrompt(workflow, promptCode);
 
 const updates = new Map([
   ["Validate AI JSON And Prepare Pipeline", codeForPreparePipeline()],

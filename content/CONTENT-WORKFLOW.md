@@ -16,7 +16,7 @@ El usuario suele pasar por chat:
 - Notas o contexto.
 - Estructura deseada.
 - Oferta.
-- CTA.
+- CTA, si aporta algo al video.
 - Tono.
 - Restricciones o cosas a evitar.
 
@@ -50,7 +50,7 @@ Los CSV/XLSX son el tablero de planificacion. Las carpetas `pending/<slug>/` son
 
 1. El usuario envia el resumen por chat.
 2. Codex crea o actualiza la fila en `content/video-queue/video-queue.csv` y, si procede, `video-queue.xlsx`.
-3. Codex crea o actualiza:
+3. Codex aplica la persona, escribe primero el guion continuo y lo divide en escenas siguiendo el proceso editorial de abajo. Crea o actualiza:
 
 ```text
 content/video-queue/pending/<slug>/
@@ -88,7 +88,7 @@ Plantillas de video:
 Personas de guion:
 
 - `dark-tech` y `light-workshop`: usar `assets/character/personas/main-narrator.md` salvo indicacion contraria. Voz directa, sarcastica y canalla.
-- `data-lab`: usar `assets/character/personas/social-retention-teacher.md` salvo indicacion contraria. Voz clara, enfocada en retencion, sin bromas, sin juegos de palabras y sin palabrotas por defecto.
+- `data-lab`: usar `assets/character/personas/social-retention-teacher.md` salvo indicacion contraria. Voz de experto cercano, directo e incisivo; ironia ligera opcional, sin chistes obligatorios ni palabrotas por defecto.
 - Al convertir chat o NotebookLM a `voiceover.scenes.json`, aplicar la persona antes de generar ElevenLabs. ElevenLabs solo lee el texto final de cada escena.
 
 Para lanzar `data-lab` en remoto:
@@ -96,6 +96,21 @@ Para lanzar `data-lab` en remoto:
 ```powershell
 node scripts\trigger-n8n-build-render.mjs --slug <slug> --mode draft --template data-lab
 ```
+
+## Guion Antes De Escenas
+
+Aplicar este proceso al escribir desde el chat y desde Summary Intake. La voz de `data-lab` vive en `assets/character/personas/social-retention-teacher.md`; las otras plantillas conservan su propia personalidad.
+
+1. Elegir una audiencia, una pregunta central y una respuesta util.
+2. Preparar tres ganchos internamente y elegir el mas concreto, relevante y creible.
+3. Redactar una narracion continua de 40-60 segundos: gancho, contexto o consecuencia, ejemplo o mecanismo, respuesta y cierre. Entregar valor durante el desarrollo.
+4. Revisar como suena al hablar: variar frases, quitar relleno y repeticiones, comprobar que el ejemplo sostiene la idea y que el cierre resuelve la promesa inicial.
+5. Dividir despues en 4-7 escenas conectadas, cada una con un visual dominante. No repetir una miniclase completa en cada escena.
+6. Anadir CTA solo si ayuda al objetivo. Dejarlo vacio si basta una conclusion. No inventar recursos descargables, ofertas ni solicitudes de comentarios.
+
+Las notas de produccion van en `visual-plan.md`. En `data-lab`, `visual_note` se muestra en pantalla: debe contener texto breve para el espectador, no instrucciones de montaje.
+
+Para evaluar el cambio, comparar videos de duracion y tema similares usando retencion inicial, tiempo medio de visualizacion y porcentaje completado cuando la plataforma los ofrezca. Registrar tambien el gancho utilizado. No atribuir una mejora al guion sin datos; esta revision no incluye una integracion nueva de analitica.
 
 ## n8n Summary Intake V1
 
@@ -189,7 +204,7 @@ Si una idea tiene buen gancho y buenos pasos, puede convertirse en ambos: video 
 
 - Mantener tono directo, relajado y util.
 - Usar tono canalla/sarcastico solo cuando la persona del video lo pida.
-- En `data-lab`, priorizar claridad, retencion y explicacion limpia sobre humor.
+- En `data-lab`, usar cercania, ejemplos concretos y una postura razonada; la ironia ligera es opcional.
 - Evitar lenguaje corporativo vacio.
 - No prometer resultados garantizados.
 - No atacar personas, clientes concretos ni grupos protegidos.
