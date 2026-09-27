@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 
-import { archiveCommandForPlatform, tarExecutable, uploadModeFromArgs } from "./trigger-n8n-build-render.mjs";
+import { archiveCommandForPlatform, tarExecutable, uploadModeFromArgs, jobIdFromArgs } from "./trigger-n8n-build-render.mjs";
 
 assert.equal(tarExecutable("win32"), "tar.exe");
 assert.equal(tarExecutable("linux"), "tar");
@@ -11,5 +11,7 @@ assert.equal(
 assert.equal(uploadModeFromArgs(["--vps-local"], {}), "local");
 assert.equal(uploadModeFromArgs([], { HYPERFRAMES_VPS_LOCAL: "1" }), "local");
 assert.equal(uploadModeFromArgs([], {}), "ssh");
+assert.equal(jobIdFromArgs(['--job-id', 'hfb-demo-123'], 'demo'), 'hfb-demo-123');
+assert.throws(() => jobIdFromArgs(['--job-id', 'other-id'], 'demo'), /Invalid job ID/);
 
 console.log("trigger-n8n-build-render tests passed");

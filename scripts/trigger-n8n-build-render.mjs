@@ -35,6 +35,15 @@ export function uploadModeFromArgs(argv = process.argv.slice(2), env = process.e
   return argv.includes("--vps-local") || env.HYPERFRAMES_VPS_LOCAL === "1" ? "local" : "ssh";
 }
 
+export function jobIdFromArgs(argv, slug) {
+  const index = argv.indexOf('--job-id');
+  if (index < 0) return `hfb-${slug}-${Date.now()}`;
+  const value = argv[index + 1] || '';
+  const prefix = `hfb-${slug}-`;
+  if (!value.startsWith(prefix) || !/^[0-9]+$/.test(value.slice(prefix.length))) throw new Error('Invalid job ID');
+  return value;
+}
+
 function parseEnv(raw) {
   const env = {};
   for (const line of raw.split(/\r?\n/)) {
@@ -198,7 +207,7 @@ async function main() {
     headers["CF-Access-Client-Secret"] = env.CF_ACCESS_CLIENT_SECRET;
   }
 
-  const jobId = `hfb-${slug}-${Date.now()}`;
+  const jobId = jobIdFromArgs(process.argv.slice(2), slug);
   const sourceZipName = `${jobId}-source.zip`;
   const zipPath = path.join(os.tmpdir(), sourceZipName);
   const buildRenderUrl = `${baseUrl}/webhook/hyperframes-build-render`;

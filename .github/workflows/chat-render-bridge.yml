@@ -1,0 +1,170 @@
+name: HyperFrames chat render bridge
+
+on:
+  issues:
+    types: [labeled]
+
+permissions:
+  contents: read
+  issues: read
+
+jobs:
+  validate:
+    if: github.event.label.name == 'hyperframes:validate' || github.event.label.name == 'hyperframes:render-draft'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: read
+    outputs:
+      slug: ${{ steps.request.outputs.slug }}
+      sha: ${{ steps.request.outputs.sha }}
+      skip: ${{ steps.request.outputs.skip }}
+      template: ${{ steps.package.outputs.template }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Check issue and previous completion
+        id: request
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          COMMENTS_PATH: ${{ runner.temp }}/chat-render-comments.json
+        run: |
+          gh api "repos/$GITHUB_REPOSITORY/issues/$ISSUE_NUMBER/comments?per_page=100" > "$COMMENTS_PATH"
+          if [ "${{ github.event.issue.comments }}" -gt 100 ]; then
+            echo 'Too many issue comments to check duplicate renders' >&2
+            exit 1
+          fi
+          node scripts/check-chat-render-issue.mjs > "$RUNNER_TEMP/chat-render-request.json"
+          node -e 'const fs=require("node:fs");const r=JSON.parse(fs.readFileSync(process.env.RUNNER_TEMP+"/chat-render-request.json"));for(const k of ["slug","sha","skip"])fs.appendFileSync(process.env.GITHUB_OUTPUT,`${k}=${r[k]}\n`);'
+      - name: Validate source package without external services
+        id: package
+        env:
+          SLUG: ${{ steps.request.outputs.slug }}
+        run: |
+          node scripts/validate-chat-render-request.mjs --slug "$SLUG" > "$RUNNER_TEMP/chat-render-package.json"
+          node -e 'const fs=require("node:fs");const p=JSON.parse(fs.readFileSync(process.env.RUNNER_TEMP+"/chat-render-package.json"));fs.appendFileSync(process.env.GITHUB_OUTPUT,`template=${p.template}\n`);'
+
+  render:
+    needs: validate
+    if: github.event.label.name == 'hyperframes:render-draft' && needs.validate.outputs.skip != 'true'
+    runs-on: ubuntu-latest
+    concurrency:
+      group: hyperframes-render-draft
+      cancel-in-progress: false
+    permissions:
+      contents: write
+      issues: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Recheck current queue after render serialization
+        id: current
+        env:
+          SLUG: ${{ needs.validate.outputs.slug }}
+        run: |
+          git fetch origin main
+          git checkout -B chat-render-result origin/main
+          node scripts/check-chat-render-current.mjs --slug "$SLUG" > "$RUNNER_TEMP/chat-render-current.json"
+          node -e 'const fs=require("node:fs");const r=JSON.parse(fs.readFileSync(process.env.RUNNER_TEMP+"/chat-render-current.json"));fs.appendFileSync(process.env.GITHUB_OUTPUT,`proceed=${r.proceed}\nreason=${r.reason}\n`);'
+      - name: Record recoverable job identity before paid work
+        id: start
+        if: steps.current.outputs.proceed == 'true'
+        env:
+          SLUG: ${{ needs.validate.outputs.slug }}
+          SOURCE_SHA: ${{ needs.validate.outputs.sha }}
+        run: |
+          set -euo pipefail
+          JOB_ID="hfb-$SLUG-$GITHUB_RUN_ID"
+          RUN_URL="https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git checkout -B chat-render-result origin/main
+            node scripts/check-chat-render-current.mjs --slug "$SLUG" > "$RUNNER_TEMP/chat-render-current.json"
+            node -e 'const r=require(process.env.RUNNER_TEMP+"/chat-render-current.json");if(!r.proceed)process.exit(1);'
+            node scripts/update-chat-render-queue.mjs --slug "$SLUG" --status in_progress --job-id "$JOB_ID" --source-sha "$SOURCE_SHA" --run-url "$RUN_URL" --output "$RUNNER_TEMP/chat-render-result.json"
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git add content/video-queue/queue.json content/video-queue/video-queue.csv
+            git commit -m "chore: start draft job for $SLUG"
+            if git push origin HEAD:main; then break; fi
+            if [ "$attempt" -eq 3 ]; then exit 1; fi
+          done
+      - name: Install restricted SSH identity
+        id: identity
+        if: steps.current.outputs.proceed == 'true'
+        continue-on-error: true
+        env:
+          DEPLOY_KEY: ${{ secrets.HYPERFRAMES_DEPLOY_KEY }}
+          HOST_KEY: ${{ vars.HYPERFRAMES_SSH_HOST_KEY }}
+        run: |
+          test -n "$DEPLOY_KEY" && test -n "$HOST_KEY"
+          install -d -m 700 "$HOME/.ssh"
+          printf '%s\n' "$DEPLOY_KEY" > "$HOME/.ssh/hyperframes_ed25519"
+          chmod 600 "$HOME/.ssh/hyperframes_ed25519"
+          printf '%s\n' "$HOST_KEY" > "$HOME/.ssh/known_hosts"
+          chmod 600 "$HOME/.ssh/known_hosts"
+      - name: Generate voice and render draft on VPS
+        id: remote
+        if: steps.current.outputs.proceed == 'true' && steps.identity.outcome == 'success'
+        continue-on-error: true
+        env:
+          SLUG: ${{ needs.validate.outputs.slug }}
+          SOURCE_SHA: ${{ needs.validate.outputs.sha }}
+          JOB_ID: hfb-${{ needs.validate.outputs.slug }}-${{ github.run_id }}
+          SSH_HOST: ${{ vars.HYPERFRAMES_SSH_HOST }}
+          SSH_USER: ${{ vars.HYPERFRAMES_SSH_USER }}
+        run: |
+          set -euo pipefail
+          test -n "$SSH_HOST" && test -n "$SSH_USER"
+          ssh -o BatchMode=yes -o StrictHostKeyChecking=yes -i "$HOME/.ssh/hyperframes_ed25519" "$SSH_USER@$SSH_HOST" "render $SLUG $SOURCE_SHA $JOB_ID" | tee "$RUNNER_TEMP/chat-render-output.log"
+      - name: Record result and update video queue
+        if: always() && steps.current.outputs.proceed == 'true' && steps.start.outcome == 'success'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          SLUG: ${{ needs.validate.outputs.slug }}
+          SOURCE_SHA: ${{ needs.validate.outputs.sha }}
+          REMOTE_OUTCOME: ${{ steps.remote.outcome }}
+          IDENTITY_OUTCOME: ${{ steps.identity.outcome }}
+        run: |
+          set -euo pipefail
+          JOB_ID="hfb-$SLUG-$GITHUB_RUN_ID"
+          RUN_URL="https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+          if [ "$IDENTITY_OUTCOME" != success ]; then
+            STATUS=blocked
+            ERROR='SSH identity setup failed before starting the remote job'
+          elif [ "$REMOTE_OUTCOME" = success ]; then
+            STATUS=needs_review
+            ERROR=''
+          else
+            STATUS=in_progress
+            ERROR='Remote connection or render failed; check job status on VPS before retrying'
+          fi
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git checkout -B chat-render-result origin/main
+            if ! node scripts/update-chat-render-queue.mjs --slug "$SLUG" --status "$STATUS" --job-id "$JOB_ID" --source-sha "$SOURCE_SHA" --run-url "$RUN_URL" --error "$ERROR" --result-file "$RUNNER_TEMP/chat-render-output.log" --output "$RUNNER_TEMP/chat-render-result.json"; then
+              if [ "$STATUS" != needs_review ]; then exit 1; fi
+              STATUS=in_progress
+              ERROR='Remote returned no valid MP4 result; inspect n8n status before retrying'
+              node scripts/update-chat-render-queue.mjs --slug "$SLUG" --status "$STATUS" --job-id "$JOB_ID" --source-sha "$SOURCE_SHA" --run-url "$RUN_URL" --error "$ERROR" --output "$RUNNER_TEMP/chat-render-result.json"
+            fi
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git add content/video-queue/queue.json content/video-queue/video-queue.csv
+            if git diff --cached --quiet; then break; fi
+            git commit -m "chore: record draft result for $SLUG"
+            if git push origin HEAD:main; then break; fi
+            if [ "$attempt" -eq 3 ]; then exit 1; fi
+          done
+          node scripts/report-chat-render-result.mjs --source-sha "$SOURCE_SHA" --result "$RUNNER_TEMP/chat-render-result.json" --output "$RUNNER_TEMP/chat-render-comment.md"
+          gh issue comment "$ISSUE_NUMBER" --body-file "$RUNNER_TEMP/chat-render-comment.md"
+          if [ "$STATUS" != needs_review ]; then exit 1; fi
+      - name: Report preflight failure without starting paid work
+        if: always() && steps.current.outputs.proceed == 'true' && steps.start.outcome != 'success'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          gh issue comment "$ISSUE_NUMBER" --body "No se inició el render: falló el registro previo del job. Revisa https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID."
