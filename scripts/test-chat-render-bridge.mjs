@@ -7,6 +7,7 @@ import { draftCommands, parseCompletedRender } from './run-chat-render-draft.mjs
 import { updateQueue } from './update-chat-render-queue.mjs';
 import { resultComment } from './report-chat-render-result.mjs';
 import { checkCurrent } from './check-chat-render-current.mjs';
+import { shouldScheduleReel } from './review-video-job.mjs';
 
 const commands = draftCommands({ slug: 'nuevo-video', template: 'data-lab' });
 assert.equal(commands.length, 2);
@@ -24,7 +25,7 @@ assert.match(resultComment({ slug: 'nuevo-video', status: 'in_progress', jobId: 
 const root = await mkdtemp(path.join(os.tmpdir(), 'chat-render-queue-test-'));
 try {
   await mkdir(path.join(root, 'content/video-queue'), { recursive: true });
-  const queue = { items: [{ slug: 'otro', status: 'done', outputs: { render: 'https://example.com/old.mp4' } }, { slug: 'nuevo-video', status: 'pending', outputs: {} }] };
+  const queue = { items: [{ slug: 'otro', status: 'done', outputs: { render: 'https://example.com/old.mp4' } }, { slug: 'nuevo-video', status: 'pending', outputs: {}, review: { status: 'not_ready' } }] };
   assert.equal(checkCurrent(queue.items[1]).proceed, true); // Two requests can validate before serialization.
   assert.equal(checkCurrent(queue.items[1]).proceed, true);
   await writeFile(path.join(root, 'content/video-queue/queue.json'), JSON.stringify(queue));
@@ -42,6 +43,8 @@ try {
   const after = JSON.parse(await readFile(path.join(root, 'content/video-queue/queue.json'), 'utf8'));
   assert.deepEqual(after.items[0], queue.items[0]);
   assert.equal(after.items[1].status, 'needs_review');
+  assert.equal(after.items[1].review.status, 'needs_review', 'a rendered draft must become eligible for later explicit review');
+  assert.equal(await shouldScheduleReel({ root, slug: 'nuevo-video' }), true, 'later user approval must not be blocked by stale review status');
   assert.equal(after.items[1].outputs.render, 'https://example.com/new.mp4');
   assert.equal(after.items[1].render_attempt.error, undefined, 'a successful render clears an earlier connection error');
   assert.equal(checkCurrent(after.items[1]).proceed, false); // Queued request must skip paid work.
