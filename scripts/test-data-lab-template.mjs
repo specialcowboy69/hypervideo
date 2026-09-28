@@ -3,6 +3,7 @@ import { existsSync } from "node:fs";
 import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { join, resolve } from "node:path";
 import { spawnSync } from "node:child_process";
+import { runInNewContext } from "node:vm";
 
 const root = process.cwd();
 const slug = "__data_lab_template_test__";
@@ -41,6 +42,10 @@ const manifest = {
     stage
   }))
 };
+manifest.scenes[0].takeaway = "SERP BAJO CONTROL"; // The stage must not echo its headline.
+manifest.scenes[2].text = "Una keyword aislada no explica la intención completa del usuario en una búsqueda.";
+manifest.scenes[4].takeaway = "Una idea que conecta";
+manifest.scenes[4].stage = { type: "comparison", relation: "connection", left: { label: "TEMA ACTUAL", value: "Alimentación" }, right: { label: "TEMA NUEVO", value: "Huerto en casa" } };
 
 const timing = {
   project: manifest.project,
@@ -93,23 +98,45 @@ try {
   assert.equal(existsSync(join(videoDir, "assets", "narrator.js")), false);
   assert.equal(existsSync(join(videoDir, "assets", "breathing.glb")), false);
   assert.match(indexHtml, /id="subtitle"/);
+  assert.doesNotMatch(indexHtml, /id="subtitle"[^>]*>SERP BAJO CONTROL</);
   assert.match(indexHtml, /voiceover/);
   assert.match(mainJs, /renderAt/);
   assert.match(mainJs, /subtitleEl\.textContent/);
   assert.match(css, /template-data-lab/);
   assert.match(css, /\.template-data-lab \.stage-takeaway/);
-  assert.match(css, /\.template-data-lab \.data-lab-bottom-band/);
+  assert.doesNotMatch(css, /\.template-data-lab \.data-lab-bottom-band/);
   assert.match(css, /\.template-data-lab \.copy,[\s\S]*max-height: 118px/);
   assert.match(css, /\.template-data-lab \.subtitle\s*\{[\s\S]*top: 1250px/);
   assert.match(serpScene, /data-lab-serp/);
+  assert.doesNotMatch(serpScene, /class="stage-takeaway"/);
   assert.match(serpScene, /Test data-lab visual block\./);
   assert.doesNotMatch(serpScene, /Una SERP clara enseña/);
   assert.match(dashboardScene, /data-lab-dashboard/);
-  assert.match(generatedSceneHtml, /class="stage-takeaway"/);
-  assert.match(generatedSceneHtml, /class="data-lab-bottom-band"/);
+  const comparisonScene = await readFile(join(videoDir, "compositions", "scene-cta.html"), "utf8");
+  assert.match(comparisonScene, /class="stage-takeaway">Una idea que conecta</);
+  assert.match(comparisonScene, /class="data-lab-comparison is-connection"/);
+  assert.match(comparisonScene, /class="comparison-vs">↔</);
+  assert.doesNotMatch(comparisonScene, /class="comparison-vs">VS</);
+  assert.doesNotMatch(generatedSceneHtml, /class="data-lab-bottom-band"/);
   assert.match(generatedSceneHtml, /function animateDataLabStage/);
   assert.match(generatedSceneHtml, /\.stage-takeaway/);
-  assert.match(generatedSceneHtml, /\.data-lab-bottom-band \.lab-trace/);
+  const subtitles = { textContent: "", style: {} };
+  const transitionBeat = { style: {} };
+  const listeners = {};
+  const runtimeWindow = { __timelines: {}, addEventListener: (event, callback) => { listeners[event] = callback; } };
+  runInNewContext(mainJs, {
+    window: runtimeWindow,
+    document: { getElementById: (id) => id === "subtitle" ? subtitles : id === "transitionBeat" ? transitionBeat : { dataset: { currentTime: "0" } } },
+    gsap: { timeline: () => ({ to() { return this; } }) }
+  });
+  const firstCaption = subtitles.textContent;
+  assert.match(firstCaption, /Una SERP clara/);
+  assert.notEqual(firstCaption, manifest.scenes[0].screen_text);
+  listeners["hf-seek"]({ detail: { time: 4.5 } });
+  assert.notEqual(subtitles.textContent, firstCaption, "spoken captions should advance within a scene");
+  assert.match(subtitles.textContent, /atención/);
+  const keywordCaptions = runtimeWindow.__narratorBlocks[2].captions;
+  assert.ok(keywordCaptions.every((cue) => cue.text.length >= 16), "captions must not flash a lone short word");
   assert.match(generatedSceneHtml, /\.serp-result\.active/);
   assert.match(generatedSceneHtml, /\.dashboard-chart i/);
   assert.match(generatedSceneHtml, /scaleY/);

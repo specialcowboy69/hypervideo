@@ -33,7 +33,7 @@ const template = normalizeTemplate(requestedTemplate || config.template || "dark
 const templateProfile = templateProfileFor(template);
 config.template = template;
 const duration = round(getAudioDuration(masterAudioPath) || timing.total_duration_s);
-const blocks = buildBlocks({ config, timing, duration });
+const blocks = buildBlocks({ config, timing, duration, manifest: sceneManifest });
 
 await mkdir(assetsDir, { recursive: true });
 await mkdir(compositionsDir, { recursive: true });
@@ -132,11 +132,14 @@ function hyperframesJson() {
   }, null, 2)}\n`;
 }
 
-function buildBlocks({ config, timing, duration }) {
+function buildBlocks({ config, timing, duration, manifest }) {
   return timing.scenes.map((scene, index) => {
     const key = sceneKeys[index] || safeId(scene.id || `scene-${index + 1}`);
     const start = round(scene.start);
     const end = round(index === timing.scenes.length - 1 ? duration : scene.end);
+    const captions = config.template === "data-lab"
+      ? captionCues(manifest.scenes?.[index]?.text || "", end - start)
+      : [];
     return {
       key,
       compositionId: `scene-${key}`,
@@ -146,8 +149,33 @@ function buildBlocks({ config, timing, duration }) {
       end,
       duration: round(end - start),
       anim: scene.animation || config.animations[index] || "talking",
-      subtitle: config.subtitles[index] || scene.screen_text || scene.label || key
+      subtitle: captions[0]?.text || (config.template === "data-lab" ? "" : config.subtitles[index] || scene.screen_text || scene.label || key),
+      captions
     };
+  });
+}
+
+function captionCues(value, duration) {
+  const words = String(value || "").trim().split(/\s+/).filter(Boolean);
+  const chunks = [];
+  let chunk = "";
+  for (const word of words) {
+    if (chunk && (chunk.length + word.length + 1 > 42 || /[.!?]$/.test(chunk) && chunk.length >= 20)) {
+      chunks.push(chunk);
+      chunk = "";
+    }
+    chunk = chunk ? `${chunk} ${word}` : word;
+  }
+  if (chunk) chunks.push(chunk);
+  if (chunks.length > 1 && chunks.at(-1).length < 16 && chunks.at(-2).length + chunks.at(-1).length + 1 <= 58) {
+    chunks[chunks.length - 2] += ` ${chunks.pop()}`;
+  }
+  const totalWords = words.length || 1;
+  let usedWords = 0;
+  return chunks.map((text) => {
+    const start = round(usedWords / totalWords * duration);
+    usedWords += text.split(/\s+/).length;
+    return { start, text };
   });
 }
 
@@ -202,20 +230,19 @@ ${narratorScript.trimEnd()}
 
 function sceneHtml(scene, key, template = "dark-tech") {
   const variantClass = key === "payoff" ? " scene-payoff-inner" : "";
-  const dataLabTakeaway = template === "data-lab"
-    ? `          <div data-hf-id="hf-${key}-takeaway" class="stage-takeaway">${escapeHtml(dataLabTakeawayText(scene))}</div>
+  const takeaway = template === "data-lab" ? dataLabTakeawayText(scene) : "";
+  const dataLabTakeaway = takeaway
+    ? `          <div data-hf-id="hf-${key}-takeaway" class="stage-takeaway">${escapeHtml(takeaway)}</div>
 `
     : "";
-  const dataLabBottomBand = template === "data-lab" ? dataLabBottomBandHtml(key) : "";
   return `      <div class="scene-inner${variantClass}" data-hf-id="hf-${key}-inner">
         <h1 data-hf-id="hf-${key}-headline" class="headline">${headlineHtml(scene.headline)}</h1>
         <p data-hf-id="hf-${key}-copy" class="copy">${escapeHtml(scene.copy)}</p>
-        <div data-hf-id="hf-${key}-stage" class="visual-stage">
+        <div data-hf-id="hf-${key}-stage" class="visual-stage${takeaway ? " has-takeaway" : ""}">
           <div data-hf-id="hf-${key}-grid" class="stage-grid"></div>
 ${stageHtml(scene.stage, key)}
 ${dataLabTakeaway.trimEnd()}
         </div>
-${dataLabBottomBand.trimEnd()}
       </div>`;
 }
 
@@ -232,20 +259,12 @@ function headlineText(parts) {
 
 function dataLabTakeawayText(scene) {
   const stage = scene.stage || {};
-  return compactText(
-    scene.takeaway || stage.takeaway || stage.rule || stage.label || stage.metric || headlineText(scene.headline) || "Idea clave",
-    46
-  ).toUpperCase();
-}
-
-function dataLabBottomBandHtml(key) {
-  const heights = [34, 58, 42, 74, 52, 86, 48, 68, 38, 62, 46, 78];
-  return `        <div data-hf-id="hf-${key}-bottom-band" class="data-lab-bottom-band" data-layout-ignore>
-          <div data-hf-id="hf-${key}-lab-trace" class="lab-trace"></div>
-          <div data-hf-id="hf-${key}-lab-bars" class="lab-bars">
-${heights.map((height, index) => `            <i data-hf-id="hf-${key}-lab-bar-${index + 1}" style="height:${height}%"></i>`).join("\n")}
-          </div>
-        </div>`;
+  const takeaway = compactText(scene.takeaway || stage.takeaway || "", 46);
+  const same = (a, b) => String(a || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/gi, "").toLowerCase() ===
+    String(b || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/gi, "").toLowerCase();
+  return takeaway && !same(takeaway, headlineText(scene.headline)) && !same(takeaway, scene.copy)
+    ? takeaway
+    : "";
 }
 
 function stageHtml(stage, key) {
@@ -296,9 +315,10 @@ ${steps.map((step, index) => `            <div data-hf-id="hf-${key}-funnel-step
   if (stage.type === "comparison") {
     const left = stage.left || {};
     const right = stage.right || {};
-    return `          <div data-hf-id="hf-${key}-comparison" class="data-lab-comparison">
+    const connection = stage.relation === "connection";
+    return `          <div data-hf-id="hf-${key}-comparison" class="data-lab-comparison${connection ? " is-connection" : ""}">
             <div data-hf-id="hf-${key}-comparison-left" class="comparison-panel bad"><span>${escapeHtml(left.label || "Antes")}</span><strong>${escapeHtml(left.value || "Sin foco")}</strong></div>
-            <div data-hf-id="hf-${key}-comparison-vs" class="comparison-vs">VS</div>
+            <div data-hf-id="hf-${key}-comparison-vs" class="comparison-vs">${connection ? "↔" : "VS"}</div>
             <div data-hf-id="hf-${key}-comparison-right" class="comparison-panel good"><span>${escapeHtml(right.label || "Despues")}</span><strong>${escapeHtml(right.value || "Prioridad clara")}</strong></div>
           </div>`;
   }
@@ -406,7 +426,6 @@ ${sceneHtml(scene, key, template)}
         fromToIf(rootSelector + " .copy", { y: 34, opacity: 0 }, { y: 0, opacity: 1, duration: 0.48, ease: "power2.out" }, at + 0.52);
         fromToIf(rootSelector + " .visual-stage", { y: 48, opacity: 0, scale: 0.97 }, { y: 0, opacity: 1, scale: 1, duration: 0.58, ease: "back.out(1.25)" }, at + 0.66);
         fromToIf(rootSelector + " .stage-label, " + rootSelector + " .node, " + rootSelector + " .stage-card, " + rootSelector + " .flow-item, " + rootSelector + " .metric, " + rootSelector + " .cta-panel, " + rootSelector + " .serp-result, " + rootSelector + " .dashboard-card, " + rootSelector + " .dashboard-chart i, " + rootSelector + " .keyword-cluster, " + rootSelector + " .funnel-step, " + rootSelector + " .comparison-panel, " + rootSelector + " .checklist-item, " + rootSelector + " .timeline-point, " + rootSelector + " .stage-takeaway", { y: 28, opacity: 0, scale: 0.94 }, { y: 0, opacity: 1, scale: 1, duration: 0.44, stagger: 0.09, ease: "back.out(1.5)" }, at + 0.88);
-        fromToIf(rootSelector + " .data-lab-bottom-band", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, ease: "power2.out" }, at + 1.08);
         fromToIf(rootSelector + " .path-line", { scaleX: 0, opacity: 0 }, { scaleX: 1, opacity: 1, duration: 0.5, stagger: 0.12, ease: "power2.out" }, at + 1.02);
       }
 
@@ -423,8 +442,6 @@ ${sceneHtml(scene, key, template)}
         fromToIf(rootSelector + " .serp-result.active", { scale: 0.96, backgroundColor: "#f6fbf8" }, { scale: 1.035, backgroundColor: "#e9fff4", duration: 0.52, ease: "power2.out", yoyo: true, repeat: 1, immediateRender: false }, at + 1.34);
         fromToIf(rootSelector + " .serp-metric", { y: 18, scale: 0.86, opacity: 0 }, { y: 0, scale: 1, opacity: 1, duration: 0.48, ease: "back.out(1.6)", immediateRender: false }, at + 1.66);
         toIf(rootSelector + " .stage-takeaway", { scale: 1.018, duration: 0.74, yoyo: true, repeat: 1, ease: "sine.inOut", transformOrigin: "center center" }, at + 1.84);
-        fromToIf(rootSelector + " .data-lab-bottom-band .lab-trace", { x: -64, opacity: 0.34 }, { x: 72, opacity: 0.9, duration: Math.max(1.9, sceneSpan * 0.42), ease: "sine.inOut", immediateRender: false }, at + 1.46);
-        fromToIf(rootSelector + " .data-lab-bottom-band i", { scaleY: 0.24, opacity: 0.36, transformOrigin: "bottom center" }, { scaleY: 1, opacity: 1, transformOrigin: "bottom center", duration: 0.62, stagger: 0.035, ease: "power2.out", immediateRender: false }, at + 1.34);
 
         fromToIf(rootSelector + " .dashboard-chart i", { scaleY: 0.12, opacity: 0.72, transformOrigin: "bottom center" }, { scaleY: 1, opacity: 1, transformOrigin: "bottom center", duration: 0.74, stagger: 0.08, ease: "power3.out", immediateRender: false }, at + 1.18);
         toIf(rootSelector + " .dashboard-card strong", { scale: 1.08, duration: 0.42, stagger: 0.08, yoyo: true, repeat: 1, ease: "sine.inOut", transformOrigin: "left center" }, at + 1.62);
@@ -439,6 +456,7 @@ ${sceneHtml(scene, key, template)}
         fromToIf(rootSelector + " .comparison-panel.bad", { x: -34, opacity: 0, scale: 0.94 }, { x: 0, opacity: 1, scale: 1, duration: 0.52, ease: "power3.out", immediateRender: false }, at + 1.1);
         fromToIf(rootSelector + " .comparison-panel.good", { x: 34, opacity: 0, scale: 0.94 }, { x: 0, opacity: 1, scale: 1, duration: 0.52, ease: "power3.out", immediateRender: false }, at + 1.22);
         fromToIf(rootSelector + " .comparison-vs", { rotation: -18, scale: 0.72, opacity: 0 }, { rotation: 0, scale: 1, opacity: 1, duration: 0.48, ease: "back.out(1.8)", immediateRender: false }, at + 1.46);
+        toIf(rootSelector + " .is-connection .comparison-vs", { scale: 1.12, duration: 0.68, yoyo: true, repeat: 1, ease: "sine.inOut" }, at + 2.02);
 
         fromToIf(rootSelector + " .checklist-item", { x: -28, opacity: 0, scale: 0.97 }, { x: 0, opacity: 1, scale: 1, duration: 0.4, stagger: 0.1, ease: "power2.out", immediateRender: false }, at + 1.12);
         fromToIf(rootSelector + " .checklist-item span", { scale: 0.55, rotation: -20 }, { scale: 1, rotation: 0, duration: 0.34, stagger: 0.1, ease: "back.out(2)", immediateRender: false }, at + 1.34);
@@ -887,7 +905,7 @@ function dataLabCss() {
     .template-data-lab .scene-inner {
       left: var(--safe-left);
       right: var(--safe-right);
-      top: 178px;
+      top: 220px;
       bottom: var(--safe-bottom);
     }
 
@@ -1347,9 +1365,24 @@ function dataLabCss() {
 
     .template-data-lab .visual-stage,
     .template-data-lab .scene-payoff-inner .visual-stage {
-      top: 410px;
+      top: 350px;
       height: 650px;
       border-radius: 20px;
+      border-color: rgba(124,247,189,.35);
+      box-shadow: 0 34px 100px rgba(0,0,0,.48), 0 0 62px rgba(124,247,189,.08);
+    }
+
+    .template-data-lab .visual-stage::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 24px;
+      width: 38%;
+      height: 5px;
+      z-index: 3;
+      background: linear-gradient(90deg, var(--mint), rgba(124,247,189,0));
+      box-shadow: 0 0 26px rgba(124,247,189,.52);
+      pointer-events: none;
     }
 
     .template-data-lab .data-lab-serp,
@@ -1359,7 +1392,17 @@ function dataLabCss() {
     .template-data-lab .data-lab-comparison,
     .template-data-lab .data-lab-checklist,
     .template-data-lab .data-lab-timeline {
-      inset: 32px 32px 142px;
+      inset: 32px;
+    }
+
+    .template-data-lab .has-takeaway .data-lab-serp,
+    .template-data-lab .has-takeaway .data-lab-dashboard,
+    .template-data-lab .has-takeaway .data-lab-keyword-map,
+    .template-data-lab .has-takeaway .data-lab-funnel,
+    .template-data-lab .has-takeaway .data-lab-comparison,
+    .template-data-lab .has-takeaway .data-lab-checklist,
+    .template-data-lab .has-takeaway .data-lab-timeline {
+      bottom: 142px;
     }
 
     .template-data-lab .stage-takeaway {
@@ -1382,55 +1425,6 @@ function dataLabCss() {
       line-height: 1;
       font-weight: 1000;
       box-shadow: 0 18px 48px rgba(0,0,0,.24), inset 0 0 0 1px rgba(255,255,255,.04);
-    }
-
-    .template-data-lab .data-lab-bottom-band {
-      position: absolute;
-      left: 0;
-      top: 1110px;
-      width: var(--safe-width);
-      height: 350px;
-      z-index: 0;
-      opacity: .88;
-      pointer-events: none;
-      overflow: hidden;
-      border-top: 1px solid rgba(124,247,189,.16);
-      background:
-        radial-gradient(circle at 26% 18%, rgba(124,247,189,.18), transparent 34%),
-        linear-gradient(90deg, rgba(124,247,189,.07) 1px, transparent 1px),
-        linear-gradient(0deg, rgba(124,247,189,.055) 1px, transparent 1px);
-      background-size: auto, 72px 72px, 72px 72px;
-      mask-image: linear-gradient(180deg, rgba(0,0,0,.94), rgba(0,0,0,.56) 58%, transparent 100%);
-    }
-
-    .template-data-lab .lab-bars {
-      position: absolute;
-      left: 28px;
-      right: 28px;
-      bottom: 34px;
-      height: 176px;
-      display: flex;
-      align-items: end;
-      gap: 16px;
-    }
-
-    .template-data-lab .lab-bars i {
-      flex: 1;
-      min-height: 26px;
-      border-radius: 10px 10px 0 0;
-      background: linear-gradient(180deg, rgba(124,247,189,.72), rgba(102,163,255,.18));
-      box-shadow: 0 14px 34px rgba(124,247,189,.10);
-    }
-
-    .template-data-lab .lab-trace {
-      position: absolute;
-      left: 20px;
-      right: 20px;
-      top: 88px;
-      height: 4px;
-      border-radius: 999px;
-      background: linear-gradient(90deg, transparent, rgba(124,247,189,.84), rgba(102,163,255,.58), transparent);
-      box-shadow: 0 0 28px rgba(124,247,189,.25);
     }
 
     .template-data-lab .serp-search {
@@ -1459,6 +1453,40 @@ function dataLabCss() {
 
     .template-data-lab .data-lab-comparison {
       height: auto;
+    }
+
+    .template-data-lab .is-connection .comparison-panel.bad {
+      background: #e6eeff;
+      outline: 5px solid rgba(102,163,255,.23);
+    }
+
+    .template-data-lab .is-connection::before {
+      content: "";
+      position: absolute;
+      left: 22%;
+      right: 22%;
+      top: 50%;
+      height: 5px;
+      background: linear-gradient(90deg, var(--blue), var(--mint));
+      box-shadow: 0 0 28px rgba(124,247,189,.45);
+    }
+
+    .template-data-lab .is-connection .comparison-panel,
+    .template-data-lab .is-connection .comparison-vs {
+      position: relative;
+      z-index: 1;
+    }
+
+    .template-data-lab .is-connection .comparison-panel.good {
+      background: #e2ffef;
+      outline: 5px solid rgba(124,247,189,.24);
+    }
+
+    .template-data-lab .is-connection .comparison-vs {
+      background: var(--mint);
+      color: #071013;
+      box-shadow: 0 0 38px rgba(124,247,189,.36);
+      font-size: 52px;
     }
 
     .template-data-lab .comparison-panel {
@@ -1498,10 +1526,17 @@ function dataLabCss() {
 
     .template-data-lab .subtitle {
       top: 1250px;
-      min-height: 120px;
-      padding: 20px 30px;
+      min-height: 112px;
+      padding: 18px 30px;
       font-size: 31px;
       border-radius: 14px;
+      justify-content: flex-start;
+      text-align: left;
+      font-weight: 750;
+      background: rgba(8,22,25,.93);
+      color: #f8fffb;
+      border-left: 6px solid var(--mint);
+      box-shadow: 0 18px 58px rgba(0,0,0,.36);
     }
 
     .template-data-lab .transition-beat {
@@ -1781,7 +1816,14 @@ function renderAt(time) {
   const t = Math.max(0, Math.min(duration, Number(time) || 0));
   const block = activeBlock(t);
   const transition = transitionState(t);
-  if (subtitleEl) subtitleEl.textContent = block.subtitle;
+  if (subtitleEl) {
+    let caption = block.subtitle;
+    for (const cue of block.captions || []) {
+      if (t - block.start >= cue.start) caption = cue.text;
+    }
+    subtitleEl.textContent = caption;
+    subtitleEl.style.display = caption ? "flex" : "none";
+  }
   if (transitionBeat) {
     transitionBeat.style.opacity = (transition.power * 0.82).toFixed(3);
     transitionBeat.style.transform = "scaleX(" + (0.7 + transition.power * 0.78).toFixed(3) + ")";
@@ -2430,7 +2472,7 @@ function configFromManifest(videoSlug, manifest, requestedTemplate) {
       return {
         headline: headlineFromText(scene.headline || scene.screen_text || scene.label || `Escena ${index + 1}`),
         copy: compactText(copySource, template === "data-lab" ? 104 : 138),
-        takeaway: compactText(scene.takeaway || scene.screen_text || scene.label || `Escena ${index + 1}`, 46),
+        takeaway: compactText(scene.takeaway || "", 46),
         stage: normalizeStage(scene.stage || fallbackStageFor(scene, index, manifestScenes.length, template))
       };
     })
