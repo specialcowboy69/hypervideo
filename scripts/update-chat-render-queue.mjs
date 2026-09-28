@@ -59,6 +59,7 @@ export async function updateQueue(root, { slug, status, jobId = '', downloadUrl 
   if (status === 'needs_review') {
     item.outputs.render = downloadUrl;
     item.outputs.render_job_id = jobId;
+    item.review = { ...(item.review || {}), status: 'needs_review' };
     delete item.render_attempt.error;
   }
   if (status === 'blocked') item.render_attempt.error = String(error || 'Remote draft failed; inspect the Actions job').slice(0, 300);

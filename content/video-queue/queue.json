@@ -34,7 +34,7 @@
         "render_job_id": "hfb-puentes-tematicos-seo-v2-36413625439"
       },
       "review": {
-        "status": "not_ready",
+        "status": "needs_review",
         "approve_url": "",
         "reject_url": ""
       },
