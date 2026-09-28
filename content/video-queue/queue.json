@@ -84,7 +84,7 @@
     {
       "slug": "puentes-tematicos-seo-v4",
       "title": "Puentes temáticos: cómo conectar dos temas para la misma audiencia",
-      "status": "publishing",
+      "status": "scheduled",
       "folder": "pending/puentes-tematicos-seo-v4",
       "created_at": "2026-09-28",
       "updated_at": "2026-09-28",
@@ -103,14 +103,42 @@
         "zip": "",
         "render": "https://media.urltovideo.es/hyperframes/drafts/puentes-tematicos-seo-v4-20260928-121526.mp4",
         "preview": "",
-        "render_job_id": "hfb-puentes-tematicos-seo-v4-36420557237"
+        "render_job_id": "hfb-puentes-tematicos-seo-v4-36420557237",
+        "reel_publish": {
+          "jobId": "reel-puentes-tematicos-seo-v4-36453208305",
+          "publish_at": "2026-09-28T16:44:37.333Z",
+          "platforms": [
+            "instagram",
+            "facebook"
+          ],
+          "video_url": "https://media.urltovideo.es/hyperframes/drafts/puentes-tematicos-seo-v4-20260928-121526.mp4",
+          "response": {
+            "ok": true,
+            "batch_id": null,
+            "created": 1,
+            "jobs": [
+              {
+                "jobId": "reel-puentes-tematicos-seo-v4-36453208305",
+                "batch_id": null,
+                "status": "pending",
+                "platforms": [
+                  "instagram",
+                  "facebook"
+                ],
+                "publish_at": "2026-09-28T16:44:37.333Z",
+                "video_url": "https://media.urltovideo.es/hyperframes/drafts/puentes-tematicos-seo-v4-20260928-121526.mp4"
+              }
+            ]
+          },
+          "scheduled_at": "2026-09-28T16:44:39.922Z"
+        }
       },
       "review": {
-        "status": "needs_review",
+        "status": "approved",
         "approve_url": "",
         "reject_url": ""
       },
-      "notes": "V4 del vídeo puentes temáticos: mismo guion y voz de V3, plantilla visual corregida y conexiones sin VS. Mantener V3 para comparación.",
+      "notes": "V4 del vídeo puentes temáticos: mismo guion y voz de V3, plantilla visual corregida y conexiones sin VS. Mantener V3 para comparación. Reel scheduled through n8n for 2026-09-28T16:44:37.333Z (instagram, facebook).",
       "render_attempt": {
         "jobId": "hfb-puentes-tematicos-seo-v4-36420557237",
         "sourceSha": "e09535bff57c0d947ee7d5afeec6f042b6654afd",
