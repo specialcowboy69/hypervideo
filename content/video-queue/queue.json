@@ -12,7 +12,7 @@
     {
       "slug": "puentes-tematicos-seo-v2",
       "title": "Puentes temáticos: de pérdida de peso a jardinería sin perder el hilo",
-      "status": "in_progress",
+      "status": "needs_review",
       "folder": "pending/puentes-tematicos-seo-v2",
       "created_at": "2026-09-28",
       "updated_at": "2026-09-28",
@@ -29,7 +29,7 @@
         "project_folder": "videos/puentes-tematicos-seo-v2",
         "audio_folder": "assets/character/audio/generated/puentes-tematicos-seo-v2",
         "zip": "",
-        "render": "",
+        "render": "https://media.urltovideo.es/hyperframes/drafts/puentes-tematicos-seo-v2-20260928-110728.mp4",
         "preview": "",
         "render_job_id": "hfb-puentes-tematicos-seo-v2-36413625439"
       },
