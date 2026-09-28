@@ -84,7 +84,7 @@
     {
       "slug": "puentes-tematicos-seo-v4",
       "title": "Puentes temáticos: cómo conectar dos temas para la misma audiencia",
-      "status": "needs_review",
+      "status": "publishing",
       "folder": "pending/puentes-tematicos-seo-v4",
       "created_at": "2026-09-28",
       "updated_at": "2026-09-28",
@@ -115,6 +115,19 @@
         "jobId": "hfb-puentes-tematicos-seo-v4-36420557237",
         "sourceSha": "e09535bff57c0d947ee7d5afeec6f042b6654afd",
         "runUrl": "https://github.com/specialcowboy69/hypervideo/actions/runs/36420557237"
+      },
+      "publish_attempt": {
+        "jobId": "reel-puentes-tematicos-seo-v4-36453208305",
+        "runUrl": "https://github.com/specialcowboy69/hypervideo/actions/runs/36453208305",
+        "video_url": "https://media.urltovideo.es/hyperframes/drafts/puentes-tematicos-seo-v4-20260928-121526.mp4",
+        "caption": "Una web sobre pérdida de peso quiere hablar de jardinería. Una pregunta compartida por su audiencia puede ayudar a conectar ambos temas con una guía útil.",
+        "publish_at": "2026-09-28T16:44:37.333Z",
+        "platforms": [
+          "instagram",
+          "facebook"
+        ],
+        "title": "Puentes temáticos: cómo conectar dos temas para la misma audiencia",
+        "reserved_at": "2026-09-28T16:44:37.395Z"
       }
     },
     {
