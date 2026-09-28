@@ -48,7 +48,7 @@
     {
       "slug": "puentes-tematicos-seo-v3",
       "title": "Puentes temáticos: cómo conectar dos temas para la misma audiencia",
-      "status": "pending",
+      "status": "in_progress",
       "folder": "pending/puentes-tematicos-seo-v3",
       "created_at": "2026-09-28",
       "updated_at": "2026-09-28",
@@ -67,14 +67,19 @@
         "zip": "",
         "render": "",
         "preview": "",
-        "render_job_id": ""
+        "render_job_id": "hfb-puentes-tematicos-seo-v3-36417804893"
       },
       "review": {
         "status": "not_ready",
         "approve_url": "",
         "reject_url": ""
       },
-      "notes": "V3 de puentes temáticos: guion claro y natural validado con el usuario; conservar V1/V2 para comparación. Borrador pendiente de revisión."
+      "notes": "V3 de puentes temáticos: guion claro y natural validado con el usuario; conservar V1/V2 para comparación. Borrador pendiente de revisión.",
+      "render_attempt": {
+        "jobId": "hfb-puentes-tematicos-seo-v3-36417804893",
+        "sourceSha": "7038c13fb60b1a8628c510cf5d62a6c86297ba61",
+        "runUrl": "https://github.com/specialcowboy69/hypervideo/actions/runs/36417804893"
+      }
     },
     {
       "slug": "puentes-tematicos-seo",
