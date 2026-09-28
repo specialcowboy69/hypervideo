@@ -88,7 +88,7 @@ Plantillas de video:
 Personas de guion:
 
 - `dark-tech` y `light-workshop`: usar `assets/character/personas/main-narrator.md` salvo indicacion contraria. Voz directa, sarcastica y canalla.
-- `data-lab`: usar `assets/character/personas/social-retention-teacher.md` salvo indicacion contraria. Voz de experto cercano, directo e incisivo; ironia ligera opcional, sin chistes obligatorios ni palabrotas por defecto.
+- `data-lab`: usar `assets/character/personas/social-retention-teacher.md` salvo indicacion contraria. Voz de experto cercano, claro y natural; ironia ligera opcional, sin chistes obligatorios ni palabrotas por defecto. El gancho inicial da un motivo concreto para seguir viendo, sin forzar frases impactantes durante todo el video.
 - Al convertir chat o NotebookLM a `voiceover.scenes.json`, aplicar la persona antes de generar ElevenLabs. ElevenLabs solo lee el texto final de cada escena.
 - Para nuevos videos, fijar `elevenlabs.voice_id` a `RwzBDEn5f6FIgpAjH9YN`, salvo que el usuario elija otra voz para ese video. El ID de voz elige el timbre de ElevenLabs; el archivo de persona define como escribir el guion. La opcion `--voice` del generador permite una prueba puntual.
 
@@ -103,9 +103,9 @@ node scripts\trigger-n8n-build-render.mjs --slug <slug> --mode draft --template 
 Aplicar este proceso al escribir desde el chat y desde Summary Intake. La voz de `data-lab` vive en `assets/character/personas/social-retention-teacher.md`; las otras plantillas conservan su propia personalidad.
 
 1. Elegir una audiencia, una pregunta central y una respuesta util.
-2. Preparar tres ganchos internamente y elegir el mas concreto, relevante y creible.
-3. Redactar una narracion continua de 40-60 segundos: gancho, contexto o consecuencia, ejemplo o mecanismo, respuesta y cierre. Entregar valor durante el desarrollo.
-4. Revisar como suena al hablar: variar frases, quitar relleno y repeticiones, comprobar que el ejemplo sostiene la idea y que el cierre resuelve la promesa inicial.
+2. Preparar tres aperturas internamente y elegir la que plantee una pregunta concreta y un motivo creible para quedarse.
+3. Redactar una narracion continua de 40-60 segundos: situacion y pregunta, contexto suficiente para entender el ejemplo, explicacion de como funciona, respuesta y cierre. Entregar valor desde el principio.
+4. Revisar como suena al hablar sin apoyo visual: aclarar referencias y transiciones, quitar relleno, falsas polemicas y frases impactantes sin funcion, comprobar que el ejemplo sostiene la idea y que el cierre responde la pregunta inicial.
 5. Dividir despues en 4-7 escenas conectadas, cada una con un visual dominante. No repetir una miniclase completa en cada escena.
 6. Anadir CTA solo si ayuda al objetivo. Dejarlo vacio si basta una conclusion. No inventar recursos descargables, ofertas ni solicitudes de comentarios.
 

@@ -97,7 +97,7 @@ Data Lab rules:
 
 - No 3D narrator, no GLB character assets, no Three.js narrator layer.
 - Default script persona: `assets/character/personas/social-retention-teacher.md`.
-- Default tone: a close, direct, slightly incisive expert. Light irony is optional; jokes and profanity are not required. Follow the canonical persona for hook selection, continuous narration, grounding and a natural closing.
+- Default tone: a close, clear and natural expert. Light irony is optional; jokes and profanity are not required. Follow the canonical persona for an opening with a reason to keep watching, self-contained context, continuous narration and a natural closing.
 - Voiceover, scene timing, subtitles, lower mask, and transition beats still apply.
 - The visual guide is the graphic system: cursor-like emphasis, zoom-like composition, highlights, cards, metrics, and panel motion.
 - Keep all critical text and chart values inside the vertical social safe lane.
@@ -312,7 +312,7 @@ Rules:
 - Scene audio should roughly match a `40-60s` total target unless the user asks for a different length.
 - Prefer short, punchy scenes over dense paragraphs.
 - Use `assets/character/personas/main-narrator.md` for narrator-led `dark-tech` and `light-workshop` videos.
-- Use `assets/character/personas/social-retention-teacher.md` for `data-lab` videos unless explicitly overridden.
+- Use `assets/character/personas/social-retention-teacher.md` for `data-lab` videos unless explicitly overridden. Explain the example clearly before drawing a conclusion; do not force an impactful line into every scene.
 - The narrator templates may be sarcastic and use mild Spanish profanity, but the useful point must remain clear.
 - The `data-lab` persona allows light irony when useful, with no compulsory jokes or profanity by default. Write and tighten the whole narration before scene segmentation; generate audio separately per scene afterwards. Never invent an offer or add a comment CTA automatically.
 
