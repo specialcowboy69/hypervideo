@@ -99,6 +99,8 @@ Data Lab rules:
 - Default script persona: `assets/character/personas/social-retention-teacher.md`.
 - Default tone: a close, clear and natural expert. Light irony is optional; jokes and profanity are not required. Follow the canonical persona for an opening with a reason to keep watching, self-contained context, continuous narration and a natural closing.
 - Voiceover, scene timing, subtitles, lower mask, and transition beats still apply.
+- For `data-lab`, the bottom subtitle follows short phrases from the spoken narration. Keep the headline, supporting copy and chart labels distinct. Add a stage takeaway only when it says something useful beyond the headline and supporting copy.
+- For a `comparison` that connects two complementary concepts, set `stage.relation` to `connection` so the stage uses a linking symbol and neutral cards; leave it unset for an actual before/after or opposing comparison.
 - The visual guide is the graphic system: cursor-like emphasis, zoom-like composition, highlights, cards, metrics, and panel motion.
 - Keep all critical text and chart values inside the vertical social safe lane.
 - Prefer large, legible graphics over decorative complexity.

@@ -1,0 +1,124 @@
+{
+  "project": {
+    "slug": "puentes-tematicos-seo-v4",
+    "language": "es",
+    "persona": "assets/character/personas/social-retention-teacher.md",
+    "target_duration_s": 50,
+    "visual_template": "data-lab",
+    "title": "Puentes temáticos: cómo conectar dos temas para la misma audiencia",
+    "ghost": [
+      "TEMAS",
+      "PUENTE"
+    ]
+  },
+  "elevenlabs": {
+    "voice_id": "RwzBDEn5f6FIgpAjH9YN",
+    "model_id": "eleven_multilingual_v2",
+    "output_format": "mp3_44100_128",
+    "use_timestamps": true,
+    "pause_after_scene_ms": 180,
+    "voice_settings": {
+      "stability": 0.42,
+      "similarity_boost": 0.78,
+      "style": 0.28,
+      "use_speaker_boost": true
+    }
+  },
+  "scenes": [
+    {
+      "id": "scene-01-hook",
+      "label": "SITUACIÓN",
+      "animation": "talking",
+      "screen_text": "DOS TEMAS",
+      "visual_note": "El cambio necesita una conexión clara.",
+      "text": "Una web sobre pérdida de peso quiere hablar también de jardinería. ¿Cómo consigue que ese cambio tenga sentido para sus lectores?",
+      "stage": {
+        "type": "comparison",
+        "left": {
+          "label": "TEMA ACTUAL",
+          "value": "Pérdida de peso"
+        },
+        "right": {
+          "label": "TEMA NUEVO",
+          "value": "Jardinería"
+        },
+        "relation": "connection"
+      }
+    },
+    {
+      "id": "scene-02-question",
+      "label": "PREGUNTA",
+      "animation": "talking",
+      "screen_text": "UNA PREGUNTA COMÚN",
+      "visual_note": "Una necesidad concreta une las búsquedas.",
+      "text": "Puede empezar por una pregunta que conecte ambos intereses: ¿cómo cultivar verduras en casa para preparar comidas equilibradas?",
+      "stage": {
+        "type": "keyword-map",
+        "core": "CULTIVAR PARA COCINAR",
+        "clusters": [
+          "Alimentación",
+          "Huerto",
+          "Verduras",
+          "Comidas equilibradas"
+        ]
+      }
+    },
+    {
+      "id": "scene-03-guide",
+      "label": "GUÍA",
+      "animation": "talking",
+      "screen_text": "EL PUNTO DE ENTRADA",
+      "visual_note": "La misma audiencia entiende ambos temas.",
+      "text": "Una guía sobre eso sigue siendo útil para quien busca mejorar su alimentación y, al mismo tiempo, introduce el tema del huerto.",
+      "stage": {
+        "type": "comparison",
+        "left": {
+          "label": "NECESIDAD",
+          "value": "Comer mejor"
+        },
+        "right": {
+          "label": "NUEVA PREGUNTA",
+          "value": "Cultivar en casa"
+        },
+        "relation": "connection"
+      }
+    },
+    {
+      "id": "scene-04-links",
+      "label": "DESARROLLO",
+      "animation": "talking",
+      "screen_text": "SIGUE LA RESPUESTA",
+      "visual_note": "Enlaces que amplían la guía.",
+      "text": "Desde esa guía puede enlazar otros contenidos que amplíen la respuesta, como qué verduras cultivar o cómo utilizarlas en la cocina.",
+      "stage": {
+        "type": "checklist",
+        "items": [
+          "Guía principal",
+          "Qué cultivar",
+          "Cómo cocinarlo"
+        ],
+        "checked": 3
+      }
+    },
+    {
+      "id": "scene-05-payoff",
+      "label": "CONCLUSIÓN",
+      "animation": "talking",
+      "screen_text": "PUENTE TEMÁTICO",
+      "visual_note": "Dos temas útiles para los mismos lectores.",
+      "text": "Eso es un puente temático: un contenido que permite pasar de un tema a otro porque ambos pueden interesarle a la misma audiencia.",
+      "stage": {
+        "type": "comparison",
+        "left": {
+          "label": "TEMA ORIGINAL",
+          "value": "Alimentación"
+        },
+        "right": {
+          "label": "TEMA NUEVO",
+          "value": "Huerto en casa"
+        },
+        "relation": "connection"
+      }
+    }
+  ]
+}
