@@ -46,6 +46,37 @@
       }
     },
     {
+      "slug": "puentes-tematicos-seo-v3",
+      "title": "Puentes temáticos: cómo conectar dos temas para la misma audiencia",
+      "status": "pending",
+      "folder": "pending/puentes-tematicos-seo-v3",
+      "created_at": "2026-09-28",
+      "updated_at": "2026-09-28",
+      "template": "data-lab",
+      "duration_target_s": 50,
+      "persona": "assets/character/personas/social-retention-teacher.md",
+      "caption": "Una web sobre pérdida de peso quiere hablar de jardinería. Una pregunta compartida por su audiencia puede ayudar a conectar ambos temas con una guía útil.",
+      "cta": "",
+      "platforms": [
+        "instagram"
+      ],
+      "outputs": {
+        "content_folder": "content/video-queue/pending/puentes-tematicos-seo-v3",
+        "project_folder": "videos/puentes-tematicos-seo-v3",
+        "audio_folder": "assets/character/audio/generated/puentes-tematicos-seo-v3",
+        "zip": "",
+        "render": "",
+        "preview": "",
+        "render_job_id": ""
+      },
+      "review": {
+        "status": "not_ready",
+        "approve_url": "",
+        "reject_url": ""
+      },
+      "notes": "V3 de puentes temáticos: guion claro y natural validado con el usuario; conservar V1/V2 para comparación. Borrador pendiente de revisión."
+    },
+    {
       "slug": "puentes-tematicos-seo",
       "title": "Puentes temáticos para ampliar una web sin perder el foco",
       "status": "needs_review",
