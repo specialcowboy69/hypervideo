@@ -1,0 +1,60 @@
+name: HyperFrames check Reel status (manual)
+
+on:
+  workflow_dispatch:
+    inputs:
+      job_id:
+        description: Reel job ID returned by the publication Action
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    env:
+      JOB_ID: ${{ inputs.job_id }}
+    steps:
+      - name: Check owner, branch, job ID and service credentials
+        env:
+          CF_ACCESS_CLIENT_ID: ${{ secrets.CF_ACCESS_CLIENT_ID }}
+          CF_ACCESS_CLIENT_SECRET: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF" = refs/heads/main
+          test "$GITHUB_ACTOR" = "${GITHUB_REPOSITORY%%/*}"
+          [[ "$JOB_ID" =~ ^reel-[A-Za-z0-9._-]+-[0-9]+$ ]]
+          test -n "$CF_ACCESS_CLIENT_ID" && test -n "$CF_ACCESS_CLIENT_SECRET"
+      - name: Read Reel state from n8n without scheduling another job
+        env:
+          CF_ACCESS_CLIENT_ID: ${{ secrets.CF_ACCESS_CLIENT_ID }}
+          CF_ACCESS_CLIENT_SECRET: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          curl -fsS --max-time 30 --get \
+            --header "CF-Access-Client-Id: $CF_ACCESS_CLIENT_ID" \
+            --header "CF-Access-Client-Secret: $CF_ACCESS_CLIENT_SECRET" \
+            --header 'User-Agent: Mozilla/5.0' \
+            --data-urlencode "jobId=$JOB_ID" \
+            'https://n8n.urltovideo.es/webhook/instagram-reel-status' \
+            > "$RUNNER_TEMP/reel-status.json"
+          node - <<'NODE'
+          const fs = require('node:fs');
+          const r = JSON.parse(fs.readFileSync(process.env.RUNNER_TEMP + '/reel-status.json', 'utf8'));
+          const job = r.job || r.jobs?.find(j => j.jobId === process.env.JOB_ID) || r;
+          if (job.jobId !== process.env.JOB_ID) throw Error('Status response has no matching jobId');
+          console.log(JSON.stringify({
+            jobId: job.jobId,
+            status: job.status,
+            platform_status: job.platform_status,
+            instagram_status: job.instagram_status,
+            facebook_status: job.facebook_status,
+            instagram_media_id: job.instagram_media_id,
+            facebook_media_id: job.facebook_media_id,
+            instagram_error: job.instagram_error,
+            facebook_error: job.facebook_error,
+            checked_at: new Date().toISOString()
+          }, null, 2));
+          NODE
