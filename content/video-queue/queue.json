@@ -12,7 +12,7 @@
     {
       "slug": "puentes-tematicos-seo-v2",
       "title": "Puentes temáticos: de pérdida de peso a jardinería sin perder el hilo",
-      "status": "pending",
+      "status": "in_progress",
       "folder": "pending/puentes-tematicos-seo-v2",
       "created_at": "2026-09-28",
       "updated_at": "2026-09-28",
@@ -30,14 +30,20 @@
         "audio_folder": "assets/character/audio/generated/puentes-tematicos-seo-v2",
         "zip": "",
         "render": "",
-        "preview": ""
+        "preview": "",
+        "render_job_id": "hfb-puentes-tematicos-seo-v2-36413625439"
       },
       "review": {
         "status": "not_ready",
         "approve_url": "",
         "reject_url": ""
       },
-      "notes": "V2 del borrador de puentes temáticos: nueva personalidad y voz para comparación. El original sigue en needs_review."
+      "notes": "V2 del borrador de puentes temáticos: nueva personalidad y voz para comparación. El original sigue en needs_review.",
+      "render_attempt": {
+        "jobId": "hfb-puentes-tematicos-seo-v2-36413625439",
+        "sourceSha": "a879baa0cb32c04333a4d376485fde6954208220",
+        "runUrl": "https://github.com/specialcowboy69/hypervideo/actions/runs/36413625439"
+      }
     },
     {
       "slug": "puentes-tematicos-seo",
