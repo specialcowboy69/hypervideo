@@ -1,0 +1,103 @@
+name: HyperFrames publish Reel (manual)
+
+on:
+  workflow_dispatch:
+    inputs:
+      slug:
+        description: Video slug already rendered and reviewed
+        required: true
+        type: string
+      caption:
+        description: Public caption for the Reel
+        required: true
+        type: string
+      publish_at:
+        description: "now or future ISO time with timezone, e.g. 2026-10-20T15:00:00+02:00"
+        required: true
+        default: now
+        type: string
+      platforms:
+        description: Destinations
+        required: true
+        type: choice
+        options:
+          - instagram,facebook
+          - instagram
+          - facebook
+      confirmation:
+        description: "Explicit approval: type PUBLICAR followed by a space and the exact slug"
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: hyperframes-reel-publication
+      cancel-in-progress: false
+    env:
+      N8N_BASE_URL: https://n8n.urltovideo.es
+      REEL_SLUG: ${{ inputs.slug }}
+      REEL_CAPTION: ${{ inputs.caption }}
+      REEL_PUBLISH_AT: ${{ inputs.publish_at }}
+      REEL_PLATFORMS: ${{ inputs.platforms }}
+      REEL_CONFIRMATION: ${{ inputs.confirmation }}
+      REEL_JOB_ID: reel-${{ inputs.slug }}-${{ github.run_id }}
+      REEL_RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check owner, branch and service credentials before reservation
+        env:
+          CF_ACCESS_CLIENT_ID: ${{ secrets.CF_ACCESS_CLIENT_ID }}
+          CF_ACCESS_CLIENT_SECRET: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF" = refs/heads/main
+          test "$GITHUB_ACTOR" = "${GITHUB_REPOSITORY%%/*}"
+          test -n "$N8N_BASE_URL" && test -n "$CF_ACCESS_CLIENT_ID" && test -n "$CF_ACCESS_CLIENT_SECRET"
+      - name: Reserve one publication job in main
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git checkout -B reel-publish-result origin/main
+            node scripts/reel-publish-bridge.mjs --action reserve > "$RUNNER_TEMP/reel-reservation.json"
+            git add content/video-queue/queue.json content/video-queue/video-queue.csv
+            git commit -m "chore: reserve reel publication for $REEL_SLUG"
+            if git push origin HEAD:main; then break; fi
+            if [ "$attempt" -eq 3 ]; then exit 1; fi
+          done
+      - name: Send reserved Reel to n8n exactly once
+        env:
+          CF_ACCESS_CLIENT_ID: ${{ secrets.CF_ACCESS_CLIENT_ID }}
+          CF_ACCESS_CLIENT_SECRET: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PUBLISH_AT="$(node -e 'const fs=require("node:fs"); console.log(JSON.parse(fs.readFileSync(process.env.RUNNER_TEMP+"/reel-reservation.json")).publish_at)')"
+          VIDEO_URL="$(node -e 'const fs=require("node:fs"); console.log(JSON.parse(fs.readFileSync(process.env.RUNNER_TEMP+"/reel-reservation.json")).video_url)')"
+          if ! node scripts/schedule-instagram-reel.mjs \
+            --slug "$REEL_SLUG" --video-url "$VIDEO_URL" --caption "$REEL_CAPTION" \
+            --publish-at "$PUBLISH_AT" --platforms "$REEL_PLATFORMS" \
+            --job-id "$REEL_JOB_ID" --no-update > "$RUNNER_TEMP/reel-accepted.json"; then
+            echo "::error::The webhook result is uncertain. Check n8n for job $REEL_JOB_ID before retrying; the item remains publishing."
+            exit 1
+          fi
+          node -e 'const a=JSON.parse(require("node:fs").readFileSync(process.env.RUNNER_TEMP+"/reel-accepted.json"));const r=a.response||{};console.log(JSON.stringify({requestedJobId:a.jobId,ok:r.ok,created:r.created,jobs:(r.jobs||[]).map(j=>({jobId:j.jobId,status:j.status,platforms:j.platforms}))}));'
+      - name: Save n8n acceptance to the video queue
+        run: |
+          set -euo pipefail
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git checkout -B reel-publish-result origin/main
+            node scripts/reel-publish-bridge.mjs --action complete --response-file "$RUNNER_TEMP/reel-accepted.json"
+            git add content/video-queue/queue.json content/video-queue/video-queue.csv
+            git commit -m "chore: record reel scheduling for $REEL_SLUG"
+            if git push origin HEAD:main; then break; fi
+            if [ "$attempt" -eq 3 ]; then exit 1; fi
+          done
+          echo "n8n accepted $REEL_JOB_ID. Check the n8n Reel status workflow for final publication status."

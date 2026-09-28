@@ -380,6 +380,8 @@ node scripts\trigger-n8n-build-render.mjs --slug <slug> --mode draft --template 
 
 Default Reel scheduling command, only after user approval to publish or schedule:
 
+For the manual GitHub queue, prefer the separately triggered `HyperFrames publish Reel (manual)` Action after explicit user approval; see `docs/runbooks/manual-reel-publishing.md`. Do not launch it when merely preparing, validating or rendering a draft.
+
 ```powershell
 node scripts\schedule-instagram-reel.mjs --slug <slug> --caption "Texto del post" --publish-at "YYYY-MM-DDTHH:MM:SS+02:00" --platforms instagram,facebook
 ```

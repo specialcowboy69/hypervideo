@@ -75,7 +75,7 @@ export function normalizePlatforms(raw = "") {
   return [...new Set(mapped.length ? mapped : ["instagram"])];
 }
 
-function parseCsv(text) {
+export function parseCsv(text) {
   const rows = [];
   let row = [];
   let cell = "";
@@ -120,7 +120,7 @@ function csvCell(value) {
   return /[",\r\n]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text;
 }
 
-function stringifyCsv(rows) {
+export function stringifyCsv(rows) {
   return `${rows.map((row) => row.map(csvCell).join(",")).join("\n")}\n`;
 }
 
@@ -342,7 +342,13 @@ async function main() {
     return;
   }
 
-  const env = parseEnv(await fs.readFile(envPath, "utf8"));
+  let envFromFile = {};
+  try {
+    envFromFile = parseEnv(await fs.readFile(envPath, "utf8"));
+  } catch (error) {
+    if (error.code !== "ENOENT") throw error;
+  }
+  const env = { ...envFromFile, ...process.env };
   const baseUrl = env.N8N_BASE_URL?.replace(/\/$/, "");
   if (!baseUrl) throw new Error(`Missing N8N_BASE_URL in ${envPath}`);
   const headers = {};

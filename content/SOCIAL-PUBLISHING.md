@@ -87,6 +87,12 @@ Reglas:
 
 ## Instagram And Facebook Reels
 
+Para vídeos creados desde la cola manual, usar la acción separada
+`HyperFrames publish Reel (manual)` después de aprobar el borrador. Su
+configuración, confirmación y recuperación se documentan en
+`docs/runbooks/manual-reel-publishing.md`. El render de GitHub Actions no
+publica ni invoca este workflow por sí mismo.
+
 Workflow n8n:
 
 ```text
