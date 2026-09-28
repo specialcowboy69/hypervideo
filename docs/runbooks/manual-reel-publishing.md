@@ -18,7 +18,7 @@ Abrir Actions > **HyperFrames publish Reel (manual)** > **Run workflow**, selecc
 - `platforms`: `instagram`, `facebook` o `instagram,facebook`.
 - `confirmation`: escribir literalmente `PUBLICAR <slug>`; esto es la aprobación explícita del borrador elegido.
 
-Solo el dueño del repositorio puede ejecutar esta acción con éxito en `main`. El workflow valida todos los campos y la cola. **Antes** de contactar con n8n, registra en `main` un intento con su ID y cambia el estado a `publishing`. La acción llama una sola vez a `/webhook/instagram-reel-schedule` y, si recibe la aceptación esperada, registra `scheduled`, `review.status=approved` y el ID de n8n. `scheduled` indica aceptación/programación, no confirma todavía que Meta haya publicado: comprobar el estado en n8n (`/webhook/instagram-reel-status`).
+Solo el dueño del repositorio puede ejecutar esta acción con éxito en `main`. El workflow valida todos los campos y la cola. **Antes** de contactar con n8n, registra en `main` un intento con su ID y cambia el estado a `publishing`. La acción llama una sola vez a `/webhook/instagram-reel-schedule` y, si recibe la aceptación esperada, registra `scheduled`, `review.status=approved` y el ID de n8n. `scheduled` indica aceptación/programación, no confirma todavía que Meta haya publicado. Para leer el estado posterior sin volver a publicar, usar **HyperFrames check Reel status (manual)** con el `jobId` que quedó en `outputs.reel_publish`.
 
 ## Si falla
 
