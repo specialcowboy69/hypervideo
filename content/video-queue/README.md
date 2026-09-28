@@ -143,6 +143,7 @@ Default script personas:
 - `data-lab`: `assets/character/personas/social-retention-teacher.md`; a close, direct, slightly incisive expert with optional light irony.
 - A video may override this through the spreadsheet `script_persona`, the brief, or `project.persona` in `voiceover.scenes.json`.
 - Apply the persona when writing the scene text. ElevenLabs receives only the final `scene.text` values.
+- New videos use ElevenLabs voice ID `RwzBDEn5f6FIgpAjH9YN` in `elevenlabs.voice_id` unless the user selects another voice. This per-video value takes precedence over the VPS `.env local` default; it does not alter completed videos.
 
 Template selection:
 

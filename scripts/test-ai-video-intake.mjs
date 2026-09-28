@@ -98,6 +98,7 @@ try {
 
   assert.equal(voiceover.project.visual_template, "data-lab");
   assert.equal(voiceover.project.persona, DEFAULT_PERSONA);
+  assert.equal(voiceover.elevenlabs.voice_id, "RwzBDEn5f6FIgpAjH9YN");
   assert.equal(queue.items[0].status, "pending");
   assert.equal(queue.items[0].cta, "");
   assert.equal(queue.items[0].caption, "Caption de prueba");
