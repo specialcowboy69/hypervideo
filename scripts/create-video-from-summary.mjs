@@ -2,6 +2,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 import {
+  DEFAULT_VOICE_ID,
   normalizeAiVideoIntake,
   validateNormalizedIntake
 } from "./ai-video-intake-schema.mjs";
@@ -169,6 +170,7 @@ function voiceoverManifest(intake) {
       ghost: ["DATA", "MARKETING"]
     },
     elevenlabs: {
+      voice_id: DEFAULT_VOICE_ID,
       model_id: "eleven_multilingual_v2",
       output_format: "mp3_44100_128",
       use_timestamps: true,

@@ -1,4 +1,5 @@
 export const DEFAULT_PERSONA = "assets/character/personas/social-retention-teacher.md";
+export const DEFAULT_VOICE_ID = "RwzBDEn5f6FIgpAjH9YN";
 export const DEFAULT_TEMPLATE = "data-lab";
 export const DEFAULT_DURATION = 50;
 

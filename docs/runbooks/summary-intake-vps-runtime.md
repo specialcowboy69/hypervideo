@@ -58,7 +58,15 @@ CF_ACCESS_CLIENT_ID
 CF_ACCESS_CLIENT_SECRET
 ```
 
-Do not document values. These files should have mode `600`.
+Do not document credential values. These files should have mode `600`.
+
+New Summary Intake video packages set `elevenlabs.voice_id` to
+`RwzBDEn5f6FIgpAjH9YN` in `scripts/create-video-from-summary.mjs`. That
+per-video setting takes precedence over `ELEVENLABS_VOICE_ID` in `.env local`.
+Deploy the updated script into `/opt/n8n/hyperframes` to apply the change to
+future Summary Intake videos; syncing the n8n prompt alone does not deploy it.
+The manual chat render route checks out the committed main SHA and therefore
+reads the voice ID from each new video package without changing the VPS env.
 
 ## Workflow Patch
 

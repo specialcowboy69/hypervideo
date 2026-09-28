@@ -192,11 +192,12 @@ content/video-queue/
 Rules:
 
 - New video ideas usually start as a spreadsheet row, not as hand-written files.
-- For `data-lab`, set the spreadsheet `script_persona` or JSON `project.persona` to `assets/character/personas/social-retention-teacher.md` unless the user asks for another voice.
+- For `data-lab`, set the spreadsheet `script_persona` or JSON `project.persona` to `assets/character/personas/social-retention-teacher.md` unless the user asks for another writing persona.
 - For `dark-tech` and `light-workshop`, keep `assets/character/personas/main-narrator.md` unless overridden.
 - `brief.md`, `structure.md`, `visual-plan.md`, and `voiceover.scenes.json` are the generated working package used by the build.
 - If the user directly provides files instead of chat content, keep supporting `content/video-queue/pending/<slug>/` as a fallback.
 - Codex generates or updates `visual-plan.md` and `voiceover.scenes.json`.
+- Default ElevenLabs voice for new video manifests: `RwzBDEn5f6FIgpAjH9YN` (`elevenlabs.voice_id`). Use this for manual video packages as well as AI intake unless the user selects another voice for that video. The per-video ID overrides `ELEVENLABS_VOICE_ID` in `.env local`; never change historical manifests just to adopt a new default.
 - `queue.json` tracks the canonical status, folders, generated project path, audio path, ZIP, preview URL, and render URL.
 - Process pending videos one by one so ElevenLabs generation, optional local preview, and remote build/render do not overload the machine.
 - Default to the VPS full pipeline for generated drafts: build, check, snapshots, packaging, render, and R2 upload should run remotely unless the user explicitly asks for local preview/debugging.

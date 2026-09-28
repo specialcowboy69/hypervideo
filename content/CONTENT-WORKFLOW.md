@@ -90,6 +90,7 @@ Personas de guion:
 - `dark-tech` y `light-workshop`: usar `assets/character/personas/main-narrator.md` salvo indicacion contraria. Voz directa, sarcastica y canalla.
 - `data-lab`: usar `assets/character/personas/social-retention-teacher.md` salvo indicacion contraria. Voz de experto cercano, directo e incisivo; ironia ligera opcional, sin chistes obligatorios ni palabrotas por defecto.
 - Al convertir chat o NotebookLM a `voiceover.scenes.json`, aplicar la persona antes de generar ElevenLabs. ElevenLabs solo lee el texto final de cada escena.
+- Para nuevos videos, fijar `elevenlabs.voice_id` a `RwzBDEn5f6FIgpAjH9YN`, salvo que el usuario elija otra voz para ese video. El ID de voz elige el timbre de ElevenLabs; el archivo de persona define como escribir el guion. La opcion `--voice` del generador permite una prueba puntual.
 
 Para lanzar `data-lab` en remoto:
 
