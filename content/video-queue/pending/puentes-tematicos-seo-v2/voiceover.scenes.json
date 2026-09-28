@@ -1,0 +1,121 @@
+{
+  "project": {
+    "slug": "puentes-tematicos-seo-v2",
+    "language": "es",
+    "persona": "assets/character/personas/social-retention-teacher.md",
+    "target_duration_s": 55,
+    "visual_template": "data-lab",
+    "title": "Puentes temáticos: conectar dietas y jardinería sin perder el hilo",
+    "ghost": [
+      "FOCO",
+      "PUENTES"
+    ]
+  },
+  "elevenlabs": {
+    "voice_id": "RwzBDEn5f6FIgpAjH9YN",
+    "model_id": "eleven_multilingual_v2",
+    "output_format": "mp3_44100_128",
+    "use_timestamps": true,
+    "pause_after_scene_ms": 180,
+    "voice_settings": {
+      "stability": 0.42,
+      "similarity_boost": 0.78,
+      "style": 0.28,
+      "use_speaker_boost": true
+    }
+  },
+  "scenes": [
+    {
+      "id": "scene-01-hook",
+      "label": "GANCHO",
+      "animation": "talking",
+      "screen_text": "¿QUÉ PINTA AQUÍ?",
+      "visual_note": "De pérdida de peso a compostaje: falta una conexión.",
+      "text": "Tu web habla de perder peso. Y de pronto abres una sección de compostaje. Si yo fuera tu lector, preguntaría: ¿qué pinta esto aquí?",
+      "stage": {
+        "type": "comparison",
+        "left": {
+          "label": "WEB ORIGINAL",
+          "value": "Perder peso"
+        },
+        "right": {
+          "label": "NUEVA SECCIÓN",
+          "value": "Compostaje"
+        }
+      }
+    },
+    {
+      "id": "scene-02-stakes",
+      "label": "CONTEXTO",
+      "animation": "talking",
+      "screen_text": "MIRA A TU LECTOR",
+      "visual_note": "Un tema nuevo no prueba una penalización.",
+      "text": "Cambiar de tema no demuestra que Google te haya penalizado. La pregunta más útil es si esa nueva sección responde a algo que tu público necesita.",
+      "stage": {
+        "type": "comparison",
+        "left": {
+          "label": "SIN EVIDENCIA",
+          "value": "Culpar a Google"
+        },
+        "right": {
+          "label": "PREGUNTA ÚTIL",
+          "value": "¿Sirve al lector?"
+        }
+      }
+    },
+    {
+      "id": "scene-03-example",
+      "label": "EJEMPLO",
+      "animation": "talking",
+      "screen_text": "ENCUENTRA EL PUENTE",
+      "visual_note": "Una pregunta conecta huerto y alimentación.",
+      "text": "Antes de llenar la web de jardinería, encuentra una pregunta que una las dos cosas: ¿cómo cultivar verduras en casa para preparar comidas equilibradas?",
+      "stage": {
+        "type": "keyword-map",
+        "core": "CULTIVAR PARA COCINAR",
+        "clusters": [
+          "Alimentación",
+          "Huerto en casa",
+          "Verduras",
+          "Comidas equilibradas"
+        ]
+      }
+    },
+    {
+      "id": "scene-04-method",
+      "label": "MÉTODO",
+      "animation": "talking",
+      "screen_text": "ENLAZA Y OBSERVA",
+      "visual_note": "Guía útil, enlaces pertinentes y Search Console.",
+      "text": "Esa guía sí tiene un motivo para existir. Desde ahí enlaza solo contenidos que amplíen la respuesta y revisa en Search Console qué consultas y páginas reciben impresiones.",
+      "stage": {
+        "type": "checklist",
+        "items": [
+          "Guía que responde",
+          "Enlaces relevantes",
+          "Consultas y páginas"
+        ],
+        "checked": 3
+      }
+    },
+    {
+      "id": "scene-05-payoff",
+      "label": "CIERRE",
+      "animation": "talking",
+      "screen_text": "QUE SE ENTIENDA",
+      "visual_note": "Tu lector también tiene que ver la conexión.",
+      "text": "Si la conexión solo se entiende en tu hoja de cálculo, aún no tienes un puente temático. Tu lector también tiene que verla.",
+      "stage": {
+        "type": "comparison",
+        "left": {
+          "label": "SOLO PARA TI",
+          "value": "Plan interno"
+        },
+        "right": {
+          "label": "PARA TU LECTOR",
+          "value": "Necesidad real"
+        }
+      }
+    }
+  ]
+}

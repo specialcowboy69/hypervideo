@@ -10,6 +10,36 @@
   },
   "items": [
     {
+      "slug": "puentes-tematicos-seo-v2",
+      "title": "Puentes temáticos: conectar dietas y jardinería sin perder el hilo",
+      "status": "pending",
+      "folder": "pending/puentes-tematicos-seo-v2",
+      "created_at": "2026-09-28",
+      "updated_at": "2026-09-28",
+      "template": "data-lab",
+      "duration_target_s": 55,
+      "persona": "assets/character/personas/social-retention-teacher.md",
+      "caption": "¿Puede una web sobre pérdida de peso hablar de jardinería sin desconcertar a su audiencia? Una página puente tiene sentido cuando responde a una necesidad real del lector.",
+      "cta": "",
+      "platforms": [
+        "instagram"
+      ],
+      "outputs": {
+        "content_folder": "content/video-queue/pending/puentes-tematicos-seo-v2",
+        "project_folder": "videos/puentes-tematicos-seo-v2",
+        "audio_folder": "assets/character/audio/generated/puentes-tematicos-seo-v2",
+        "zip": "",
+        "render": "",
+        "preview": ""
+      },
+      "review": {
+        "status": "not_ready",
+        "approve_url": "",
+        "reject_url": ""
+      },
+      "notes": "V2 del borrador de puentes temáticos: nueva personalidad y voz para comparación. El original sigue en needs_review."
+    },
+    {
       "slug": "puentes-tematicos-seo",
       "title": "Puentes temáticos para ampliar una web sin perder el foco",
       "status": "needs_review",
