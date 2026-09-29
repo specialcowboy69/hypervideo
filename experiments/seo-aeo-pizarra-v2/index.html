@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="es" data-resolution="portrait">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=1080,height=1920">
+  <script src="./node_modules/gsap/dist/gsap.min.js"></script>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; }
+    body { color: #193b5c; background: #f6f3e9; font-family: Arial, sans-serif; }
+    #root { position: relative; width: 100%; height: 100%; overflow: hidden; }
+    .scene { position: absolute; inset: 0; padding: 220px 220px 0 96px; overflow: hidden; background: radial-gradient(circle at 42% 35%, #fffef9, #f5f2e8 72%); }
+    .scene:before { content: ""; position: absolute; inset: 0; background-image: linear-gradient(#d8e2de 1px, transparent 1px); background-size: 100% 80px; opacity: .65; pointer-events: none; }
+    .inner { position: relative; height: 100%; }
+    .kicker { display: block; color: #c85039; font-weight: 800; font-size: 25px; letter-spacing: .14em; }
+    h1 { font: 800 67px/1.08 Arial, sans-serif; letter-spacing: -.047em; margin: 34px 0 0; max-width: 760px; }
+    .lead { font-size: 32px; line-height: 1.28; margin: 30px 0 0; max-width: 744px; color: #345873; }
+    .visual { position: absolute; left: 0; top: 338px; width: 764px; height: 650px; }
+    .paper { background: #fffef9; border: 4px solid #224d76; border-radius: 14px; box-shadow: 10px 12px 0 #d2dfdc; }
+    .chip { display: inline-block; padding: 12px 18px; border-radius: 14px; border: 3px solid #224d76; background: #fffef9; font-size: 26px; font-weight: 800; }
+    .ink { fill: none; stroke: #ce583e; stroke-width: 8; stroke-linecap: round; stroke-linejoin: round; }
+    .ink.blue { stroke: #224d76; }
+    .annotation { color: #c85039; font: italic 31px Georgia, serif; }
+    .subtitle { position: absolute; left: 0; top: 1004px; width: 764px; min-height: 105px; background: #fffef9; border: 3px solid #224d76; border-radius: 17px; padding: 19px 24px; box-shadow: 6px 7px 0 #d2dfdc; color: #26455e; font: 500 29px/1.25 Arial, sans-serif; }
+    .page-no { position: absolute; top: 1160px; left: 0; color: #688198; font-size: 19px; font-weight: 800; letter-spacing: .14em; }
+    .card-row { display: flex; justify-content: space-between; gap: 26px; margin-top: 178px; }
+    .route { width: 350px; height: 180px; padding: 24px; text-align: center; font-size: 26px; font-weight: 800; }
+    .route b { display: block; font-size: 41px; margin: 22px 0; }
+    .route.ia { background: #e4f0ec; }
+    .cross-lines { position: absolute; top: 75px; left: 0; width: 764px; height: 390px; }
+    .route-note { position: absolute; top: 430px; left: 80px; font-size: 30px; }
+    .search { position: absolute; left: 24px; top: 78px; width: 716px; padding: 25px 30px; font-size: 30px; }
+    .query { color: #617789; font-size: 25px; margin-bottom: 18px; }
+    .result { position: absolute; top: 240px; left: 92px; width: 620px; padding: 32px; }
+    .result strong { font-size: 33px; }
+    .result p { font-size: 24px; line-height: 1.3; margin: 18px 0 0; }
+    .restaurant { position: absolute; top: 468px; left: 14px; font-size: 29px; }
+    .slogan { position: absolute; top: 70px; left: 12px; width: 740px; padding: 30px; text-align: center; font-size: 29px; color: #738293; border-color: #95a6aa; }
+    .slogan .strike { position: absolute; top: 55px; left: 60px; width: 620px; height: 60px; }
+    .fact { position: absolute; top: 260px; left: 45px; width: 665px; padding: 32px; font-size: 32px; line-height: 1.25; }
+    .fact small { display: block; color: #c85039; font-size: 23px; font-weight: 800; letter-spacing: .12em; margin-bottom: 20px; }
+    .source { position: absolute; top: 474px; left: 214px; font-size: 27px; }
+    .columns { display: flex; gap: 28px; position: absolute; left: 0; top: 60px; }
+    .column { width: 368px; min-height: 388px; padding: 26px; }
+    .column b { font-size: 39px; }
+    .column p { font-size: 28px; line-height: 1.3; margin-top: 35px; }
+    .column.ia { background: #e4f0ec; }
+    .bridge { position: absolute; left: 130px; top: 478px; font-size: 29px; font-weight: 800; color: #c85039; }
+    .pdf { position: absolute; left: 54px; top: 74px; height: 400px; width: 290px; padding: 42px; font: 800 82px Arial; color: #ce583e; transform: rotate(-3deg); }
+    .pdf:after { content: ""; display: block; width: 170px; height: 120px; border-top: 14px solid #aac8c2; border-bottom: 14px solid #aac8c2; margin-top: 75px; }
+    .possibilities { position: absolute; left: 425px; top: 155px; display: grid; gap: 45px; }
+    .possibilities .chip { font-size: 25px; width: 292px; }
+    .pdf-arrow { position: absolute; top: 88px; left: 0; width: 760px; height: 460px; }
+    .caveat { position: absolute; left: 173px; top: 535px; font-size: 32px; font-weight: 900; color: #c85039; }
+    .check-page { position: absolute; left: 85px; top: 28px; width: 600px; height: 530px; padding: 35px; transform: rotate(-2deg); }
+    .check-page .url { color: #536c7a; font-size: 22px; border-bottom: 3px solid #cbd8d5; padding-bottom: 24px; }
+    .check-item { display: flex; gap: 20px; align-items: center; border-bottom: 3px solid #d7e1dc; padding: 28px 0; font-size: 31px; font-weight: 800; }
+    .tick { width: 41px; height: 41px; border: 4px solid #cf593f; border-radius: 8px; color: #cf593f; font-size: 31px; line-height: 31px; text-align: center; }
+  </style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="75.5" data-width="1080" data-height="1920">
+  <section class="clip scene" id="scene-1" data-start="0" data-duration="8.3" data-track-index="0"><div class="inner">
+    <span class="kicker">UNA PREGUNTA REAL</span><h1>La misma web. Dos recorridos.</h1>
+    <div class="visual"><svg class="cross-lines" viewBox="0 0 764 390"><path class="ink" d="M380 20 C230 65 185 150 170 195"/><path class="ink" d="M380 20 C540 65 590 150 585 195"/></svg><div class="card-row"><div class="paper route"><b>GOOGLE</b>Una página visible</div><div class="paper route ia"><b>IA</b>Otra fuente citada</div></div><div class="annotation route-note">¿Cómo se elige la fuente?</div></div>
+    <div class="subtitle">Puedes estar bien posicionado y ver que una respuesta cita a otro.</div><div class="page-no">01 / 06</div>
+  </div></section>
+  <section class="clip scene" id="scene-2" data-start="8.3" data-duration="17.1" data-track-index="0"><div class="inner">
+    <span class="kicker">UN EJEMPLO HIPOTÉTICO</span><h1>Un programa de reservas</h1>
+    <div class="visual"><div class="paper search"><div class="query">Búsqueda de ejemplo</div>software de reservas para restaurantes</div><div class="paper result"><strong>Página de producto</strong><p>Reservas, turnos y confirmaciones para restaurantes.</p></div><div class="annotation restaurant">Una visita cuenta una parte de la historia.</div></div>
+    <div class="subtitle">Una página puede atraer visitas; el asistente necesita datos que pueda comprobar.</div><div class="page-no">02 / 06</div>
+  </div></section>
+  <section class="clip scene" id="scene-3" data-start="25.4" data-duration="11.3" data-track-index="0"><div class="inner">
+    <span class="kicker">DEL ESLOGAN AL HECHO</span><h1>Di lo que hace</h1>
+    <div class="visual"><div class="paper slogan">«La mejor plataforma del mercado»<svg class="strike" viewBox="0 0 620 60"><path class="ink" d="M15 45 Q310 10 605 37"/></svg></div><div class="paper fact"><small>FUNCIÓN CONCRETA</small>Permite confirmar reservas por correo.</div><div class="chip source">↳ documentación del producto</div></div>
+    <div class="subtitle">Una función respaldada por una fuente dice más que un eslogan.</div><div class="page-no">03 / 06</div>
+  </div></section>
+  <section class="clip scene" id="scene-4" data-start="36.7" data-duration="21.8" data-track-index="0"><div class="inner">
+    <span class="kicker">LA DIFERENCIA PRÁCTICA</span><h1>Dos formas de descubrirte</h1>
+    <div class="visual"><div class="columns"><div class="paper column"><b>Búsqueda</b><p>Página accesible que responde a una consulta.</p></div><div class="paper column ia"><b>Respuesta de IA</b><p>Datos claros y fuente que los respalda.</p></div></div><div class="bridge">No hay una cita garantizada ↗</div></div>
+    <div class="subtitle">Una buena explicación puede servir de fuente; la elección depende del sistema.</div><div class="page-no">04 / 06</div>
+  </div></section>
+  <section class="clip scene" id="scene-5" data-start="58.5" data-duration="8.1" data-track-index="0"><div class="inner">
+    <span class="kicker">NINGÚN FORMATO ES MÁGICO</span><h1>El PDF distribuye una guía</h1>
+    <div class="visual"><svg class="pdf-arrow" viewBox="0 0 760 460"><path class="ink" stroke-dasharray="18 16" d="M350 267 C390 235 400 195 426 190"/></svg><div class="paper pdf">PDF</div><div class="possibilities"><div class="chip">¿Entrenamiento?</div><div class="chip">¿Cita?</div></div><div class="caveat">Ninguno está asegurado.</div></div>
+    <div class="subtitle">Publicar un archivo no asegura que un modelo lo aprenda o lo cite.</div><div class="page-no">05 / 06</div>
+  </div></section>
+  <section class="clip scene" id="scene-6" data-start="66.6" data-duration="8.9" data-track-index="0"><div class="inner">
+    <span class="kicker">PRUÉBALO EN TU WEB</span><h1>Revisa una página importante</h1>
+    <div class="visual"><div class="paper check-page"><div class="url">tusitio.es / página principal</div><div class="check-item"><span class="tick">✓</span>Qué ofreces</div><div class="check-item"><span class="tick">✓</span>Para quién</div><div class="check-item"><span class="tick">✓</span>Dónde comprobarlo</div></div></div>
+    <div class="subtitle">Si la respuesta depende solo de un eslogan, empieza por aclararla.</div><div class="page-no">06 / 06</div>
+  </div></section>
+  <audio id="voice" data-start="0" data-duration="75.311" data-track-index="1" src="./assets/voice.mp3"></audio>
+</div>
+<script>
+  const tl = gsap.timeline({ paused: true });
+  for (let i = 1; i <= 6; i++) {
+    const scene = document.getElementById(`scene-${i}`);
+    const start = Number(scene.dataset.start);
+    const label = `#scene-${i}`;
+    tl.fromTo(`${label} .kicker`, { y: 22, opacity: 0 }, { y: 0, opacity: 1, duration: .42 }, start + .10);
+    tl.fromTo(`${label} h1`, { y: 48, opacity: 0 }, { y: 0, opacity: 1, duration: .65, ease: 'power3.out' }, start + .32);
+    tl.fromTo(`${label} .subtitle`, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: .42 }, start + 1.15);
+    scene.querySelectorAll('path.ink').forEach((path, j) => {
+      const length = path.getTotalLength();
+      path.style.strokeDasharray = path.getAttribute('stroke-dasharray') || length;
+      path.style.strokeDashoffset = length;
+      tl.to(path, { strokeDashoffset: 0, duration: 1.2, ease: 'power2.inOut' }, start + 1.45 + j * .2);
+    });
+  }
+  const reveal = (selector, at, stagger = 0) => tl.fromTo(selector, { y: 38, opacity: 0 }, { y: 0, opacity: 1, duration: .72, stagger, ease: 'power2.out' }, at);
+  reveal('#scene-1 .route', 1.0, .35);
+  reveal('#scene-1 .route-note', 4.2);
+  reveal('#scene-2 .search', 9.4);
+  reveal('#scene-2 .result', 14.1);
+  reveal('#scene-2 .restaurant', 20.2);
+  reveal('#scene-3 .slogan', 26.3);
+  reveal('#scene-3 .fact', 30.0);
+  reveal('#scene-3 .source', 33.2);
+  reveal('#scene-4 .column:first-child', 37.8);
+  reveal('#scene-4 .column.ia', 44.0);
+  reveal('#scene-4 .bridge', 52.0);
+  reveal('#scene-5 .pdf', 59.3);
+  reveal('#scene-5 .possibilities .chip', 61.7, .5);
+  reveal('#scene-5 .caveat', 64.4);
+  reveal('#scene-6 .check-page', 67.4);
+  reveal('#scene-6 .check-item', 68.6, 1.45);
+  window.__timelines = window.__timelines || {};
+  window.__timelines.main = tl;
+</script>
+</body>
+</html>
