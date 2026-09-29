@@ -17,6 +17,12 @@ Aplicar a los vídeos creados manualmente desde el chat, sea cual sea la plantil
 4. Leer el texto seguido en voz alta, como lo oirá alguien que no leyó las notas. Al pasar de una oración o escena a otra, recuperar el sustantivo necesario («tu herramienta», «esa página», «la respuesta de la IA») si un pronombre o una elipsis obligan a recordar a qué nos referimos. Cada término nuevo y cada ejemplo necesitan presentación antes de usarse. Quitar premisas obvias, introducciones de clase, frases impactantes repetidas, intriga prolongada y objeciones que nadie planteó. No añadir salvedades defensivas redundantes a verbos ya prudentes como «puede» o «mejora tus opciones»; sí precisar una causalidad, cifra o promesa cuando de otro modo induciría a error.
 5. Ajustar la duración a la carga de información. Un tutorial directo puede durar unos 30 segundos; un explicador suele necesitar 45-75 y un caso complejo puede justificar 90. No comprimir una explicación hasta perder su contexto para satisfacer el antiguo objetivo de 40-60 segundos.
 
+## Apertura para el público y contexto del ejemplo
+
+- Abrir con un problema que reconozca el público previsto. Si el vídeo se dirige a dueños de negocios en general, empezar por «tu software de reservas» puede hacer que quien no vende software crea que el vídeo no le sirve. Presentar primero la situación compartida («Si tu web está bien posicionada en Google, ¿por qué una IA puede seguir sin recomendar tu negocio?») y llevar el caso sectorial al desarrollo. Un caso concreto puede abrir el vídeo cuando encaja con su público o su relevancia para ese público queda clara desde el inicio; evitar convertir esta regla en aperturas vagas.
+- Antes de evaluar un ejemplo, explicar quién necesita qué y qué pregunta intenta resolver. Orden útil: necesidad o consulta del cliente, negocio o producto del ejemplo, información que ofrece, qué respuesta falta y cómo completarla. No criticar que una página no menciona una función sin haber explicado por qué alguien necesita esa función.
+- Conectar el detalle del ejemplo con la idea central. En el caso de reservas, presentar primero la consulta sobre gestionar reservas y enviar confirmaciones por correo; después explicar que «la mejor plataforma para restaurantes» no responde a esa consulta. El argumento trata de responder a necesidades concretas, no de añadir una función arbitraria. Cerrar el ejemplo con una acción que el espectador pueda trasladar a su propio negocio.
+
 ## De la voz a la pantalla
 
 - Dividir en escenas cuando cambia el paso de la explicación o lo que debe verse. No reiniciar una miniintroducción o un nuevo gancho en cada escena.
@@ -28,9 +34,11 @@ Aplicar a los vídeos creados manualmente desde el chat, sea cual sea la plantil
 ## Revisión antes de ElevenLabs y render
 
 - ¿Se entiende el comienzo sin ver el título ni conocer la fuente?
+- ¿El público previsto reconoce su problema en la apertura, aunque su negocio no pertenezca al sector del ejemplo?
 - ¿El espectador sabe desde la primera frase qué asunto tratamos y qué pregunta va a resolver el vídeo? ¿Recibe una primera respuesta antes del cierre?
 - ¿Cada frase y cada cambio de escena conservan un referente claro para quien solo escucha una vez?
 - ¿Aparece un ejemplo que explica la idea y se responde la pregunta inicial?
+- ¿Se ha explicado la necesidad del cliente antes de evaluar el ejemplo? ¿Queda claro por qué importa cada detalle y cómo aplicar la lección a otro negocio?
 - ¿Cada escena añade información? ¿Hay promesas, causalidades, cifras o citas sin sustento?
 - ¿Titular, gráfico, nota y subtítulo cumplen funciones distintas y caben en la zona segura?
 - ¿El cierre aporta una decisión útil sin un CTA artificial?

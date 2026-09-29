@@ -43,7 +43,9 @@ Avoid in this example: introducing compostaje as a new section without explainin
 
 Use the example to calibrate specificity and voice, not as a stock formula to repeat in unrelated videos.
 
-Another calibration for explicit referents: "Imagina que tu web aparece en Google, pero una IA recomienda otra herramienta. ¿Qué cambia entre SEO y AEO?" After explaining those terms, a later sentence can say: "Explica qué permite hacer tu herramienta y dónde se documenta". Avoid dropping "tu herramienta" and leaving the listener to guess what the verb refers to. Do not add a PDF or a claim about training data to this comparison without first checking whether it warrants a separate video.
+For a broad business audience, open with their shared problem: "Si tu web está bien posicionada en Google, ¿por qué una IA puede seguir sin recomendar tu negocio?" Introduce SEO and AEO before using a sector-specific example. Save "tu software de reservas" for the example rather than addressing every viewer as a software vendor.
+
+In that example, introduce the customer's need first: "El dueño de un restaurante pregunta qué programa permite gestionar reservas y enviar una confirmación por correo a cada cliente". Then introduce a hypothetical vendor whose product offers that function. Only now explain why "la mejor plataforma para restaurantes" leaves the customer's question unanswered, and how to document the relevant function. Recover explicit referents such as "tu herramienta" across sentences and connect the lesson back to the viewer's own business. Do not add a PDF or a claim about training data to this comparison without first checking whether it warrants a separate video.
 
 ## Editorial Check
 
