@@ -48,9 +48,9 @@ Los CSV/XLSX son el tablero de planificacion. Las carpetas `pending/<slug>/` son
 
 ## Flujo Para Videos
 
-1. El usuario envia el resumen por chat.
-2. Codex crea o actualiza la fila en `content/video-queue/video-queue.csv` y, si procede, `video-queue.xlsx`.
-3. Codex aplica la persona, escribe primero el guion continuo y lo divide en escenas siguiendo el proceso editorial de abajo. Crea o actualiza:
+1. El usuario envia el resumen por chat. Si contiene temas independientes, Codex propone el despiece y espera la eleccion antes de producir el guion o crear el paquete del video.
+2. Con el alcance decidido, Codex crea o actualiza la fila en `content/video-queue/video-queue.csv` y, si procede, `video-queue.xlsx`.
+3. Codex lee `SCRIPT-EDITORIAL-GUIDE.md`, aplica despues la persona de tono, escribe primero el guion continuo y lo divide en escenas siguiendo el proceso editorial de abajo. Crea o actualiza:
 
 ```text
 content/video-queue/pending/<slug>/
@@ -100,13 +100,13 @@ node scripts\trigger-n8n-build-render.mjs --slug <slug> --mode draft --template 
 
 ## Guion Antes De Escenas
 
-Aplicar este proceso al escribir desde el chat y desde Summary Intake. La voz de `data-lab` vive en `assets/character/personas/social-retention-teacher.md`; las otras plantillas conservan su propia personalidad.
+Aplicar este proceso al escribir manualmente desde el chat, siguiendo `SCRIPT-EDITORIAL-GUIDE.md` antes de la persona. Summary Intake tiene su propio contrato y permanece inactivo. La voz de `data-lab` vive en `assets/character/personas/social-retention-teacher.md`; las otras plantillas conservan su propia personalidad.
 
-1. Elegir una audiencia, una pregunta central y una respuesta util.
-2. Preparar tres aperturas internamente y elegir la que plantee una pregunta concreta y un motivo creible para quedarse.
-3. Redactar una narracion continua de 40-60 segundos: situacion y pregunta, contexto suficiente para entender el ejemplo, explicacion de como funciona, respuesta y cierre. Entregar valor desde el principio.
-4. Revisar como suena al hablar sin apoyo visual: aclarar referencias y transiciones, quitar relleno, falsas polemicas y frases impactantes sin funcion, comprobar que el ejemplo sostiene la idea y que el cierre responde la pregunta inicial.
-5. Dividir despues en 4-7 escenas conectadas, cada una con un visual dominante. No repetir una miniclase completa en cada escena.
+1. Elegir una audiencia, una pregunta central y una respuesta util. Si las notas mezclan temas independientes, proponer al usuario el despiece y esperar su eleccion antes de redactar; conservar lo pendiente.
+2. Preparar tres aperturas internamente y elegir la que nombra el tema, plantea una pregunta concreta y da un motivo creible para quedarse. La primera toma debe dar contexto visual sin sustituir el contexto hablado.
+3. Redactar una narracion continua: situacion y pregunta, primera respuesta temprana, contexto suficiente para entender el ejemplo, explicacion de como funciona, resultado y cierre. Ajustar la duracion a lo que la explicacion necesita; no ocultar la respuesta hasta el final.
+4. Revisar como suena al hablar sin apoyo visual: repetir el sustantivo necesario en cambios de frase o escena para aclarar referencias, quitar relleno, falsas polemicas, salvedades redundantes y frases impactantes sin funcion, comprobar que el ejemplo sostiene la idea y que el cierre responde la pregunta inicial.
+5. Dividir despues en escenas conectadas, cada una con un visual dominante. Usar 4-7 como referencia cuando encaje con la explicacion, sin forzar una escena por cada tiempo narrativo. No repetir una miniclase completa en cada escena.
 6. Anadir CTA solo si ayuda al objetivo. Dejarlo vacio si basta una conclusion. No inventar recursos descargables, ofertas ni solicitudes de comentarios.
 
 Las notas de produccion van en `visual-plan.md`. En `data-lab`, `visual_note` se muestra en pantalla: debe contener texto breve para el espectador, no instrucciones de montaje.
@@ -190,7 +190,7 @@ Usar estos estados en hojas y colas:
 Usar video cuando:
 
 - La idea necesita voz, ritmo, movimiento o narrador.
-- Hay una explicacion secuencial de 40-60 segundos.
+- Hay una explicacion secuencial cuya duracion se ajusta al contexto necesario.
 - Queremos Reels, TikTok o Shorts.
 
 Usar carrusel cuando:

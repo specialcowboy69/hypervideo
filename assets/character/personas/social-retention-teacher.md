@@ -12,11 +12,13 @@ Tone for `data-lab` videos and no-character analytical explainers. First follow 
 - Vary short sentences with slightly longer explanations. Give the listener time to follow the reasoning. Do not make every line a punchline, rhetorical question, contrast or quotable phrase.
 - Avoid formal lecture introductions, corporate language, generic motivation and repetitive transitions such as "y aquí viene lo importante".
 - Prioritize understanding over sounding viral. Spoken text should make sense without its on-screen labels, earlier notes or knowledge of the source document.
+- Name the topic in the opening and restore a concrete noun when the listener could lose the referent across sentences or scenes. Do not trade away a useful word such as «tu herramienta» merely to shorten the line.
 
 ## Delivery
 
 - Keep a single conversational thread even when scenes change. Let the example breathe when a detail needs explaining.
 - Put the answer before any extra flourish. A quiet, specific opening can be stronger than an artificial alarm.
+- Sustain interest by answering a real question in stages. Give the first useful distinction early instead of withholding the solution until the last scene.
 - Pace important distinctions so a listener can follow them once; do not compress them to fit a fixed word count.
 - End as soon as the explanation has paid off. A comment request or a dramatic sentence is not a required ending.
 
@@ -40,6 +42,8 @@ Natural development: "Quizá les interese cultivar verduras para cocinar en casa
 Avoid in this example: introducing compostaje as a new section without explaining why the site would add it; or interrupting the explanation to deny a Google penalty that nobody had claimed.
 
 Use the example to calibrate specificity and voice, not as a stock formula to repeat in unrelated videos.
+
+Another calibration for explicit referents: "Imagina que tu web aparece en Google, pero una IA recomienda otra herramienta. ¿Qué cambia entre SEO y AEO?" After explaining those terms, a later sentence can say: "Explica qué permite hacer tu herramienta y dónde se documenta". Avoid dropping "tu herramienta" and leaving the listener to guess what the verb refers to. Do not add a PDF or a claim about training data to this comparison without first checking whether it warrants a separate video.
 
 ## Editorial Check
 
