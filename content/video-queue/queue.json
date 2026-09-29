@@ -10,6 +10,37 @@
   },
   "items": [
     {
+      "slug": "seo-aeo-pizarra-v3",
+      "title": "SEO y AEO: por qué aparecer en Google no basta",
+      "status": "needs_review",
+      "created_at": "2026-09-29",
+      "updated_at": "2026-09-29",
+      "template": "pizarra",
+      "duration_target_s": 92.8,
+      "persona": "assets/character/personas/social-retention-teacher.md",
+      "caption": "¿Tu web aparece en Google, pero una IA no recomienda tu negocio? SEO y AEO comparten una base: explicar con claridad qué ofreces y responder a las preguntas de tus clientes. En este vídeo vemos la diferencia con un ejemplo práctico y cómo revisar las páginas de tu negocio.\n\n#SEO #AEO #MarketingDigital #Negocios",
+      "platforms": [
+        "instagram",
+        "facebook"
+      ],
+      "outputs": {
+        "content_folder": "experiments/seo-aeo-pizarra-v3",
+        "project_folder": "experiments/seo-aeo-pizarra-v3",
+        "render": "https://github.com/specialcowboy69/hypervideo/releases/download/video-seo-aeo-pizarra-v3/seo-aeo-pizarra-v3.mp4",
+        "render_sha256": "741dd1075148519ca7661b2d0e868c2526a5fbd0c3602f64d70663792a74bd3b"
+      },
+      "review": {
+        "status": "needs_review",
+        "user_approval": {
+          "approved": true,
+          "source": "chat",
+          "date": "2026-09-29",
+          "scope": "Publish this exact MP4 on Instagram and Facebook; public GitHub asset explicitly authorized."
+        }
+      },
+      "notes": "Standalone whiteboard v3 rendered locally and approved in chat. Public release asset digest matches delivered MP4. Queue lifecycle remains needs_review until the guarded publish Action reserves this approved request. Do not rerender through the data-lab builder."
+    },
+    {
       "slug": "puentes-tematicos-seo-v2",
       "title": "Puentes temáticos: de pérdida de peso a jardinería sin perder el hilo",
       "status": "needs_review",
