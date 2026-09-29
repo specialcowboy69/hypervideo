@@ -12,7 +12,7 @@
     {
       "slug": "seo-aeo-pizarra-v3",
       "title": "SEO y AEO: por qué aparecer en Google no basta",
-      "status": "publishing",
+      "status": "scheduled",
       "created_at": "2026-09-29",
       "updated_at": "2026-09-29",
       "template": "pizarra",
@@ -27,10 +27,38 @@
         "content_folder": "experiments/seo-aeo-pizarra-v3",
         "project_folder": "experiments/seo-aeo-pizarra-v3",
         "render": "https://github.com/specialcowboy69/hypervideo/releases/download/video-seo-aeo-pizarra-v3/seo-aeo-pizarra-v3.mp4",
-        "render_sha256": "741dd1075148519ca7661b2d0e868c2526a5fbd0c3602f64d70663792a74bd3b"
+        "render_sha256": "741dd1075148519ca7661b2d0e868c2526a5fbd0c3602f64d70663792a74bd3b",
+        "reel_publish": {
+          "jobId": "reel-seo-aeo-pizarra-v3-36594683313",
+          "publish_at": "2026-09-29T16:01:53.184Z",
+          "platforms": [
+            "instagram",
+            "facebook"
+          ],
+          "video_url": "https://github.com/specialcowboy69/hypervideo/releases/download/video-seo-aeo-pizarra-v3/seo-aeo-pizarra-v3.mp4",
+          "response": {
+            "ok": true,
+            "batch_id": null,
+            "created": 1,
+            "jobs": [
+              {
+                "jobId": "reel-seo-aeo-pizarra-v3-36594683313",
+                "batch_id": null,
+                "status": "pending",
+                "platforms": [
+                  "instagram",
+                  "facebook"
+                ],
+                "publish_at": "2026-09-29T16:01:53.184Z",
+                "video_url": "https://github.com/specialcowboy69/hypervideo/releases/download/video-seo-aeo-pizarra-v3/seo-aeo-pizarra-v3.mp4"
+              }
+            ]
+          },
+          "scheduled_at": "2026-09-29T16:01:56.254Z"
+        }
       },
       "review": {
-        "status": "needs_review",
+        "status": "approved",
         "user_approval": {
           "approved": true,
           "source": "chat",
@@ -38,7 +66,7 @@
           "scope": "Publish this exact MP4 on Instagram and Facebook; public GitHub asset explicitly authorized."
         }
       },
-      "notes": "Standalone whiteboard v3 rendered locally and approved in chat. Public release asset digest matches delivered MP4. Queue lifecycle remains needs_review until the guarded publish Action reserves this approved request. Do not rerender through the data-lab builder.",
+      "notes": "Standalone whiteboard v3 rendered locally and approved in chat. Public release asset digest matches delivered MP4. Queue lifecycle remains needs_review until the guarded publish Action reserves this approved request. Do not rerender through the data-lab builder. Reel scheduled through n8n for 2026-09-29T16:01:53.184Z (instagram, facebook).",
       "publish_attempt": {
         "jobId": "reel-seo-aeo-pizarra-v3-36594683313",
         "runUrl": "https://github.com/specialcowboy69/hypervideo/actions/runs/36594683313",
