@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es" data-resolution="portrait">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=1080,height=1920">
+<title>SEO y AEO · Pizarra explicativa</title>
+<script src="./node_modules/gsap/dist/gsap.min.js"></script>
+<style>
+*{box-sizing:border-box}html,body{margin:0;width:1080px;height:1920px;overflow:hidden}
+body{color:#193b5c;background:#f6f3e9;font-family:sans-serif}#root{position:relative;width:100%;height:100%;overflow:hidden}
+.scene{position:absolute;inset:0;padding:220px 220px 0 96px;overflow:hidden;background:radial-gradient(circle at 42% 35%,#fffef9,#f5f2e8 72%)}
+.scene:before{content:"";position:absolute;inset:0;background-image:linear-gradient(#d8e2de 1px,transparent 1px);background-size:100% 80px;opacity:.65;pointer-events:none}
+.inner{position:relative;height:100%}.kicker{display:block;color:#c85039;font-weight:800;font-size:25px;letter-spacing:.14em}
+h1{font:800 67px/1.08 sans-serif;letter-spacing:-.047em;margin:34px 0 0;max-width:760px}
+.visual{position:absolute;left:0;top:338px;width:764px;height:650px}
+.paper{background:#fffef9;border:4px solid #224d76;border-radius:14px;box-shadow:10px 12px 0 #d2dfdc}
+.ink{fill:none;stroke:#ce583e;stroke-width:8;stroke-linecap:round;stroke-linejoin:round}.ink.blue{stroke:#224d76}
+.annotation{color:#c85039;font:italic 31px serif}.chip{display:inline-block;padding:12px 18px;border-radius:14px;border:3px solid #224d76;background:#fffef9;font-size:26px;font-weight:800}
+.caption{position:absolute;left:96px;top:1234px;width:764px;z-index:10}
+.caption-text{min-height:108px;background:#fffef9;border:3px solid #224d76;border-radius:17px;padding:19px 24px;box-shadow:6px 7px 0 #d2dfdc;color:#26455e;font:500 29px/1.25 sans-serif}
+.card-row{display:flex;justify-content:space-between;gap:26px;margin-top:178px}.route{width:350px;height:185px;padding:24px;text-align:center;font-size:26px;font-weight:800}.route b{display:block;font-size:41px;margin:16px 0 22px}.ia{background:#e4f0ec}
+.cross-lines{position:absolute;top:75px;left:0;width:764px;height:390px}.route-note{position:absolute;top:430px;left:55px;font-size:33px}
+.columns{display:flex;gap:28px;position:absolute;left:0;top:48px}.column{width:368px;min-height:380px;padding:26px}.column b{font-size:44px}.column p{font-size:29px;line-height:1.3;margin-top:32px}.bridge{position:absolute;left:40px;top:492px;font-size:30px;font-weight:800;color:#c85039}
+.search{position:absolute;left:24px;top:32px;width:716px;padding:26px 30px;font-size:31px}.query{color:#617789;font-size:24px;margin-bottom:18px}.result{position:absolute;top:280px;left:75px;width:645px;padding:30px}.result strong{font-size:33px}.result p{font-size:28px;line-height:1.3;margin:18px 0 0}
+.question{position:absolute;left:25px;top:88px;width:714px;padding:34px;font-size:35px;line-height:1.25}.question small{display:block;color:#c85039;font-size:24px;font-weight:800;letter-spacing:.07em;margin-bottom:24px}.needs{position:absolute;top:456px;left:55px;display:flex;gap:24px}.needs .chip{font-size:25px}
+.slogan{position:absolute;top:72px;left:12px;width:740px;padding:32px;text-align:center;font-size:35px;line-height:1.25;color:#627685;border-color:#95a6aa}.slogan small{display:block;font-size:24px;margin-bottom:20px;color:#193b5c}.slogan .underline{width:650px;height:40px;position:absolute;left:40px;bottom:8px}.missing{position:absolute;top:340px;left:55px;width:660px;font-size:33px;line-height:1.35;color:#c85039}
+.fact{position:absolute;top:40px;left:25px;width:710px;padding:32px;font-size:35px;line-height:1.25}.fact small{display:block;color:#c85039;font-size:24px;font-weight:800;letter-spacing:.1em;margin-bottom:24px}.fact .function{margin:18px 0}.source{position:absolute;top:412px;left:80px;width:610px;padding:22px;font-size:28px}.source span{display:block;font-size:23px;color:#617789;margin-bottom:15px}.source svg{width:46px;height:46px;vertical-align:middle;margin-right:18px}
+.web{position:absolute;top:25px;left:130px;width:500px;padding:28px;text-align:center;font-size:34px;font-weight:800}.audiences{position:absolute;top:328px;left:0;display:flex;gap:32px}.audience{width:366px;padding:28px;min-height:195px}.audience b{font-size:36px}.audience p{font-size:28px;line-height:1.3;margin:20px 0 0}.arrows{position:absolute;top:160px;width:764px;height:190px}
+.check-page{position:absolute;left:64px;top:25px;width:636px;height:550px;padding:35px;transform:rotate(-2deg)}.check-page .url{color:#536c7a;font-size:25px;border-bottom:3px solid #cbd8d5;padding-bottom:24px}.check-item{display:flex;gap:20px;align-items:center;border-bottom:3px solid #d7e1dc;padding:29px 0;font-size:31px;font-weight:800;line-height:1.15}.tick{flex-shrink:0;width:41px;height:41px;border:4px solid #cf593f;border-radius:8px;color:#cf593f;font-size:31px;line-height:31px;text-align:center}
+</style>
+</head><body>
+<div data-hf-id="hf-1xxf" id="root" data-composition-id="main" data-start="0" data-duration="92.8" data-width="1080" data-height="1920">
+<section data-hf-id="hf-wp5a" class="clip scene" id="scene-1" data-start="0" data-duration="5.8" data-track-index="0"><div data-hf-id="hf-lm34" class="inner">
+<span data-hf-id="hf-6rlv" class="kicker">SEO Y AEO</span><h1 data-hf-id="hf-jkfj">Te encuentran en Google. ¿Y en la IA?</h1>
+<div data-hf-id="hf-tick" class="visual"><svg data-hf-id="hf-n6xt" class="cross-lines" viewBox="0 0 764 390"><path data-hf-id="hf-h9nj" class="ink" d="M380 20 C230 65 185 150 170 195" /><path data-hf-id="hf-02mr" class="ink" d="M380 20 C540 65 590 150 585 195" /></svg><div data-hf-id="hf-svst" class="card-row"><div data-hf-id="hf-oqe1" class="paper route"><b data-hf-id="hf-xfxi">GOOGLE</b>Tu web aparece</div><div data-hf-id="hf-rw5a" class="paper route ia"><b data-hf-id="hf-o6lb">IA</b>Tu negocio falta</div></div><div data-hf-id="hf-rj2o" class="annotation route-note">¿Qué información necesita el cliente?</div></div>
+</div></section>
+<section data-hf-id="hf-df9w" class="clip scene" id="scene-2" data-start="5.8" data-duration="15.0" data-track-index="0"><div data-hf-id="hf-bug8" class="inner">
+<span data-hf-id="hf-cb0j" class="kicker">SEO Y AEO</span><h1 data-hf-id="hf-3w6h">Dos formas de descubrir tu negocio</h1>
+<div data-hf-id="hf-sbfg" class="visual"><div data-hf-id="hf-zyj5" class="columns"><div data-hf-id="hf-nw5i" class="paper column reveal" data-reveal="2.0"><b data-hf-id="hf-5ygu">SEO</b><p data-hf-id="hf-lxi5">Visibilidad de tus páginas en buscadores.</p></div><div data-hf-id="hf-fm35" class="paper column ia reveal" data-reveal="7.4"><b data-hf-id="hf-6rf0">AEO</b><p data-hf-id="hf-cl16">Presencia en las respuestas de inteligencia artificial.</p></div></div></div>
+</div></section>
+<section data-hf-id="hf-9e6b" class="clip scene" id="scene-3" data-start="20.8" data-duration="10.0" data-track-index="0"><div data-hf-id="hf-anj5" class="inner">
+<span data-hf-id="hf-ovuk" class="kicker">LA INFORMACIÓN DE TU WEB</span><h1 data-hf-id="hf-llk5">¿Responde lo que te preguntan?</h1>
+<div data-hf-id="hf-r4id" class="visual"><div data-hf-id="hf-shpx" class="paper search reveal" data-reveal=".6"><div data-hf-id="hf-4684" class="query">Tu página aparece en una búsqueda</div>El cliente descubre tu negocio</div><svg data-hf-id="hf-vcfb" style="position:absolute;top:190px;left:285px;width:180px;height:100px" viewBox="0 0 180 100"><path data-hf-id="hf-9pyt" class="ink" d="M90 5 L90 75 M65 55 L90 80 L115 55" /></svg><div data-hf-id="hf-1sc4" class="paper result reveal" data-reveal="3.0"><strong data-hf-id="hf-qeud">Antes de contratarte…</strong><p data-hf-id="hf-yrkw">¿Tu servicio resuelve su necesidad concreta?</p></div></div>
+</div></section>
+<section data-hf-id="hf-siu9" class="clip scene" id="scene-4" data-start="30.8" data-duration="11.3" data-track-index="0"><div data-hf-id="hf-b1u6" class="inner">
+<span data-hf-id="hf-8yfj" class="kicker">UN EJEMPLO</span><h1 data-hf-id="hf-w0yx">Un restaurante busca una solución</h1>
+<div data-hf-id="hf-rite" class="visual"><div data-hf-id="hf-x1kc" class="paper question reveal" data-reveal=".7"><small data-hf-id="hf-m6wk">EL DUEÑO PREGUNTA A UNA IA</small>¿Qué programa gestiona mis reservas y envía una confirmación por correo?</div><div data-hf-id="hf-2icf" class="needs"><span data-hf-id="hf-szfz" class="chip reveal" data-reveal="5">Gestionar reservas</span><span data-hf-id="hf-unbo" class="chip reveal" data-reveal="7.8">Confirmar por email</span></div></div>
+</div></section>
+<section data-hf-id="hf-fx1q" class="clip scene" id="scene-5" data-start="42.1" data-duration="12.2" data-track-index="0"><div data-hf-id="hf-9ux3" class="inner">
+<span data-hf-id="hf-vs7e" class="kicker">AHORA IMAGINA QUE TÚ LO VENDES</span><h1 data-hf-id="hf-mx6t">Tu programa sí lo hace. Tu página no lo explica.</h1>
+<div data-hf-id="hf-ticj" class="visual"><div data-hf-id="hf-dzss" class="paper slogan reveal" data-reveal="2.4"><small data-hf-id="hf-qq9v">LA PÁGINA DE TU PRODUCTO</small>«La mejor plataforma para restaurantes»<svg data-hf-id="hf-ll25" class="underline" viewBox="0 0 650 40"><path data-hf-id="hf-xo10" class="ink" d="M12 20 Q320 5 634 23" /></svg></div><div data-hf-id="hf-ok69" class="missing reveal" data-reveal="7">La consulta del cliente sigue sin respuesta.</div></div>
+</div></section>
+<section data-hf-id="hf-klyl" class="clip scene" id="scene-6" data-start="54.3" data-duration="12.9" data-track-index="0"><div data-hf-id="hf-a984" class="inner">
+<span data-hf-id="hf-if5i" class="kicker">COMPLETA LA PÁGINA</span><h1 data-hf-id="hf-be2h">Explica qué permite hacer tu herramienta</h1>
+<div data-hf-id="hf-twnk" class="visual"><div data-hf-id="hf-e14n" class="paper fact reveal" data-reveal=".7"><small data-hf-id="hf-5g9k">FUNCIONES DEL PROGRAMA</small><div data-hf-id="hf-k8bp" class="function reveal" data-reveal="2.8">✓ Gestionar las reservas</div><div data-hf-id="hf-3x3c" class="function reveal" data-reveal="4.4">✓ Enviar confirmaciones por correo</div></div><div data-hf-id="hf-w685" class="paper source reveal" data-reveal="7.0"><span data-hf-id="hf-slyx">MUÉSTRALO EN ACCIÓN</span><svg data-hf-id="hf-b9l5" viewBox="0 0 46 46"><path data-hf-id="hf-hwci" class="ink blue" d="M14 7 L37 23 L14 39 Z" /></svg>Demo o página de ayuda</div></div>
+</div></section>
+<section data-hf-id="hf-es80" class="clip scene" id="scene-7" data-start="67.2" data-duration="7.0" data-track-index="0"><div data-hf-id="hf-92b1" class="inner">
+<span data-hf-id="hf-lrcs" class="kicker">UNA EXPLICACIÓN ÚTIL</span><h1 data-hf-id="hf-r4g9">La información ya está en tu web</h1>
+<div data-hf-id="hf-spqh" class="visual"><div data-hf-id="hf-9h2n" class="paper web reveal" data-reveal=".4">Funciones + demostración</div><svg data-hf-id="hf-l1wt" class="arrows" viewBox="0 0 764 190"><path data-hf-id="hf-x9sa" class="ink" d="M380 0 Q185 30 182 165 M163 142 L182 170 L205 147" /><path data-hf-id="hf-yg7q" class="ink" d="M380 0 Q580 30 580 165 M558 142 L580 170 L602 147" /></svg><div data-hf-id="hf-fim5" class="audiences"><div data-hf-id="hf-iq0n" class="paper audience reveal" data-reveal="1.6"><b data-hf-id="hf-l8z4">Tu cliente</b><p data-hf-id="hf-ms79">Puede valorar si le sirve.</p></div><div data-hf-id="hf-n8xy" class="paper audience ia reveal" data-reveal="2.2"><b data-hf-id="hf-sbk0">El asistente</b><p data-hf-id="hf-rbwv">Puede consultar los detalles.</p></div></div></div>
+</div></section>
+<section data-hf-id="hf-6kwp" class="clip scene" id="scene-8" data-start="74.2" data-duration="18.6" data-track-index="0"><div data-hf-id="hf-9gm2" class="inner">
+<span data-hf-id="hf-9m7g" class="kicker">APLICA LA IDEA A TU NEGOCIO</span><h1 data-hf-id="hf-m1xs">Revisa tus páginas con esas preguntas</h1>
+<div data-hf-id="hf-t41i" class="visual"><div data-hf-id="hf-tvnv" class="paper check-page reveal" data-reveal=".5"><div data-hf-id="hf-nmcy" class="url">Tus productos y servicios</div><div data-hf-id="hf-v82z" class="check-item reveal" data-reveal="1"><span data-hf-id="hf-uokr" class="tick">✓</span>Recoge las dudas de tus clientes</div><div data-hf-id="hf-4c2h" class="check-item reveal" data-reveal="5.7"><span data-hf-id="hf-xfwr" class="tick">✓</span>Busca la respuesta en tu web</div><div data-hf-id="hf-dmfk" class="check-item reveal" data-reveal="9"><span data-hf-id="hf-x1lq" class="tick">✓</span>Completa lo que falta</div></div></div>
+</div></section>
+<div data-hf-id="hf-mc50" class="clip caption" id="caption-1" data-start="0.0" data-duration="3.560" data-track-index="2"><div data-hf-id="hf-emey" class="caption-text">Si tu web está bien posicionada en Google, ¿por qué una IA puede</div></div>
+<div data-hf-id="hf-i9cd" class="clip caption" id="caption-2" data-start="3.56" data-duration="2.130" data-track-index="2"><div data-hf-id="hf-oepx" class="caption-text">seguir sin recomendar tu negocio?</div></div>
+<div data-hf-id="hf-xe68" class="clip caption" id="caption-3" data-start="5.96" data-duration="3.850" data-track-index="2"><div data-hf-id="hf-102t" class="caption-text">Para entenderlo, vamos a comparar SEO y AEO.</div></div>
+<div data-hf-id="hf-9ye5" class="clip caption" id="caption-4" data-start="10.1" data-duration="3.470" data-track-index="2"><div data-hf-id="hf-f37w" class="caption-text">El SEO trabaja la visibilidad de tus páginas en los buscadores.</div></div>
+<div data-hf-id="hf-psye" class="clip caption" id="caption-5" data-start="13.62" data-duration="3.580" data-track-index="2"><div data-hf-id="hf-2mlu" class="caption-text">El AEO se centra en que tu negocio y tu contenido aparezcan</div></div>
+<div data-hf-id="hf-39cb" class="clip caption" id="caption-6" data-start="17.2" data-duration="3.430" data-track-index="2"><div data-hf-id="hf-k5it" class="caption-text">en las respuestas de herramientas de inteligencia artificial.</div></div>
+<div data-hf-id="hf-jlz8" class="clip caption" id="caption-7" data-start="21.08" data-duration="3.640" data-track-index="2"><div data-hf-id="hf-488c" class="caption-text">Ambos comparten muchas bases, pero aparecer en una búsqueda no</div></div>
+<div data-hf-id="hf-zy80" class="clip caption" id="caption-8" data-start="24.72" data-duration="3.560" data-track-index="2"><div data-hf-id="hf-hx3r" class="caption-text">significa que tu web responda bien a todas las preguntas que</div></div>
+<div data-hf-id="hf-efyg" class="clip caption" id="caption-9" data-start="28.28" data-duration="2.680" data-track-index="2"><div data-hf-id="hf-uyap" class="caption-text">un posible cliente puede hacer sobre tu negocio.</div></div>
+<div data-hf-id="hf-8zgd" class="clip caption" id="caption-10" data-start="30.96" data-duration="1.330" data-track-index="2"><div data-hf-id="hf-xegx" class="caption-text">Vamos con un ejemplo.</div></div>
+<div data-hf-id="hf-ac8r" class="clip caption" id="caption-11" data-start="32.46" data-duration="3.350" data-track-index="2"><div data-hf-id="hf-z0lr" class="caption-text">El dueño de un restaurante le pregunta a una IA.</div></div>
+<div data-hf-id="hf-xfl9" class="clip caption" id="caption-12" data-start="35.98" data-duration="3.320" data-track-index="2"><div data-hf-id="hf-ikfp" class="caption-text">¿Qué programa puedo utilizar para gestionar las reservas y enviar</div></div>
+<div data-hf-id="hf-tm85" class="clip caption" id="caption-13" data-start="39.3" data-duration="2.670" data-track-index="2"><div data-hf-id="hf-xg1m" class="caption-text">una confirmación por correo a cada cliente?</div></div>
+<div data-hf-id="hf-3258" class="clip caption" id="caption-14" data-start="42.38" data-duration="3.910" data-track-index="2"><div data-hf-id="hf-149k" class="caption-text">Ahora imagina que tú vendes un programa que hace precisamente eso.</div></div>
+<div data-hf-id="hf-jocs" class="clip caption" id="caption-15" data-start="46.38" data-duration="3.520" data-track-index="2"><div data-hf-id="hf-ubj7" class="caption-text">Si tu página solo dice la mejor plataforma para restaurantes,</div></div>
+<div data-hf-id="hf-lya0" class="clip caption" id="caption-16" data-start="49.9" data-duration="3.540" data-track-index="2"><div data-hf-id="hf-ho4h" class="caption-text">no estás explicando cómo tu producto resuelve lo que ese cliente</div></div>
+<div data-hf-id="hf-wp7t" class="clip caption" id="caption-17" data-start="53.44" data-duration="0.770" data-track-index="2"><div data-hf-id="hf-9tte" class="caption-text">necesita.</div></div>
+<div data-hf-id="hf-a3tl" class="clip caption" id="caption-18" data-start="54.3" data-duration="2.940" data-track-index="2"><div data-hf-id="hf-3atl" class="caption-text">En esa página conviene explicar que tu herramienta permite</div></div>
+<div data-hf-id="hf-t1yg" class="clip caption" id="caption-19" data-start="57.24" data-duration="3.660" data-track-index="2"><div data-hf-id="hf-dxgt" class="caption-text">gestionar las reservas y enviar correos de confirmación.</div></div>
+<div data-hf-id="hf-c5ww" class="clip caption" id="caption-20" data-start="60.9" data-duration="3.520" data-track-index="2"><div data-hf-id="hf-hcma" class="caption-text">Puedes acompañar esa explicación con una demostración o</div></div>
+<div data-hf-id="hf-z703" class="clip caption" id="caption-21" data-start="64.42" data-duration="3.000" data-track-index="2"><div data-hf-id="hf-4qrw" class="caption-text">una página de ayuda donde se vea cómo funciona.</div></div>
+<div data-hf-id="hf-y8th" class="clip caption" id="caption-22" data-start="67.42" data-duration="3.240" data-track-index="2"><div data-hf-id="hf-ybxk" class="caption-text">Así, tanto el cliente como un asistente que consulte tu web</div></div>
+<div data-hf-id="hf-l8xa" class="clip caption" id="caption-23" data-start="70.66" data-duration="3.680" data-track-index="2"><div data-hf-id="hf-d3dj" class="caption-text">encuentran información concreta sobre lo que ofrece tu herramienta.</div></div>
+<div data-hf-id="hf-07ao" class="clip caption" id="caption-24" data-start="74.34" data-duration="3.480" data-track-index="2"><div data-hf-id="hf-93th" class="caption-text">Para aplicarlo a tu negocio, empieza por las preguntas que tus</div></div>
+<div data-hf-id="hf-2a2m" class="clip caption" id="caption-25" data-start="77.82" data-duration="2.570" data-track-index="2"><div data-hf-id="hf-m6u4" class="caption-text">clientes te hacen antes de contratarte.</div></div>
+<div data-hf-id="hf-f2pb" class="clip caption" id="caption-26" data-start="80.62" data-duration="3.560" data-track-index="2"><div data-hf-id="hf-cd2r" class="caption-text">Revisa si tus páginas de servicios o productos las responden</div></div>
+<div data-hf-id="hf-cpsv" class="clip caption" id="caption-27" data-start="84.18" data-duration="2.330" data-track-index="2"><div data-hf-id="hf-f503" class="caption-text">y completa la información que falta.</div></div>
+<div data-hf-id="hf-hier" class="clip caption" id="caption-28" data-start="86.82" data-duration="3.500" data-track-index="2"><div data-hf-id="hf-iu2h" class="caption-text">Ese trabajo mejora tu contenido para las búsquedas y para</div></div>
+<div data-hf-id="hf-9oop" class="clip caption" id="caption-29" data-start="90.32" data-duration="1.990" data-track-index="2"><div data-hf-id="hf-mz3o" class="caption-text">las respuestas de IA.</div></div>
+<audio data-hf-id="hf-phf8" id="voice" data-start="0" data-duration="92.369" data-track-index="1" src="./assets/voice.mp3"></audio>
+</div>
+<script>
+const tl=gsap.timeline({paused:true});
+const reveal=(target,at,duration=.65)=>tl.fromTo(target,{y:30,opacity:0},{y:0,opacity:1,duration,ease:'power2.out'},at);
+for(const scene of document.querySelectorAll('.scene')){
+ const start=Number(scene.dataset.start);tl.addLabel(scene.id,start);
+ if(start>0){reveal(scene.querySelector('.kicker'),start+.04,.3);reveal(scene.querySelector('h1'),start+.12,.5);}
+ for(const el of scene.querySelectorAll('.reveal'))reveal(el,start+Number(el.dataset.reveal));
+ scene.querySelectorAll('path.ink').forEach((path,j)=>{
+  const length=path.getTotalLength();path.style.strokeDasharray=length;path.style.strokeDashoffset=length;
+  const drawAt=scene.id==='scene-5'?start+7:start+1.4+j*.2;
+  tl.to(path,{strokeDashoffset:0,duration:1.1,ease:'power2.inOut'},drawAt);
+ });
+}
+reveal('#scene-1 .route',.4);reveal('#scene-1 .route-note',3.8);
+tl.to({}, {duration: .5}, 92.3);
+window.__timelines=window.__timelines||{};window.__timelines.main=tl;
+</script></body></html>

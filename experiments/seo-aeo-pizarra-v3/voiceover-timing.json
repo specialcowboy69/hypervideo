@@ -1,0 +1,49 @@
+{
+  "voice_id": "RwzBDEn5f6FIgpAjH9YN",
+  "model": "eleven_multilingual_v2",
+  "audio_duration": 92.369,
+  "composition_duration": 92.8,
+  "alignment": "faster-whisper small, Spanish; paragraph starts reviewed",
+  "scenes": [
+    {
+      "id": "scene-1",
+      "start": 0,
+      "end": 5.8
+    },
+    {
+      "id": "scene-2",
+      "start": 5.8,
+      "end": 20.8
+    },
+    {
+      "id": "scene-3",
+      "start": 20.8,
+      "end": 30.8
+    },
+    {
+      "id": "scene-4",
+      "start": 30.8,
+      "end": 42.1
+    },
+    {
+      "id": "scene-5",
+      "start": 42.1,
+      "end": 54.3
+    },
+    {
+      "id": "scene-6",
+      "start": 54.3,
+      "end": 67.2
+    },
+    {
+      "id": "scene-7",
+      "start": 67.2,
+      "end": 74.2
+    },
+    {
+      "id": "scene-8",
+      "start": 74.2,
+      "end": 92.8
+    }
+  ]
+}
