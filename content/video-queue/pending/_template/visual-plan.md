@@ -4,7 +4,7 @@
 
 - Canvas: `1080x1920`
 - Safe lane: `x 96..860`, `y 220..1380`
-- Duration: `40-60s`
+- Duration: estimate from the complete script; keep the narration understandable
 - Visual owner: Codex
 - Template: use `videos/arquitectura-informacion/` by default, or `videos/light-workshop` for the bright editorial workshop variant
 - Narrator: 3D GLB character from `assets/character/`

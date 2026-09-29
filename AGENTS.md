@@ -42,7 +42,7 @@ For recurring social explainers, use the established narrator-led vertical templ
 
 Default assumptions:
 
-- Duration target: `40-60s` by default, with `50s` as the working midpoint when a single numeric target is needed.
+- Duration target: estimate from the complete script; use `40-60s` as a planning reference when it fits, and allow more or less time when clarity requires it. Follow `content/SCRIPT-EDITORIAL-GUIDE.md`.
 - Format: vertical `1080x1920`.
 - Visual ownership: Codex chooses the visual layout, scene composition, text hierarchy, motion, and safe-area placement.
 - User input: the user provides the topic, structure, points to cover, offer, and CTA.
@@ -59,14 +59,14 @@ Rules:
 - Do not let the narrator cover critical text, chart labels, CTAs, or captions.
 - Current default character system: 3D GLB files under `assets/character/`.
 - Current default animations: `breathing`, `talking`, `happy`, `yelling`.
-- Write one continuous 40-60s script first, then split it into 4-7 connected scenes: hook, stakes/context, example or mechanism, payoff, closing. CTA is optional. Choose among three internal hook candidates; cut filler and resolve the opening promise before generating voice.
+- Before scripting, flag independent topics in the source material and agree which belong in this video. Write one continuous script first, naming the topic and useful question in the opening, giving a first answer soon and keeping explicit referents across scenes. Then split into connected scenes: context, example or mechanism, payoff and natural closing. CTA is optional. Choose among three internal hook candidates; cut filler and resolve the opening promise before generating voice.
 - Keep motion subtle enough that it supports the lesson: animated narrator, scene transitions, grid/background motion, and concise text.
 - On-screen text should be short, scan-friendly, and rewritten per topic.
 - Use the lower mask trick from the current template if the 3D model clips or overlaps around the legs/coat.
 - If voiceover exists, select narrator animation per scene; full lipsync is optional.
 - Default narrator persona: `assets/character/personas/main-narrator.md`.
-- Default tone: sarcastic, direct, useful, and medium-light profanity.
-- The narrator may use 1-3 mild Spanish profanities per 40-60s video, such as `mierda`, `maldita sea`, `capullo`, or `imbecil`.
+- Default tone: direct and useful, with sarcasm when it helps the explanation. Profanity is optional, not a quota.
+- The narrator may use a mild Spanish profanity when natural for a specific script, such as `mierda`, `maldita sea`, `capullo`, or `imbecil`.
 - Profanity should target bad UX, lazy marketing, broken workflows, or confusing decisions. Do not target protected groups, private people, clients, or users as people.
 
 ## Base Visual Style For Future Videos
@@ -311,8 +311,8 @@ node scripts\elevenlabs-generate-scenes.mjs --input content\video-queue\pending\
 Rules:
 
 - Keep Spanish accents and punctuation clean before generating voiceover.
-- Scene audio should roughly match a `40-60s` total target unless the user asks for a different length.
-- Prefer short, punchy scenes over dense paragraphs.
+- Scene audio should match the length needed by the complete explanation; `40-60s` is a planning reference, not a reason to remove essential context.
+- Prefer clear, connected scenes over dense paragraphs or a forced punchline per scene.
 - Use `assets/character/personas/main-narrator.md` for narrator-led `dark-tech` and `light-workshop` videos.
 - Use `assets/character/personas/social-retention-teacher.md` for `data-lab` videos unless explicitly overridden. Explain the example clearly before drawing a conclusion; do not force an impactful line into every scene.
 - The narrator templates may be sarcastic and use mild Spanish profanity, but the useful point must remain clear.

@@ -6,7 +6,7 @@
 - Title:
 - Platform: Instagram Reels / TikTok / YouTube Shorts
 - Format: vertical 9:16
-- Target duration: 40-60 seconds
+- Target duration: flexible; estimate after the continuous script is clear
 - Audience:
 - Goal:
 - CTA (optional; leave empty for a natural closing):
@@ -17,6 +17,7 @@
 - Offer:
 - Central question:
 - Useful answer / payoff:
+- Related topics for separate videos (raise with user before scripting):
 - Main promise:
 - Proof points:
 - Constraints:
@@ -34,6 +35,6 @@
 - Persona for `data-lab`: `assets/character/personas/social-retention-teacher.md`
 - Default data-lab voice: close, direct, slightly incisive expert; light irony optional
 - Tone override:
-- Profanity level for narrator templates: medium-light by default, 1-3 mild Spanish profanities per 40-60s video
+- Profanity level for narrator templates: none by default; only if useful to this script
 - Profanity level for `data-lab`: none by default
 - Energy: calm / normal / intense

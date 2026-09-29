@@ -43,7 +43,7 @@ Preferred pattern:
 
 Write one continuous narration before splitting it into scenes, following `content/SCRIPT-EDITORIAL-GUIDE.md`. Keep this narrator's voice throughout; use jabs where they clarify, not as a quota per scene.
 
-Read the script aloud and remove filler before dividing it into 4-7 connected beats. Each scene advances the same explanation. A CTA is optional; never invent a resource or offer to justify one.
+Read the script aloud and remove filler before dividing it into connected beats; 4-7 scenes are a useful reference when they fit. Each scene advances the same explanation. A CTA is optional; never invent a resource or offer to justify one.
 
 ## Scene Energy Map
 
