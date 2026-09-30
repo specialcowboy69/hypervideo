@@ -16,12 +16,14 @@ Abrir Actions > **HyperFrames publish Reel (manual)** > **Run workflow**, selecc
 - `caption`: texto público del post.
 - `publish_at`: `now` para solicitar publicación inmediata o fecha futura ISO con zona horaria, por ejemplo `2026-10-20T15:00:00+02:00`.
 - `platforms`: `instagram`, `facebook` o `instagram,facebook`.
+- `include_cover`: mantener activado para enviar `outputs.cover`; desactivarlo para conservar la portada en la cola pero omitir `cover_url` en este intento.
 - `confirmation`: escribir literalmente `PUBLICAR <slug>`; esto es la aprobación explícita del borrador elegido.
 
 Si la entrada de la cola contiene `outputs.cover`, la acción añade esa URL al
 payload como `cover_url`. El publicador de n8n decide cómo aplicarla en
 Instagram y Facebook; la ausencia de portada mantiene el comportamiento
-anterior.
+anterior. La opción `include_cover` permite omitirla en una publicación concreta
+sin borrar el archivo ni sus hashes de la cola.
 
 ## Pizarras independientes renderizadas localmente
 
