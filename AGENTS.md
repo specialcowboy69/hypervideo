@@ -1,5 +1,11 @@
 # Workspace Video Rules
 
+## Manual Video Production: Required Procedures
+
+- Before producing a manual video, follow [approved-script and audio verification](content/CONTENT-WORKFLOW.md#guion-aprobado-y-verificacion-del-audio). Preserve the approved narration literally; send only spoken text to speech synthesis, with voice settings separate. Verify the actual generated audio against that script before rendering, then align subtitles and scene cuts to the verified take.
+- For an independent whiteboard video, follow [the standalone Pizarra procedure](experiments/seo-aeo-pizarra-v3/README.md). Use its local composition and package scripts as a reference for the new experiment. This route takes precedence over the Data Lab, spreadsheet/VPS pipeline and scene-by-scene audio defaults below: it supports one continuous narration track and local rendering. Keep it independent unless the user requests integration.
+- These checks are production requirements, not additional approval requests. Continue under the user's existing authorization to create/render the video; publication still requires explicit approval.
+
 ## Vertical Social Safe Area
 
 For every vertical social video made for Instagram Reels, TikTok, or YouTube Shorts, treat the platform UI as part of the design constraints. The full composition may remain `1080x1920`, but critical content must stay inside the safe content lane so it is not covered by profile controls, like/comment/share buttons, captions, or the post description.
