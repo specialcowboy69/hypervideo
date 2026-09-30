@@ -10,6 +10,39 @@
   },
   "items": [
     {
+      "slug": "cro-actualiza-contenido",
+      "title": "CRO: actualiza lo que ya recibe visitas",
+      "status": "needs_review",
+      "created_at": "2026-09-30",
+      "updated_at": "2026-09-30",
+      "template": "pizarra",
+      "duration_target_s": 65.1,
+      "persona": "assets/character/personas/social-retention-teacher.md",
+      "caption": "¿Tu web ya recibe visitas, pero genera pocos contactos? Antes de publicar más, revisa lo que ya funciona. Mejorar el mensaje, actualizar la información y aclarar el siguiente paso puede ayudarte a aprovechar mejor el tráfico que ya tienes. Empieza por las páginas con más visitas, cambia una cosa cada vez y mide el resultado.\n\n#CRO #MarketingDigital #Conversiones #NegociosOnline",
+      "platforms": [
+        "instagram",
+        "facebook"
+      ],
+      "outputs": {
+        "content_folder": "experiments/cro-actualiza-contenido",
+        "project_folder": "experiments/cro-actualiza-contenido",
+        "render": "https://github.com/specialcowboy69/hypervideo/releases/download/video-cro-actualiza-contenido/cro-actualiza-contenido.mp4",
+        "cover": "https://github.com/specialcowboy69/hypervideo/releases/download/video-cro-actualiza-contenido/cro-actualiza-contenido-cover.png",
+        "render_sha256": "82504665631aeadee5a331f403935c0c48645d36cd09429a4cdd12cee03d6fdd",
+        "cover_sha256": "f4a51e4c2a42803aa5d36c51ed1bddcb62dcca11bff59a83c02ca6c9861614bb"
+      },
+      "review": {
+        "status": "needs_review",
+        "user_approval": {
+          "approved": true,
+          "source": "chat",
+          "date": "2026-09-30",
+          "scope": "Publish this exact verified MP4 with this cover on Instagram and Facebook; public GitHub assets explicitly authorized."
+        }
+      },
+      "notes": "Standalone CRO whiteboard rendered and verified locally. Public GitHub Release digests match the approved MP4 and cover. Do not rerender through the VPS or Summary Intake. Publish through the guarded manual Reel Action with cover_url."
+    },
+    {
       "slug": "seo-aeo-pizarra-v3",
       "title": "SEO y AEO: por qué aparecer en Google no basta",
       "status": "scheduled",
