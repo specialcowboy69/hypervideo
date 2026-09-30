@@ -12,7 +12,7 @@
     {
       "slug": "cro-actualiza-contenido",
       "title": "CRO: actualiza lo que ya recibe visitas",
-      "status": "publishing",
+      "status": "scheduled",
       "created_at": "2026-09-30",
       "updated_at": "2026-09-30",
       "template": "pizarra",
@@ -29,10 +29,38 @@
         "render": "https://github.com/specialcowboy69/hypervideo/releases/download/video-cro-actualiza-contenido/cro-actualiza-contenido.mp4",
         "cover": "https://github.com/specialcowboy69/hypervideo/releases/download/video-cro-actualiza-contenido/cro-actualiza-contenido-cover.png",
         "render_sha256": "82504665631aeadee5a331f403935c0c48645d36cd09429a4cdd12cee03d6fdd",
-        "cover_sha256": "f4a51e4c2a42803aa5d36c51ed1bddcb62dcca11bff59a83c02ca6c9861614bb"
+        "cover_sha256": "f4a51e4c2a42803aa5d36c51ed1bddcb62dcca11bff59a83c02ca6c9861614bb",
+        "reel_publish": {
+          "jobId": "reel-cro-actualiza-contenido-36770712536",
+          "publish_at": "2026-09-30T20:10:14.682Z",
+          "platforms": [
+            "instagram",
+            "facebook"
+          ],
+          "video_url": "https://github.com/specialcowboy69/hypervideo/releases/download/video-cro-actualiza-contenido/cro-actualiza-contenido.mp4",
+          "response": {
+            "ok": true,
+            "batch_id": null,
+            "created": 1,
+            "jobs": [
+              {
+                "jobId": "reel-cro-actualiza-contenido-36770712536",
+                "batch_id": null,
+                "status": "pending",
+                "platforms": [
+                  "instagram",
+                  "facebook"
+                ],
+                "publish_at": "2026-09-30T20:10:14.682Z",
+                "video_url": "https://github.com/specialcowboy69/hypervideo/releases/download/video-cro-actualiza-contenido/cro-actualiza-contenido.mp4"
+              }
+            ]
+          },
+          "scheduled_at": "2026-09-30T20:10:17.651Z"
+        }
       },
       "review": {
-        "status": "needs_review",
+        "status": "approved",
         "user_approval": {
           "approved": true,
           "source": "chat",
@@ -40,7 +68,7 @@
           "scope": "Retry publishing this exact verified MP4 on Instagram and Facebook without sending a cover URL; public GitHub video asset explicitly authorized."
         }
       },
-      "notes": "Standalone CRO whiteboard rendered and verified locally. The first publication attempt (reel-cro-actualiza-contenido-36765274985) returned no accepted jobs and its read-only n8n status was not_found. The user explicitly authorized one retry of the same MP4 without cover_url. Do not rerender through the VPS or Summary Intake.",
+      "notes": "Standalone CRO whiteboard rendered and verified locally. The first publication attempt (reel-cro-actualiza-contenido-36765274985) returned no accepted jobs and its read-only n8n status was not_found. The user explicitly authorized one retry of the same MP4 without cover_url. Do not rerender through the VPS or Summary Intake. Reel scheduled through n8n for 2026-09-30T20:10:14.682Z (instagram, facebook).",
       "publish_attempt": {
         "jobId": "reel-cro-actualiza-contenido-36770712536",
         "runUrl": "https://github.com/specialcowboy69/hypervideo/actions/runs/36770712536",
