@@ -80,10 +80,13 @@ jobs:
           set -euo pipefail
           PUBLISH_AT="$(node -e 'const fs=require("node:fs"); console.log(JSON.parse(fs.readFileSync(process.env.RUNNER_TEMP+"/reel-reservation.json")).publish_at)')"
           VIDEO_URL="$(node -e 'const fs=require("node:fs"); console.log(JSON.parse(fs.readFileSync(process.env.RUNNER_TEMP+"/reel-reservation.json")).video_url)')"
+          COVER_URL="$(node -e 'const fs=require("node:fs"); console.log(JSON.parse(fs.readFileSync(process.env.RUNNER_TEMP+"/reel-reservation.json")).cover_url||"")')"
+          COVER_ARGS=()
+          if [ -n "$COVER_URL" ]; then COVER_ARGS+=(--cover-url "$COVER_URL"); fi
           if ! node scripts/schedule-instagram-reel.mjs \
             --slug "$REEL_SLUG" --video-url "$VIDEO_URL" --caption "$REEL_CAPTION" \
             --publish-at "$PUBLISH_AT" --platforms "$REEL_PLATFORMS" \
-            --job-id "$REEL_JOB_ID" --no-update > "$RUNNER_TEMP/reel-accepted.json"; then
+            --job-id "$REEL_JOB_ID" --no-update "${COVER_ARGS[@]}" > "$RUNNER_TEMP/reel-accepted.json"; then
             echo "::error::The webhook result is uncertain. Check n8n for job $REEL_JOB_ID before retrying; the item remains publishing."
             exit 1
           fi
