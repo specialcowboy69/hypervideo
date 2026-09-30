@@ -12,7 +12,7 @@
     {
       "slug": "cro-actualiza-contenido",
       "title": "CRO: actualiza lo que ya recibe visitas",
-      "status": "needs_review",
+      "status": "publishing",
       "created_at": "2026-09-30",
       "updated_at": "2026-09-30",
       "template": "pizarra",
@@ -40,7 +40,21 @@
           "scope": "Publish this exact verified MP4 with this cover on Instagram and Facebook; public GitHub assets explicitly authorized."
         }
       },
-      "notes": "Standalone CRO whiteboard rendered and verified locally. Public GitHub Release digests match the approved MP4 and cover. Do not rerender through the VPS or Summary Intake. Publish through the guarded manual Reel Action with cover_url."
+      "notes": "Standalone CRO whiteboard rendered and verified locally. Public GitHub Release digests match the approved MP4 and cover. Do not rerender through the VPS or Summary Intake. Publish through the guarded manual Reel Action with cover_url.",
+      "publish_attempt": {
+        "jobId": "reel-cro-actualiza-contenido-36765274985",
+        "runUrl": "https://github.com/specialcowboy69/hypervideo/actions/runs/36765274985",
+        "video_url": "https://github.com/specialcowboy69/hypervideo/releases/download/video-cro-actualiza-contenido/cro-actualiza-contenido.mp4",
+        "cover_url": "https://github.com/specialcowboy69/hypervideo/releases/download/video-cro-actualiza-contenido/cro-actualiza-contenido-cover.png",
+        "caption": "¿Tu web ya recibe visitas, pero genera pocos contactos? Antes de publicar más, revisa lo que ya funciona. Mejorar el mensaje, actualizar la información y aclarar el siguiente paso puede ayudarte a aprovechar mejor el tráfico que ya tienes. Empieza por las páginas con más visitas, cambia una cosa cada vez y mide el resultado. #CRO #MarketingDigital #Conversiones #NegociosOnline",
+        "publish_at": "2026-09-30T19:23:06.719Z",
+        "platforms": [
+          "instagram",
+          "facebook"
+        ],
+        "title": "CRO: actualiza lo que ya recibe visitas",
+        "reserved_at": "2026-09-30T19:23:06.723Z"
+      }
     },
     {
       "slug": "seo-aeo-pizarra-v3",
