@@ -78,7 +78,7 @@ export async function reserve(root, input) {
   const payload = buildPayload({
     slug: input.slug,
     videoUrl: item.outputs.render,
-    coverUrl: item.outputs.cover || item.cover_url || "",
+    coverUrl: input.includeCover === false ? "" : item.outputs.cover || item.cover_url || "",
     caption: input.caption,
     publishAt: publishTime(input.publishAt),
     platforms: normalizePlatforms(input.platforms),
@@ -154,7 +154,8 @@ async function main() {
       publishAt: process.env.REEL_PUBLISH_AT,
       platforms: process.env.REEL_PLATFORMS,
       confirmation: process.env.REEL_CONFIRMATION,
-      runUrl: process.env.REEL_RUN_URL
+      runUrl: process.env.REEL_RUN_URL,
+      includeCover: process.env.REEL_INCLUDE_COVER !== "false"
     });
     console.log(JSON.stringify(result));
   } else if (action === "complete") {
