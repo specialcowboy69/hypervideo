@@ -24,6 +24,11 @@ on:
           - instagram,facebook
           - instagram
           - facebook
+      include_cover:
+        description: Send the approved cover URL to n8n
+        required: true
+        default: true
+        type: boolean
       confirmation:
         description: "Explicit approval: type PUBLICAR followed by a space and the exact slug"
         required: true
@@ -44,6 +49,7 @@ jobs:
       REEL_CAPTION: ${{ inputs.caption }}
       REEL_PUBLISH_AT: ${{ inputs.publish_at }}
       REEL_PLATFORMS: ${{ inputs.platforms }}
+      REEL_INCLUDE_COVER: ${{ inputs.include_cover }}
       REEL_CONFIRMATION: ${{ inputs.confirmation }}
       REEL_JOB_ID: reel-${{ inputs.slug }}-${{ github.run_id }}
       REEL_RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
