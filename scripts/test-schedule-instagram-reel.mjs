@@ -25,7 +25,8 @@ try {
         title: "Test Video",
         status: "needs_review",
         outputs: {
-          render: "https://media.example.com/test-video.mp4"
+          render: "https://media.example.com/test-video.mp4",
+          cover: "https://media.example.com/test-video-cover.png"
         }
       }
     ]
@@ -44,6 +45,7 @@ try {
   const payload = buildPayload({
     slug,
     videoUrl,
+    coverUrl: "https://media.example.com/test-video-cover.png",
     caption: "Caption lista",
     publishAt: "2026-09-22T10:00:00+02:00",
     platforms: ["instagram", "facebook"],
@@ -55,6 +57,7 @@ try {
     jobId: "reel-test-video-001",
     slug,
     video_url: "https://media.example.com/test-video.mp4",
+    cover_url: "https://media.example.com/test-video-cover.png",
     caption: "Caption lista",
     publish_at: "2026-09-22T10:00:00+02:00",
     platforms: ["instagram", "facebook"],
@@ -100,6 +103,7 @@ try {
       fileURLToPath(new URL("./schedule-instagram-reel.mjs", import.meta.url)),
       "--slug", slug, "--caption", "Texto aprobado", "--publish-at", "2026-10-20T15:00:00+02:00",
       "--platforms", "instagram,facebook", "--job-id", "reel-test-video-002", "--no-update",
+      "--cover-url", "https://media.example.com/test-video-cover.png",
       "--env", path.join(root, "missing.env")
     ], {
       cwd: root,
@@ -112,6 +116,7 @@ try {
     assert.equal(requests.length, 1);
     assert.equal(requests[0].path, "/webhook/instagram-reel-schedule");
     assert.deepEqual(requests[0].data.platforms, ["instagram", "facebook"]);
+    assert.equal(requests[0].data.cover_url, "https://media.example.com/test-video-cover.png");
     assert.equal(JSON.parse(await readFile(path.join(root, "content/video-queue/queue.json"))).items[0].outputs.reel_publish.jobId, "reel-test-video-001");
   } finally {
     server.close();

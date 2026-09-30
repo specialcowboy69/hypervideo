@@ -388,6 +388,13 @@ Default Reel scheduling command, only after user approval to publish or schedule
 
 For the manual GitHub queue, prefer the separately triggered `HyperFrames publish Reel (manual)` Action after explicit user approval; see `docs/runbooks/manual-reel-publishing.md`. Do not launch it when merely preparing, validating or rendering a draft.
 
+For an approved standalone whiteboard rendered locally, do not rerender it on
+the VPS and do not require R2. Publish the verified MP4 and cover as uniquely
+named assets in a public GitHub Release, record their URLs and SHA-256 values in
+the queue, and use the same manual Reel action. The detailed procedure is in
+`docs/runbooks/manual-reel-publishing.md`. When `outputs.cover` exists, the
+action must forward it to n8n as `cover_url`.
+
 ```powershell
 node scripts\schedule-instagram-reel.mjs --slug <slug> --caption "Texto del post" --publish-at "YYYY-MM-DDTHH:MM:SS+02:00" --platforms instagram,facebook
 ```

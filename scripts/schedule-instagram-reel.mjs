@@ -179,6 +179,7 @@ async function readCaption({ root, caption, captionFile, allowEmptyCaption }) {
 export function buildPayload({
   slug,
   videoUrl,
+  coverUrl = "",
   caption,
   publishAt,
   platforms,
@@ -203,6 +204,7 @@ export function buildPayload({
     platforms: normalizedPlatforms,
     source
   };
+  if (coverUrl) payload.cover_url = assertHttpsUrl(coverUrl, "cover_url");
   if (shareToFeed === false) payload.share_to_feed = false;
   if (normalizedPlatforms.includes("facebook")) {
     payload.facebook_title = String(title || slug).slice(0, 255);
@@ -281,6 +283,7 @@ export async function updateVideoQueueAfterSchedule({ root = process.cwd(), slug
         publish_at: payload.publish_at,
         platforms: payload.platforms,
         video_url: payload.video_url,
+        ...(payload.cover_url ? { cover_url: payload.cover_url } : {}),
         response: response || null,
         scheduled_at: new Date().toISOString()
       }
@@ -299,6 +302,7 @@ async function main() {
   const root = process.cwd();
   const slug = readArg("--slug");
   const explicitVideoUrl = readAnyArg(["--video-url", "--render-url", "--url"]);
+  const explicitCoverUrl = readAnyArg(["--cover-url", "--thumbnail-url"]);
   const envPath = readArg("--env", DEFAULT_ENV_PATH);
   const captionArg = readArg("--caption");
   const captionFile = readArg("--caption-file");
@@ -329,6 +333,7 @@ async function main() {
   const payload = buildPayload({
     slug,
     videoUrl,
+    coverUrl: explicitCoverUrl,
     caption,
     publishAt,
     platforms,

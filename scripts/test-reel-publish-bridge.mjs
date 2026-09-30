@@ -42,7 +42,10 @@ try {
     title: "Vídeo de ejemplo",
     status: "needs_review",
     review: { status: "needs_review" },
-    outputs: { render: "https://media.example.com/example-reel.mp4" }
+    outputs: {
+      render: "https://media.example.com/example-reel.mp4",
+      cover: "https://media.example.com/example-reel-cover.png"
+    }
   }] }, null, 2));
   await writeFile(csvPath, "slug,status,render_url,notes\nexample-reel,needs_review,https://media.example.com/example-reel.mp4,\n");
 
@@ -63,9 +66,11 @@ try {
   assert.equal(reserve.status, 0, reserve.stderr);
   const reservation = JSON.parse(reserve.stdout);
   assert.equal(reservation.video_url, "https://media.example.com/example-reel.mp4");
+  assert.equal(reservation.cover_url, "https://media.example.com/example-reel-cover.png");
   assert.equal(reservation.publish_at, "2026-10-20T15:00:00+02:00");
   assert.deepEqual(reservation.platforms, ["instagram", "facebook"]);
   assert.equal(JSON.parse(await readFile(queuePath)).items[0].publish_attempt.jobId, jobId);
+  assert.equal(JSON.parse(await readFile(queuePath)).items[0].publish_attempt.cover_url, "https://media.example.com/example-reel-cover.png");
   assert.match(await readFile(csvPath, "utf8"), /publishing/);
 
   expectRejected("reserve", {}, /already|publishing|duplicate/i);

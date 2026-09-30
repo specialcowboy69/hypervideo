@@ -18,6 +18,31 @@ Abrir Actions > **HyperFrames publish Reel (manual)** > **Run workflow**, selecc
 - `platforms`: `instagram`, `facebook` o `instagram,facebook`.
 - `confirmation`: escribir literalmente `PUBLICAR <slug>`; esto es la aprobación explícita del borrador elegido.
 
+Si la entrada de la cola contiene `outputs.cover`, la acción añade esa URL al
+payload como `cover_url`. El publicador de n8n decide cómo aplicarla en
+Instagram y Facebook; la ausencia de portada mantiene el comportamiento
+anterior.
+
+## Pizarras independientes renderizadas localmente
+
+Las pizarras autónomas no necesitan volver a renderizarse en la VPS para poder
+publicarse. Seguir el mismo procedimiento usado por `seo-aeo-pizarra-v3`:
+
+1. Verificar el MP4 final y la portada localmente, incluyendo sus SHA-256.
+2. Crear una Release pública de GitHub con una etiqueta única
+   `video-<slug>` y adjuntar `<slug>.mp4` y `<slug>-cover.png`.
+3. Comprobar en la página de la Release que GitHub muestra los mismos hashes.
+4. Registrar en la cola las URL públicas bajo `outputs.render` y
+   `outputs.cover`, junto con `render_sha256` y `cover_sha256`.
+5. Mantener el elemento en `needs_review` hasta que el usuario apruebe
+   explícitamente esa versión exacta.
+6. Lanzar esta acción manual. La acción enviará `video_url` y `cover_url` al
+   webhook sin pasar por Summary Intake ni por el render remoto.
+
+No intentar entrar en el panel de Cloudflare para esta ruta ni presentar R2
+como requisito: la Release de GitHub es el alojamiento público establecido para
+una pizarra local ya aprobada.
+
 Solo el dueño del repositorio puede ejecutar esta acción con éxito en `main`. El workflow valida todos los campos y la cola. **Antes** de contactar con n8n, registra en `main` un intento con su ID y cambia el estado a `publishing`. La acción llama una sola vez a `/webhook/instagram-reel-schedule` y, si recibe la aceptación esperada, registra `scheduled`, `review.status=approved` y el ID de n8n. `scheduled` indica aceptación/programación, no confirma todavía que Meta haya publicado. Para leer el estado posterior sin volver a publicar, usar **HyperFrames check Reel status (manual)** con el `jobId` que quedó en `outputs.reel_publish`.
 
 ## Si falla
