@@ -35,8 +35,7 @@ function expectRejected(action, env, message) {
   assert.match(result.stderr, message);
 }
 
-try {
-  await mkdir(path.dirname(queuePath), { recursive: true });
+async function writeNeedsReviewQueue() {
   await writeFile(queuePath, JSON.stringify({ items: [{
     slug,
     title: "Vídeo de ejemplo",
@@ -48,6 +47,11 @@ try {
     }
   }] }, null, 2));
   await writeFile(csvPath, "slug,status,render_url,notes\nexample-reel,needs_review,https://media.example.com/example-reel.mp4,\n");
+}
+
+try {
+  await mkdir(path.dirname(queuePath), { recursive: true });
+  await writeNeedsReviewQueue();
 
   expectRejected("reserve", { REEL_CONFIRMATION: "" }, /confirm/i);
   expectRejected("reserve", { REEL_PUBLISH_AT: "tomorrow" }, /date|fecha|time/i);
@@ -61,6 +65,15 @@ try {
   expectRejected("reserve", {}, /mp4/i);
   missingRender.items[0].outputs.render = "https://media.example.com/example-reel.mp4";
   await writeFile(queuePath, JSON.stringify(missingRender));
+
+  const withoutCover = run("reserve", {
+    REEL_INCLUDE_COVER: "false",
+    REEL_JOB_ID: "reel-example-reel-122"
+  });
+  assert.equal(withoutCover.status, 0, withoutCover.stderr);
+  assert.equal(Object.hasOwn(JSON.parse(withoutCover.stdout), "cover_url"), false);
+  assert.equal(Object.hasOwn(JSON.parse(await readFile(queuePath)).items[0].publish_attempt, "cover_url"), false);
+  await writeNeedsReviewQueue();
 
   const reserve = run("reserve");
   assert.equal(reserve.status, 0, reserve.stderr);
