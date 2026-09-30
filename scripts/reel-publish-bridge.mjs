@@ -78,6 +78,7 @@ export async function reserve(root, input) {
   const payload = buildPayload({
     slug: input.slug,
     videoUrl: item.outputs.render,
+    coverUrl: item.outputs.cover || item.cover_url || "",
     caption: input.caption,
     publishAt: publishTime(input.publishAt),
     platforms: normalizePlatforms(input.platforms),
@@ -91,6 +92,7 @@ export async function reserve(root, input) {
     jobId: payload.jobId,
     runUrl: input.runUrl,
     video_url: payload.video_url,
+    ...(payload.cover_url ? { cover_url: payload.cover_url } : {}),
     caption: payload.caption,
     publish_at: payload.publish_at,
     platforms: payload.platforms,
@@ -126,6 +128,7 @@ export async function complete(root, { slug, jobId, responseFile }) {
   const payload = buildPayload({
     slug,
     videoUrl: attempt.video_url,
+    coverUrl: attempt.cover_url || "",
     caption: attempt.caption,
     publishAt: attempt.publish_at,
     platforms: attempt.platforms,
