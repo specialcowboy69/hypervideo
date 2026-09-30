@@ -17,9 +17,11 @@ Este experimento conserva la ruta autónoma de la pizarra anterior; no está int
 
 ## Reproducir
 
+Para generar voz y renderizar, seguir [Guion aprobado y verificación del audio](../../content/CONTENT-WORKFLOW.md#guion-aprobado-y-verificacion-del-audio). Conservar literalmente la narración aprobada en `guion.md`; enviar únicamente esa narración a ElevenLabs y configurar la voz mediante parámetros separados. La composición y los elementos visuales pueden adaptarse al tema sin reescribir el guion.
+
 Instalar GSAP con `npm install` y colocar la locución correspondiente en `assets/voice.mp3`. La toma original se generó en el flujo de ElevenLabs `DFsw9Gm51cqO4AJ76Bt6` (generación `nnJYWepXfnDc5WTYcc5q`). SHA-256 del audio: `0d26850eeb462232810066bc14149863149d5032563302953f98c5e2e088c791`.
 
-Si se genera otra toma desde `guion.md`, volver a alinear los subtítulos y los cortes antes de renderizar: los tiempos de esta versión corresponden al audio original.
+Si se genera otra toma desde `guion.md`, transcribir ese audio, contrastarlo completo con el guion y resolver cualquier diferencia real antes de renderizar. Después, volver a alinear `voice.words.json`, `captions.json`, `voiceover-timing.json` y los tiempos de `index.html` con esa toma: los tiempos de esta versión corresponden al audio original. Guardar la transcripción y la nota de verificación de la nueva toma junto al experimento; una alineación corregida a mano o un `check` correcto no sustituyen esa comprobación.
 
 ```sh
 npm run check -- --snapshots --timeout 60000
