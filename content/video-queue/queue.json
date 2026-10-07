@@ -643,7 +643,7 @@
     {
       "slug": "seo-01-copiar-titulo",
       "title": "Por qué copiar el título del nº1 no funciona",
-      "status": "needs_review",
+      "status": "publishing",
       "created_at": "2026-10-07",
       "updated_at": "2026-10-07",
       "template": "faceless-explainer",
@@ -668,7 +668,20 @@
         "approve_url": "",
         "reject_url": ""
       },
-      "notes": "Vídeo standalone renderizado en local con HyperFrames (1080x1920, 42,5 s, voz en off Kokoro, subtítulos karaoke y música). Alojado como asset de una Release pública del repo openframes. Sin portada (include_cover=false) por problemas del endpoint. Publicar después que V1 sea aprobado en la serie."
+      "notes": "Vídeo standalone renderizado en local con HyperFrames (1080x1920, 42,5 s, voz en off Kokoro, subtítulos karaoke y música). Alojado como asset de una Release pública del repo openframes. Sin portada (include_cover=false) por problemas del endpoint. Publicar después que V1 sea aprobado en la serie.",
+      "publish_attempt": {
+        "jobId": "reel-seo-01-copiar-titulo-37618230231",
+        "runUrl": "https://github.com/specialcowboy69/hypervideo/actions/runs/37618230231",
+        "video_url": "https://github.com/specialcowboy69/openframes/releases/download/video-seo-01-copiar-titulo/seo-01-copiar-titulo.mp4",
+        "caption": "Copias el título de la web que sale primera… y tu página no sube. Y no es tu contenido.\n\nTu autoridad decide cómo tienes que escribir. Poca autoridad: palabra clave exacta al inicio del título, la URL, el encabezado y el primer párrafo. Mucha autoridad: puedes jugar con el orden.\n\nGuarda esto antes de tu próxima optimización.\n\n#SEO #MarketingDigital #Google #PosicionamientoWeb",
+        "publish_at": "2026-10-07T12:02:57.481Z",
+        "platforms": [
+          "instagram",
+          "facebook"
+        ],
+        "title": "Por qué copiar el título del nº1 no funciona",
+        "reserved_at": "2026-10-07T12:02:57.486Z"
+      }
     }
   ]
 }
