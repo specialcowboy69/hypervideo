@@ -785,7 +785,7 @@
     {
       "slug": "seo-03-autoridad",
       "title": "Qué es la autoridad y cómo medir la tuya",
-      "status": "needs_review",
+      "status": "publishing",
       "created_at": "2026-10-08",
       "updated_at": "2026-10-08",
       "template": "faceless-explainer",
@@ -809,7 +809,21 @@
       "review": {
         "status": "needs_review"
       },
-      "notes": "Vídeo standalone renderizado en local con HyperFrames (1080x1920, 32,1 s, voz en off Fish Audio \"Pablo\", voz continua sin silencios, efectos de sonido, subtítulos karaoke y música). Alojado como asset de una Release pública del repo openframes, con portada. Pendiente de publicar."
+      "notes": "Vídeo standalone renderizado en local con HyperFrames (1080x1920, 32,1 s, voz en off Fish Audio \"Pablo\", voz continua sin silencios, efectos de sonido, subtítulos karaoke y música). Alojado como asset de una Release pública del repo openframes, con portada. Pendiente de publicar.",
+      "publish_attempt": {
+        "jobId": "reel-seo-03-autoridad-37816313590",
+        "runUrl": "https://github.com/specialcowboy69/hypervideo/actions/runs/37816313590",
+        "video_url": "https://github.com/specialcowboy69/openframes/releases/download/video-seo-03-autoridad/seo-03-autoridad.mp4",
+        "cover_url": "https://github.com/specialcowboy69/openframes/releases/download/video-seo-03-autoridad/seo-03-autoridad-cover.png",
+        "caption": "Tu web no sube aunque hagas SEO. Casi siempre es por lo mismo: tu autoridad.\n\nLa autoridad es cuánto se fía Google de tu dominio. Y no se mide por lo bien escrito que esté tu contenido: se mide por los enlaces que otras webs te dan.\n\nY no todos valen igual. Un enlace de un medio grande vale más que cien de foros.\n\nCompruébalo tú, sin herramientas de pago: Search Console → Enlaces. Y si tu competencia te saca cien enlaces, esa búsqueda aún no es tu pelea.\n\nLa autoridad se construye: contenido que otros mencionan y enlaces que llegan.\n\nGuarda esto antes de escribir el próximo artículo.\n\n#SEO #MarketingDigital #Google #PosicionamientoWeb #Enlaces\n\nVídeo y textos producidos por un agente de IA (OpenHands) para la marca.",
+        "publish_at": "2026-10-08T17:24:39.726Z",
+        "platforms": [
+          "instagram",
+          "facebook"
+        ],
+        "title": "Qué es la autoridad y cómo medir la tuya",
+        "reserved_at": "2026-10-08T17:24:39.730Z"
+      }
     }
   ]
 }
