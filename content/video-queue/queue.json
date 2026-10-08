@@ -785,7 +785,7 @@
     {
       "slug": "seo-03-autoridad",
       "title": "Qué es la autoridad y cómo medir la tuya",
-      "status": "needs_review",
+      "status": "publishing",
       "created_at": "2026-10-08",
       "updated_at": "2026-10-08",
       "template": "faceless-explainer",
@@ -809,7 +809,20 @@
       "review": {
         "status": "needs_review"
       },
-      "notes": "Vídeo standalone renderizado en local con HyperFrames (1080x1920, 32,1 s, voz en off Fish Audio \"Pablo\", voz continua sin silencios, efectos de sonido, subtítulos karaoke y música). Alojado como asset de una Release pública del repo openframes, con portada. Pendiente de publicar. Primer intento (reel-seo-03-autoridad-37816313590) rechazado por n8n con HTTP 400: cover_url de GitHub no es un host de medios aprobado (created=0, jobs=[]). Comprobado con la Action de estado: not_found. Reserva reconciliada y reintento sin portada."
+      "notes": "Vídeo standalone renderizado en local con HyperFrames (1080x1920, 32,1 s, voz en off Fish Audio \"Pablo\", voz continua sin silencios, efectos de sonido, subtítulos karaoke y música). Alojado como asset de una Release pública del repo openframes, con portada. Pendiente de publicar. Primer intento (reel-seo-03-autoridad-37816313590) rechazado por n8n con HTTP 400: cover_url de GitHub no es un host de medios aprobado (created=0, jobs=[]). Comprobado con la Action de estado: not_found. Reserva reconciliada y reintento sin portada.",
+      "publish_attempt": {
+        "jobId": "reel-seo-03-autoridad-37816520863",
+        "runUrl": "https://github.com/specialcowboy69/hypervideo/actions/runs/37816520863",
+        "video_url": "https://github.com/specialcowboy69/openframes/releases/download/video-seo-03-autoridad/seo-03-autoridad.mp4",
+        "caption": "PLACEHOLDER",
+        "publish_at": "2026-10-08T17:26:11.911Z",
+        "platforms": [
+          "instagram",
+          "facebook"
+        ],
+        "title": "Qué es la autoridad y cómo medir la tuya",
+        "reserved_at": "2026-10-08T17:26:11.916Z"
+      }
     }
   ]
 }
