@@ -710,6 +710,35 @@
         "title": "Por qué copiar el título del nº1 no funciona",
         "reserved_at": "2026-10-07T12:02:57.486Z"
       }
+    },
+    {
+      "slug": "seo-02-modificador-lujo",
+      "title": "Dónde colocar el modificador (y el error de lujo)",
+      "status": "needs_review",
+      "created_at": "2026-10-08",
+      "updated_at": "2026-10-08",
+      "template": "faceless-explainer",
+      "duration_target_s": 29.8,
+      "persona": "",
+      "caption": "El mismo modificador de la URL te suma o te resta clientes. Depende de dónde lo pongas.\n\nEn comercio electrónico va al final de la URL: la búsqueda entra tal cual. El título, en cambio, se escribe natural.\n\nY cuidado con el lujo: ahí \"barato\" no vende. El comprador lo lee como mala calidad y pierdes el clic.\n\nGuarda esto antes de tu próxima optimización.\n\n#SEO #MarketingDigital #Google #PosicionamientoWeb #Ecommerce\n\nVídeo y textos producidos por un agente de IA (OpenHands) para la marca.",
+      "cta": "Guarda esto",
+      "platforms": [
+        "instagram",
+        "facebook"
+      ],
+      "outputs": {
+        "content_folder": "",
+        "project_folder": "",
+        "zip": "",
+        "render": "https://github.com/specialcowboy69/openframes/releases/download/video-seo-02-modificador-lujo/seo-02-modificador-lujo.mp4",
+        "render_sha256": "4a32eb02991796dbd57e212453b803388c3b71d3315cd2b3871e728cd5c901d3",
+        "preview": "",
+        "cover": "https://github.com/specialcowboy69/openframes/releases/download/video-seo-02-modificador-lujo/seo-02-modificador-lujo-cover.png"
+      },
+      "review": {
+        "status": "needs_review"
+      },
+      "notes": "Vídeo standalone renderizado en local con HyperFrames (1080x1920, 29,8 s, voz en off Fish Audio \"Pablo\", voz continua sin silencios, efectos de sonido, subtítulos karaoke y música). Alojado como asset de una Release pública del repo openframes, con portada."
     }
   ]
 }
