@@ -781,6 +781,35 @@
         "title": "Dónde colocar el modificador (y el error de lujo)",
         "reserved_at": "2026-10-08T13:43:09.334Z"
       }
+    },
+    {
+      "slug": "seo-03-autoridad",
+      "title": "Qué es la autoridad y cómo medir la tuya",
+      "status": "needs_review",
+      "created_at": "2026-10-08",
+      "updated_at": "2026-10-08",
+      "template": "faceless-explainer",
+      "duration_target_s": 32.1,
+      "persona": "",
+      "caption": "Tu web no sube aunque hagas SEO. Casi siempre es por lo mismo: tu autoridad.\n\nLa autoridad es cuánto se fía Google de tu dominio. Y no se mide por lo bien escrito que esté tu contenido: se mide por los enlaces que otras webs te dan.\n\nY no todos valen igual. Un enlace de un medio grande vale más que cien de foros.\n\nCompruébalo tú, sin herramientas de pago: Search Console → Enlaces. Y si tu competencia te saca cien enlaces, esa búsqueda aún no es tu pelea.\n\nLa autoridad se construye: contenido que otros mencionan y enlaces que llegan.\n\nGuarda esto antes de escribir el próximo artículo.\n\n#SEO #MarketingDigital #Google #PosicionamientoWeb #Enlaces\n\nVídeo y textos producidos por un agente de IA (OpenHands) para la marca.",
+      "cta": "Guarda esto",
+      "platforms": [
+        "instagram",
+        "facebook"
+      ],
+      "outputs": {
+        "content_folder": "",
+        "project_folder": "videos/seo-03-autoridad",
+        "zip": "",
+        "render": "https://github.com/specialcowboy69/openframes/releases/download/video-seo-03-autoridad/seo-03-autoridad.mp4",
+        "render_sha256": "29c9433d3fe7d51b51c36d4ec604bea678b8ee1aa39df3f3d513bdca42384b91",
+        "preview": "",
+        "cover": "https://github.com/specialcowboy69/openframes/releases/download/video-seo-03-autoridad/seo-03-autoridad-cover.png"
+      },
+      "review": {
+        "status": "needs_review"
+      },
+      "notes": "Vídeo standalone renderizado en local con HyperFrames (1080x1920, 32,1 s, voz en off Fish Audio \"Pablo\", voz continua sin silencios, efectos de sonido, subtítulos karaoke y música). Alojado como asset de una Release pública del repo openframes, con portada. Pendiente de publicar."
     }
   ]
 }
