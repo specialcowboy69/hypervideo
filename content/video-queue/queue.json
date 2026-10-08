@@ -785,7 +785,7 @@
     {
       "slug": "seo-03-autoridad",
       "title": "Qué es la autoridad y cómo medir la tuya",
-      "status": "publishing",
+      "status": "scheduled",
       "created_at": "2026-10-08",
       "updated_at": "2026-10-08",
       "template": "faceless-explainer",
@@ -804,12 +804,40 @@
         "render": "https://github.com/specialcowboy69/openframes/releases/download/video-seo-03-autoridad/seo-03-autoridad.mp4",
         "render_sha256": "29c9433d3fe7d51b51c36d4ec604bea678b8ee1aa39df3f3d513bdca42384b91",
         "preview": "",
-        "cover": "https://github.com/specialcowboy69/openframes/releases/download/video-seo-03-autoridad/seo-03-autoridad-cover.png"
+        "cover": "https://github.com/specialcowboy69/openframes/releases/download/video-seo-03-autoridad/seo-03-autoridad-cover.png",
+        "reel_publish": {
+          "jobId": "reel-seo-03-autoridad-37816520863",
+          "publish_at": "2026-10-08T17:26:11.911Z",
+          "platforms": [
+            "instagram",
+            "facebook"
+          ],
+          "video_url": "https://github.com/specialcowboy69/openframes/releases/download/video-seo-03-autoridad/seo-03-autoridad.mp4",
+          "response": {
+            "ok": true,
+            "batch_id": null,
+            "created": 1,
+            "jobs": [
+              {
+                "jobId": "reel-seo-03-autoridad-37816520863",
+                "batch_id": null,
+                "status": "pending",
+                "platforms": [
+                  "instagram",
+                  "facebook"
+                ],
+                "publish_at": "2026-10-08T17:26:11.911Z",
+                "video_url": "https://github.com/specialcowboy69/openframes/releases/download/video-seo-03-autoridad/seo-03-autoridad.mp4"
+              }
+            ]
+          },
+          "scheduled_at": "2026-10-08T17:26:15.401Z"
+        }
       },
       "review": {
-        "status": "needs_review"
+        "status": "approved"
       },
-      "notes": "Vídeo standalone renderizado en local con HyperFrames (1080x1920, 32,1 s, voz en off Fish Audio \"Pablo\", voz continua sin silencios, efectos de sonido, subtítulos karaoke y música). Alojado como asset de una Release pública del repo openframes, con portada. Pendiente de publicar. Primer intento (reel-seo-03-autoridad-37816313590) rechazado por n8n con HTTP 400: cover_url de GitHub no es un host de medios aprobado (created=0, jobs=[]). Comprobado con la Action de estado: not_found. Reserva reconciliada y reintento sin portada.",
+      "notes": "Vídeo standalone renderizado en local con HyperFrames (1080x1920, 32,1 s, voz en off Fish Audio \"Pablo\", voz continua sin silencios, efectos de sonido, subtítulos karaoke y música). Alojado como asset de una Release pública del repo openframes, con portada. Pendiente de publicar. Primer intento (reel-seo-03-autoridad-37816313590) rechazado por n8n con HTTP 400: cover_url de GitHub no es un host de medios aprobado (created=0, jobs=[]). Comprobado con la Action de estado: not_found. Reserva reconciliada y reintento sin portada. Reel scheduled through n8n for 2026-10-08T17:26:11.911Z (instagram, facebook).",
       "publish_attempt": {
         "jobId": "reel-seo-03-autoridad-37816520863",
         "runUrl": "https://github.com/specialcowboy69/hypervideo/actions/runs/37816520863",
