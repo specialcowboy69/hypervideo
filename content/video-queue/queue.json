@@ -758,7 +758,8 @@
                 "publish_at": "2026-10-08T13:43:09.275Z",
                 "video_url": "https://github.com/specialcowboy69/openframes/releases/download/video-seo-02-modificador-lujo/seo-02-modificador-lujo.mp4"
               }
-            ]
+            ],
+            "observed_status": "partial_error"
           },
           "scheduled_at": "2026-10-08T13:43:12.013Z"
         }
@@ -766,7 +767,7 @@
       "review": {
         "status": "approved"
       },
-      "notes": "Vídeo standalone renderizado en local con HyperFrames (1080x1920, 29,8 s, voz en off Fish Audio \"Pablo\", voz continua sin silencios, efectos de sonido, subtítulos karaoke y música). Alojado como asset de una Release pública del repo openframes, con portada. Primer intento (reel-seo-02-modificador-lujo-37786276562) rechazado por n8n: la respuesta no traia ningun job (status not_found, comprobado con la Action de estado). Reserva reconciliada y reintento sin portada (include_cover=false). Reel scheduled through n8n for 2026-10-08T13:43:09.275Z (instagram, facebook).",
+      "notes": "Vídeo standalone renderizado en local con HyperFrames (1080x1920, 29,8 s, voz en off Fish Audio \"Pablo\", voz continua sin silencios, efectos de sonido, subtítulos karaoke y música). Alojado como asset de una Release pública del repo openframes, con portada. Primer intento (reel-seo-02-modificador-lujo-37786276562) rechazado por n8n: la respuesta no traia ningun job (status not_found, comprobado con la Action de estado). Reserva reconciliada y reintento sin portada (include_cover=false). Reel scheduled through n8n for 2026-10-08T13:43:09.275Z (instagram, facebook). Estado comprobado con la Action de estado: Instagram PUBLISHED, Facebook error (job en partial_error). El detalle del fallo de Facebook no lo expone la ruta de lectura; hay precedente de 403 de Meta, que se arregla en n8n (permisos del token de la Pagina).",
       "publish_attempt": {
         "jobId": "reel-seo-02-modificador-lujo-37786555312",
         "runUrl": "https://github.com/specialcowboy69/hypervideo/actions/runs/37786555312",
