@@ -68,8 +68,12 @@ export function normalizePlatforms(raw = "") {
       mapped.push("instagram");
     } else if (["fb", "facebook", "facebook_reel", "facebook-reel", "page", "facebook_page"].includes(value)) {
       mapped.push("facebook");
+    } else if (["tiktok", "tt", "tiktok_video", "tiktok_reel"].includes(value)) {
+      mapped.push("tiktok");
+    } else if (["youtube", "yt", "youtube_short", "youtube_shorts", "shorts"].includes(value)) {
+      mapped.push("youtube");
     } else {
-      throw new Error(`Unknown platform: ${value}. Use instagram and/or facebook.`);
+      throw new Error(`Unknown platform: ${value}. Use instagram, facebook, tiktok and/or youtube.`);
     }
   }
   return [...new Set(mapped.length ? mapped : ["instagram"])];
