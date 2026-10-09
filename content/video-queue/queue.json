@@ -855,7 +855,7 @@
     {
       "slug": "ga4-01-instalar-sin-duplicar",
       "title": "Instalar Google Analytics 4 sin duplicar las visitas",
-      "status": "needs_review",
+      "status": "publishing",
       "created_at": "2026-10-09",
       "updated_at": "2026-10-09",
       "template": "faceless-explainer",
@@ -872,6 +872,19 @@
         "render": "https://github.com/specialcowboy69/openframes/releases/download/video-ga4-01-instalar-sin-duplicar/ga4-01-instalar-sin-duplicar.mp4",
         "preview": "",
         "cover": "https://github.com/specialcowboy69/openframes/releases/download/video-ga4-01-instalar-sin-duplicar/ga4-01-instalar-sin-duplicar-cover.png"
+      },
+      "publish_attempt": {
+        "jobId": "reel-ga4-01-instalar-sin-duplicar-37944250517",
+        "runUrl": "https://github.com/specialcowboy69/hypervideo/actions/runs/37944250517",
+        "video_url": "https://github.com/specialcowboy69/openframes/releases/download/video-ga4-01-instalar-sin-duplicar/ga4-01-instalar-sin-duplicar.mp4",
+        "caption": "Tres formas de instalar Analytics y un error muy fácil: poner dos a la vez. Si el plugin y Tag Manager envían la etiqueta, cada visita se cuenta dos veces.\n\nElige un método y comprueba que solo hay una etiqueta. Guarda esto.\n\n#GoogleAnalytics #SEO #MarketingDigital",
+        "publish_at": "2026-10-09T14:27:04.817Z",
+        "platforms": [
+          "instagram",
+          "facebook"
+        ],
+        "title": "Instalar Google Analytics 4 sin duplicar las visitas",
+        "reserved_at": "2026-10-09T14:27:04.892Z"
       }
     }
   ]
