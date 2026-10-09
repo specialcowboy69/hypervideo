@@ -24,6 +24,9 @@ on:
           - instagram,facebook
           - instagram
           - facebook
+          - instagram,facebook,tiktok,youtube
+          - instagram,tiktok,youtube
+          - tiktok,youtube
       include_cover:
         description: Send the approved cover URL to n8n
         required: true
