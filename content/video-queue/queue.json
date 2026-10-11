@@ -984,7 +984,7 @@
     {
       "slug": "seo-05-intencion-de-busqueda",
       "title": "Intención de búsqueda: una intención, una página",
-      "status": "publishing",
+      "status": "scheduled",
       "created_at": "2026-10-11",
       "updated_at": "2026-10-11",
       "template": "faceless-explainer",
@@ -992,7 +992,7 @@
       "persona": "",
       "caption": "La misma palabra puede ser tres búsquedas distintas. Quien escribe «cafetera» a veces quiere limpiarla, a veces aprender a usarla y a veces comprarla; y Google enseña páginas distintas para cada una.\n\nMira los resultados antes de escribir tu página: una intención, una página. Guarda esto.\n\n#SEO #IntencionDeBusqueda #MarketingDigital",
       "review": {
-        "status": "needs_review"
+        "status": "approved"
       },
       "outputs": {
         "content_folder": "",
@@ -1000,7 +1000,40 @@
         "zip": "",
         "render": "https://github.com/specialcowboy69/openframes/releases/download/video-seo-05-intencion-de-busqueda/seo-05-intencion-de-busqueda.mp4",
         "preview": "",
-        "cover": ""
+        "cover": "",
+        "reel_publish": {
+          "jobId": "reel-seo-05-intencion-de-busqueda-38146591990",
+          "publish_at": "2026-10-11T14:17:47.463Z",
+          "platforms": [
+            "instagram",
+            "facebook",
+            "tiktok",
+            "youtube"
+          ],
+          "video_url": "https://github.com/specialcowboy69/openframes/releases/download/video-seo-05-intencion-de-busqueda/seo-05-intencion-de-busqueda.mp4",
+          "response": {
+            "ok": true,
+            "batch_id": null,
+            "created": 1,
+            "jobs": [
+              {
+                "jobId": "reel-seo-05-intencion-de-busqueda-38146591990",
+                "batch_id": null,
+                "status": "pending",
+                "platforms": [
+                  "instagram",
+                  "facebook",
+                  "tiktok",
+                  "youtube"
+                ],
+                "trial_reel": false,
+                "publish_at": "2026-10-11T14:17:47.463Z",
+                "video_url": "https://github.com/specialcowboy69/openframes/releases/download/video-seo-05-intencion-de-busqueda/seo-05-intencion-de-busqueda.mp4"
+              }
+            ]
+          },
+          "scheduled_at": "2026-10-11T14:17:49.441Z"
+        }
       },
       "render_sha256": "3e8e599c9db162842a4474323b8abcc952b2d1cc5ab9125faa2cce251966b21f",
       "publish_attempt": {
@@ -1017,7 +1050,8 @@
         ],
         "title": "Intención de búsqueda: una intención, una página",
         "reserved_at": "2026-10-11T14:17:47.468Z"
-      }
+      },
+      "notes": "Reel scheduled through n8n for 2026-10-11T14:17:47.463Z (instagram, facebook, tiktok, youtube)."
     }
   ]
 }
