@@ -1052,6 +1052,29 @@
         "reserved_at": "2026-10-11T14:17:47.468Z"
       },
       "notes": "Reel scheduled through n8n for 2026-10-11T14:17:47.463Z (instagram, facebook, tiktok, youtube)."
+    },
+    {
+      "slug": "seo-06-canibalizacion",
+      "title": "Canibalización de palabras clave: dos páginas tuyas compitiendo",
+      "status": "needs_review",
+      "created_at": "2026-10-12",
+      "updated_at": "2026-10-12",
+      "template": "faceless-explainer",
+      "duration_target_s": 40.3,
+      "persona": "",
+      "caption": "Dos páginas de tu sitio web pueden estar compitiendo por la misma búsqueda. Google alterna entre las dos y ninguna llega arriba.\n\nSe llama canibalización de palabras clave. Se ve en Search Console: mira para qué consultas apareces y qué página sale en los resultados. Si dos páginas tuyas responden a lo mismo, se arregla separando bien las dos intenciones o fusionándolas en una.\n\nGuarda esto antes de escribir tu próxima página.\n\n#SEO #Canibalizacion #MarketingDigital",
+      "review": {
+        "status": "needs_review"
+      },
+      "outputs": {
+        "content_folder": "",
+        "project_folder": "videos/seo-06-canibalizacion",
+        "zip": "",
+        "render": "https://github.com/specialcowboy69/openframes/releases/download/video-seo-06-canibalizacion/seo-06-canibalizacion.mp4",
+        "preview": "",
+        "cover": ""
+      },
+      "render_sha256": "d48750efe6db784235ea9d21339c5750cdcd66240d89cd2182651d7ed3dc89e6"
     }
   ]
 }
