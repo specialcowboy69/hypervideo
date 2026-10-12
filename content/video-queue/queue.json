@@ -1056,7 +1056,7 @@
     {
       "slug": "seo-06-canibalizacion",
       "title": "Canibalización de palabras clave: dos páginas tuyas compitiendo",
-      "status": "publishing",
+      "status": "scheduled",
       "created_at": "2026-10-12",
       "updated_at": "2026-10-12",
       "template": "faceless-explainer",
@@ -1064,7 +1064,7 @@
       "persona": "",
       "caption": "Dos páginas de tu sitio web pueden estar compitiendo por la misma búsqueda. Google alterna entre las dos y ninguna llega arriba.\n\nSe llama canibalización de palabras clave. Se ve en Search Console: mira para qué consultas apareces y qué página sale en los resultados. Si dos páginas tuyas responden a lo mismo, se arregla separando bien las dos intenciones o fusionándolas en una.\n\nGuarda esto antes de escribir tu próxima página.\n\n#SEO #Canibalizacion #MarketingDigital",
       "review": {
-        "status": "needs_review"
+        "status": "approved"
       },
       "outputs": {
         "content_folder": "",
@@ -1072,7 +1072,40 @@
         "zip": "",
         "render": "https://github.com/specialcowboy69/openframes/releases/download/video-seo-06-canibalizacion/seo-06-canibalizacion.mp4",
         "preview": "",
-        "cover": ""
+        "cover": "",
+        "reel_publish": {
+          "jobId": "reel-seo-06-canibalizacion-38254098140",
+          "publish_at": "2026-10-12T13:12:51.019Z",
+          "platforms": [
+            "instagram",
+            "facebook",
+            "tiktok",
+            "youtube"
+          ],
+          "video_url": "https://github.com/specialcowboy69/openframes/releases/download/video-seo-06-canibalizacion/seo-06-canibalizacion.mp4",
+          "response": {
+            "ok": true,
+            "batch_id": null,
+            "created": 1,
+            "jobs": [
+              {
+                "jobId": "reel-seo-06-canibalizacion-38254098140",
+                "batch_id": null,
+                "status": "pending",
+                "platforms": [
+                  "instagram",
+                  "facebook",
+                  "tiktok",
+                  "youtube"
+                ],
+                "trial_reel": false,
+                "publish_at": "2026-10-12T13:12:51.019Z",
+                "video_url": "https://github.com/specialcowboy69/openframes/releases/download/video-seo-06-canibalizacion/seo-06-canibalizacion.mp4"
+              }
+            ]
+          },
+          "scheduled_at": "2026-10-12T13:12:53.493Z"
+        }
       },
       "render_sha256": "d48750efe6db784235ea9d21339c5750cdcd66240d89cd2182651d7ed3dc89e6",
       "publish_attempt": {
@@ -1089,7 +1122,8 @@
         ],
         "title": "Canibalización de palabras clave: dos páginas tuyas compitiendo",
         "reserved_at": "2026-10-12T13:12:51.026Z"
-      }
+      },
+      "notes": "Reel scheduled through n8n for 2026-10-12T13:12:51.019Z (instagram, facebook, tiktok, youtube)."
     }
   ]
 }
