@@ -1124,6 +1124,29 @@
         "reserved_at": "2026-10-12T13:12:51.026Z"
       },
       "notes": "Reel scheduled through n8n for 2026-10-12T13:12:51.019Z (instagram, facebook, tiktok, youtube)."
+    },
+    {
+      "slug": "mkt-01-responde-con-video",
+      "title": "Responder con vídeo a lo que te preguntan: el caso de Old Spice en 2010",
+      "status": "needs_review",
+      "created_at": "2026-10-13",
+      "updated_at": "2026-10-13",
+      "template": "faceless-explainer",
+      "duration_target_s": 37.5,
+      "persona": "",
+      "caption": "Tu clienta pregunta cómo combinar una chaqueta. Tú respondes con un vídeo que muestra tres combinaciones. Eso es lo que hizo Old Spice en 2010, y le funcionó.\n\nEn vez de hablar de sí misma, la marca grabó respuestas de vídeo personalizadas a los comentarios de internet: 186 en dos días y medio, una para cada persona.\n\nLo puedes hacer sin comprar anuncios. Empieza por las tres preguntas que más te repiten: graba la respuesta y contéstale a esa persona con el vídeo. Esa misma respuesta también le sirve a quien tenga la misma duda.\n\nTus clientes ya te están diciendo qué contenido quieren. Solo hay que mirar los comentarios.\n\nGuarda esto y responde al próximo comentario con un vídeo.\n\n#Marketing #Contenido #CasosDeEstudio",
+      "review": {
+        "status": "needs_review"
+      },
+      "outputs": {
+        "content_folder": "",
+        "project_folder": "videos/mkt-01-responde-con-video",
+        "zip": "",
+        "render": "https://github.com/specialcowboy69/openframes/releases/download/video-mkt-01-responde-con-video/mkt-01-responde-con-video.mp4",
+        "preview": "",
+        "cover": ""
+      },
+      "render_sha256": "508212e3125f5ea6202129fa601b593a57f83f0b412de56449ce0af1c1cc1cdc"
     }
   ]
 }
