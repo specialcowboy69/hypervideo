@@ -1200,7 +1200,7 @@
     {
       "slug": "mkt-02-google-ads-trafico-correcto",
       "title": "Google Ads: llegar solo a los cinco que importan (caso Alec Brownstein, 2010)",
-      "status": "needs_review",
+      "status": "publishing",
       "created_at": "2026-10-14",
       "updated_at": "2026-10-14",
       "template": "faceless-explainer",
@@ -1218,7 +1218,22 @@
         "preview": "",
         "cover": ""
       },
-      "render_sha256": "d07192542ee94226433a5b845e9bc5f697e9afb479067494b77c555f1c346a22"
+      "render_sha256": "d07192542ee94226433a5b845e9bc5f697e9afb479067494b77c555f1c346a22",
+      "publish_attempt": {
+        "jobId": "reel-mkt-02-google-ads-trafico-correcto-38581643205",
+        "runUrl": "https://github.com/specialcowboy69/hypervideo/actions/runs/38581643205",
+        "video_url": "https://github.com/specialcowboy69/openframes/releases/download/video-mkt-02-google-ads-trafico-correcto/mkt-02-google-ads-trafico-correcto.mp4",
+        "caption": "Un publicista consiguió dos ofertas de trabajo gastando seis euros en Google Ads.\n\nSe llamaba Alec Brownstein. En 2010 se dio cuenta de algo: los directores creativos se buscan a sí mismos en Google. Así que compró anuncios que solo aparecían cuando cada uno buscaba su propio nombre. Cuatro de los cinco le llamaron y recibió dos ofertas.\n\nNo intentó llegar a miles de personas: eligió a las cinco que podían darle lo que quería.\n\nSirve igual para tu negocio. En vez de pelear por «abogado», «dentista» o «agencia de marketing», piensa qué buscaría alguien que necesita exactamente tu servicio. Puede que esa búsqueda tenga muy pocas visitas al mes y que detrás estén tus mejores clientes.\n\nGuarda esto: en anuncios no gana quien consigue más tráfico, sino el tráfico correcto.\n\n#Marketing #GoogleAds #CasosDeEstudio",
+        "publish_at": "2026-10-14T17:30:00+02:00",
+        "platforms": [
+          "instagram",
+          "facebook",
+          "tiktok",
+          "youtube"
+        ],
+        "title": "Google Ads: llegar solo a los cinco que importan (caso Alec Brownstein, 2010)",
+        "reserved_at": "2026-10-14T14:34:04.571Z"
+      }
     }
   ]
 }
