@@ -1200,9 +1200,9 @@
     {
       "slug": "mkt-02-google-ads-trafico-correcto",
       "title": "Google Ads: llegar solo a los cinco que importan (caso Alec Brownstein, 2010)",
-      "status": "scheduled",
+      "status": "published",
       "created_at": "2026-10-14",
-      "updated_at": "2026-10-14",
+      "updated_at": "2026-10-15",
       "template": "faceless-explainer",
       "duration_target_s": 38.9,
       "persona": "",
@@ -1248,7 +1248,16 @@
               }
             ]
           },
-          "scheduled_at": "2026-10-14T14:34:07.220Z"
+          "scheduled_at": "2026-10-14T14:34:07.220Z",
+          "status": "published",
+          "published_at": "2026-10-14T15:30:00.000Z",
+          "platform_status": {
+            "instagram": "published",
+            "facebook": "published",
+            "tiktok": "published",
+            "youtube": "published"
+          },
+          "checked_at": "2026-10-15T20:02:45Z"
         }
       },
       "render_sha256": "d07192542ee94226433a5b845e9bc5f697e9afb479067494b77c555f1c346a22",
